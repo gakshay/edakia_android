@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:contentDescription="@string/app_name"
+    android:visibility="visible" >
+
+    <LinearLayout
+        android:id="@+id/navBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/green"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:longClickable="false"
+        android:minHeight="10dp"
+        android:orientation="vertical"
+        android:visibility="visible" >
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/optionSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/navBottom"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"
+        android:background="@color/green"
+        android:drawableLeft="@drawable/ic_launcher_send"
+        android:focusableInTouchMode="true"
+        android:onClick="optionClickHandler"
+        android:padding="@dimen/padding_small"
+        android:text="@string/option_send_button" />
+
+    <Button
+        android:id="@+id/optionReceive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/optionSend"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:background="@color/green"
+        android:drawableLeft="@drawable/ic_launcher_receive"
+        android:onClick="optionClickHandler"
+        android:padding="@dimen/padding_small"
+        android:text="@string/option_receive_button" />
+
+</RelativeLayout>

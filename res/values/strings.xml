@@ -1,0 +1,21 @@
+<resources>
+
+    <string name="app_name">eDakia</string>
+    <string name="hello_edakia">Welcome to eDakia!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">eDakia</string>
+    <string name="option_send_button">Send Document \n सन्देश भेजे</string>
+    <string name="option_receive_button">Receive Document</string>
+
+    <color name="green">#d1f099</color>
+    <color name="yellow">#ffc000</color>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_receive">eDakia - Receive</string>
+    <string name="personal_mobile">Enter Your Mobile Number</string>
+    <string name="receiver_mobile">Enter Receiver Mobile Number</string>
+    <string name="secret_code">Enter Document Secret Code</string>
+    <string name="next">Next</string>
+    <string name="print">Print</string>
+
+</resources>
