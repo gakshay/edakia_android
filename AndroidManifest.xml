@@ -4,7 +4,7 @@
     android:versionName="1.0" >
 
     <uses-permission android:name="android.permission.INTERNET" />
-    
+
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="15" />
@@ -26,6 +26,31 @@
             android:name=".ReceiveActivity"
             android:label="@string/title_activity_receive" >
         </activity>
+        <activity
+            android:name=".PrintActivity"
+            android:label="@string/title_activity_print" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            
+            <intent-filter>
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="image/*" />
+    </intent-filter>
+    <intent-filter>
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="text/plain" />
+    </intent-filter>
+    <intent-filter>
+        <action android:name="android.intent.action.SEND_MULTIPLE" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="image/*" />
+    </intent-filter>
+        </activity>
     </application>
-	
+
 </manifest>

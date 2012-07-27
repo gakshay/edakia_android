@@ -17,5 +17,7 @@
     <string name="secret_code">Enter Document Secret Code</string>
     <string name="next">Next</string>
     <string name="print">Print</string>
+    <string name="title_activity_print">PrintActivity</string>
+    <string name="option_print_button">onPrintClick</string>
 
 </resources>

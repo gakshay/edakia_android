@@ -71,5 +71,18 @@
         android:onClick="getDocument"
         android:text="@string/next"
         android:textAllCaps="true" />
+    
+    
+    
+    <ImageView 
+	android:id="@+id/imageview01" 
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:cropToPadding="true" >
+	</ImageView>
+	<TextView  
+    android:id="@+id/textview01"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" />
 
 </RelativeLayout>
