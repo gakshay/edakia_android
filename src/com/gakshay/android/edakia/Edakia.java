@@ -22,7 +22,8 @@ public class Edakia extends Activity {
 			Edakia.this.startActivity(receiveIntent);
     		break;
     	case R.id.optionSend:
-    		Toast.makeText(this, "Send Clicked", Toast.LENGTH_LONG).show();
+    		Intent authenticateIntent = new Intent(Edakia.this, AuthenticateActivity.class);
+			Edakia.this.startActivity(authenticateIntent);
     		break;
     	default:
     		break;

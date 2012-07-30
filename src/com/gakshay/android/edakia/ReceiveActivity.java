@@ -1,47 +1,46 @@
 package com.gakshay.android.edakia;
 
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.view.View;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.EditText;
-import android.util.Log;
-
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.StringReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.HttpURLConnection;
 import java.net.URLConnection;
-import java.io.InputStream;
-//import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.BufferedReader;
-import java.io.StringReader;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.gakshay.android.util.CustomizedThread;
+import com.gakshay.android.validation.Validator;
 
 
 public class ReceiveActivity extends Activity {
 
 	private ProgressDialog progressDialog;	
-	private Bitmap bitmap = null;
-	private String text = null;
+	private Bitmap bitmap;
+	private String documentName;
+	private String documentPath;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -64,66 +63,64 @@ public class ReceiveActivity extends Activity {
 	}
 
 	public void getDocument(View view) {
-		switch(view.getId()){
-		case R.id.receiveNextButton:
-			EditText mobile = (EditText) findViewById(R.id.receiveMobile);
-			EditText secretCode = (EditText) findViewById(R.id.secretCode);
-			if(mobile.getText().length() == 0){
-				Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
-				return;
-			}
-			if(mobile.getText().length() < 10){
-				Toast.makeText(this, "Incorrect Mobile Number", Toast.LENGTH_LONG).show();
-				return;
-			}
-			if(secretCode.getText().length() == 0){
-				Toast.makeText(this, "Enter Secret Code", Toast.LENGTH_LONG).show();
-				return;
-			}
-			if(secretCode.getText().length() < 6){
-				Toast.makeText(this, "Incorrect Secret Code", Toast.LENGTH_LONG).show();
-				return;
-			}
-			try {// Process the request.
-				downloadText(prepareEdakiaURL(mobile,secretCode),false);			
-			}
-			catch (Exception e) {
-				//handle the exception !
-				e.printStackTrace();
-			}
-			Toast.makeText(this, "Thanks fetching Document !! ", Toast.LENGTH_LONG).show();
-			break;
-		default:
-			break;
+
+		EditText mobile = (EditText) findViewById(R.id.receiveMobile);
+		EditText secretCode = (EditText) findViewById(R.id.secretCode);
+		
+		//initialize error text value to null.
+		TextView text = (TextView) findViewById(R.id.textView3);
+
+		
+		//Validate mobile no.
+		int valStatusCode = Validator.validateMobileNumber(mobile).ordinal();
+		switch(valStatusCode){
+		case 1:
+			Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
+			text.setText("You missed mobile number. Plz enter the same.");
+			mobile.findFocus();
+			return;
+		case 2:
+			Toast.makeText(this, "Incorrect Mobile Number", Toast.LENGTH_LONG).show();
+			text.setText("You entered incorrect mobile number. Plz correct the same.");
+			mobile.findFocus();
+			return;		
+		}
+
+		//Validate secret no.
+		valStatusCode = Validator.validateSecretNumber(secretCode).ordinal();
+		switch(valStatusCode){
+		case 3:
+			Toast.makeText(this, "Enter Secret Number", Toast.LENGTH_LONG).show();
+			text.setText("You missed secret number. Plz enter the same.");
+			secretCode.findFocus();
+			return;
+		case 4:
+			Toast.makeText(this, "Incorrect Secret Code", Toast.LENGTH_LONG).show();
+			text.setText("You entered incorrect secret number. Plz correct the same");
+			secretCode.findFocus();
+			return;					
+		}
+
+		try {// Process the request further.
+			downloadText(prepareEdakiaURL(mobile,secretCode),false);			
+		}
+		catch (Exception e) {
+			//handle the exception !
+			e.printStackTrace();
 		}
 	}
 
-	public String prepareEdakiaURL(EditText mobile, EditText secretCode){
+	private String prepareEdakiaURL(EditText mobile, EditText secretCode){
 		String edakiaURL = null;
 		edakiaURL = "http://edakia.in/transactions/receive.xml?transaction[receiver_mobile]=" + mobile.getText() + "&transaction[document_secret]="+secretCode.getText();	
 		return edakiaURL;
 	}
 
-	public void readStream(InputStream input){
-		// read stream
-		InputStreamReader is = new InputStreamReader(input);
-		BufferedReader br = new BufferedReader(is);
-		try{
-			String read = br.readLine();
-			while(read != null) {
-				System.out.println(read);
-				read = br.readLine();
-			}
-			Log.e("stream", read);
-		} catch (IOException e){
-			e.printStackTrace();
-		}
-	}
 
 	private void downloadImage(String urlStr,boolean showProcessingDialog) {
 		if(showProcessingDialog)
 			progressDialog = ProgressDialog.show(this, "", 
-					"Downloading Your Document ........");
+					"Downloading Your Document \n प्राप्त हो रहा है \n ................" );
 		final String url = urlStr;
 
 		new Thread() {
@@ -150,7 +147,7 @@ public class ReceiveActivity extends Activity {
 
 		if(showProcessingDialog)
 			progressDialog = ProgressDialog.show(this, "", 
-					"Download Text from " + urlStr);
+					"Downloading Your Document \n प्राप्त हो रहा है \n ................" + urlStr);
 		final String url = urlStr;
 
 		new CustomizedThread(showProcessingDialog) {
@@ -164,7 +161,7 @@ public class ReceiveActivity extends Activity {
 
 					InputStreamReader isr = new InputStreamReader(in);
 					int charRead;
-					text = "";
+					String text = "";
 					char[] inputBuffer = new char[BUFFER_SIZE];
 
 					while ((charRead = isr.read(inputBuffer))>0)
@@ -231,15 +228,23 @@ public class ReceiveActivity extends Activity {
 			super.handleMessage(msg);
 			switch (msg.what) {
 			case 1:
-				ImageView img = (ImageView) findViewById(R.id.imageview01);
-				img.setImageBitmap((Bitmap)(msg.getData().getParcelable("bitmap")));
-				
 				progressDialog.dismiss();
 				try {
+					//save the data into a file.
+
+					OutputStream outStream = null;
+					File file = new File(Environment.getExternalStorageDirectory(), documentName);
+					outStream = new FileOutputStream(file);
+					bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
+					outStream.flush();
+					outStream.close();
+
+					documentPath =Environment.getExternalStorageDirectory()+ "/" + documentName;
+
 					Intent intent = new Intent(ReceiveActivity.this,PrintActivity.class);
 					intent.setAction(Intent.ACTION_SEND);
-					intent.setData(Uri.parse("http://edakia.in/system/docs/8/original/1081210064_9711335593.jpg"));
-					intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("http://edakia.in/system/docs/8/original/1081210064_9711335593.jpg"));
+					intent.setData(Uri.parse(documentPath));
+					intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(documentPath));
 					intent.setType("image/jpeg");
 
 					startActivity(intent);
@@ -248,29 +253,38 @@ public class ReceiveActivity extends Activity {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				
+
+
 				break;
 			case 2:
-				TextView text = (TextView) findViewById(R.id.textview01);
-				text.setText(msg.getData().getString("text"));
-				
+
 				progressDialog.dismiss();
 				try {
-					PackageManager pm = getPackageManager();
-					Intent intent = pm.getLaunchIntentForPackage("com.dynamixsoftware.printershare");
-					intent.setAction(Intent.ACTION_VIEW);
-					intent.setDataAndType(Uri.parse("http://edakia.in/system/docs/8/original/1081210064_9711335593.jpg"), "image/jpg");
+					//save the text file @local
+					OutputStream outStream = null;
+					File file = new File(Environment.getExternalStorageDirectory(), documentName);
+					outStream = new FileOutputStream(file);
+					outStream.flush();
+					outStream.close();
+
+
+					documentPath =Environment.getExternalStorageDirectory()+ "/" + documentName;
+					Intent intent = new Intent(ReceiveActivity.this,PrintActivity.class);
+					intent.setAction(Intent.ACTION_SEND);
+					intent.setData(Uri.parse(documentPath));
+					intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(documentPath));
+					intent.setType("text/plain");
+
 					startActivity(intent);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				
+
+
 				break;
 			}
-			
+
 		}
 	};
 
@@ -279,12 +293,10 @@ public class ReceiveActivity extends Activity {
 
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-			switch (msg.what) {
-			case 2:
-				String responseXPath = msg.getData().getString("text");
-				String documentPath = null;
-				//Fetch value of document x path from returned XML string response.
-
+			String responseXPath = msg.getData().getString("text");
+			String documentPath = null;
+			//Fetch value of document x path from returned XML string response.
+			if(responseXPath != null && !"".equalsIgnoreCase(responseXPath) && !responseXPath.contains("error")){
 				try{
 
 					XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
@@ -296,20 +308,17 @@ public class ReceiveActivity extends Activity {
 					while (eventType != XmlPullParser.END_DOCUMENT) {
 						if(eventType == XmlPullParser.START_TAG && xpp.getName() != null && xpp.getName().equalsIgnoreCase("document_url")){
 							xpp.next();
-							if(xpp.getText().contains("edakia.in")){
+							if(xpp.getText().contains("edakia.in"))
 								//document found
 								documentPath = xpp.getText();
-								
-							}else {
-								//document not found
-							}
-							
 							break;
 						}
 						eventType = xpp.next();
 					}
-										
-				//Fetch document.
+
+					documentName = (documentPath.split("/"))[documentPath.split("/").length-1];
+					//Fetch document.
+					Toast.makeText(ReceiveActivity.this, "Thanks fetching Document !! ", Toast.LENGTH_LONG).show();		
 					if(documentPath.contains(".png") || documentPath.contains(".jpeg") || documentPath.contains(".jpg")){
 						downloadImage("http://" + documentPath, true);
 					}else {
@@ -317,23 +326,16 @@ public class ReceiveActivity extends Activity {
 					}
 
 				}catch(Exception anExcep){
-
+					anExcep.printStackTrace();
 				}
-				/*Element element = 
-				NodeList node = element.getElementsByTagName("tarif");
-				int length = node.getLength();
-				for (int j = 0; j < length; j++)
-				{
-				     Element terrif = (Element) node.item(j);
-
-				     String name = terrif.getAttribute("name");
-
-				     // and so on for other attributes...
-				}*/
-
-				break;
+			}else if(responseXPath.contains("error") && responseXPath.contains("Document not found")){
+				//could not find any document with this.
+				Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find document matching this secret code & mobile number. \n Please make sure you entered correct inputs.", Toast.LENGTH_LONG).show();
 			}
-			//progressDialog.dismiss();
+			else {
+				//some other error.
+				Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find your document due to some internal error. Please bear with us for some time to serve you again.", Toast.LENGTH_LONG).show();
+			}
 		}
 	};
 }

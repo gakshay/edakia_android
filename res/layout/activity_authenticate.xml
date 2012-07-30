@@ -2,7 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
+    
+    
+    
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
@@ -20,12 +22,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout1"
         android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_marginTop="30dp"
-        android:text="@string/personal_mobile"
+        android:text="@string/send_activity_mobile"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
-        android:id="@+id/receiveMobile"
+        android:id="@+id/YourMobile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
@@ -43,52 +46,48 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/YourMobile"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/receiveMobile"
+        android:layout_centerInParent="true"
         android:layout_marginTop="30dp"
-        android:text="@string/secret_code"
+        android:text="@string/authenticate_activity_password"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+   
+
     <EditText
-        android:id="@+id/secretCode"
+        android:id="@+id/YourPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/receiveMobile"
+        android:layout_alignLeft="@+id/YourMobile"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="15dp"
         android:ems="10"
-        android:inputType="numberSigned"
-        android:maxLength="6" />
+        android:inputType="numberPassword" />
 
     <Button
         android:id="@+id/receiveNextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/secretCode"
+        android:layout_below="@+id/YourPassword"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="31dp"
         android:background="@color/green"
-        android:onClick="getDocument"
-        android:text="@string/next"
+        android:onClick="authenticate"
+        android:text="@string/authenticate_activity_authenticate_button"
         android:textAllCaps="true" />
-    
-    
-    
-    <ImageView
-	android:id="@+id/imageview01" 
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:cropToPadding="true" 
-	android:contentDescription="@string/EmptyString" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/Error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
-        android:layout_alignRight="@+id/textView2"
-        android:layout_below="@+id/linearLayout1"
-         android:text="@string/EmptyString"
-	    android:textColor="@color/red" />
+        android:layout_alignRight="@+id/textView1"
+        android:layout_alignTop="@dimen/padding_medium"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_below="@id/linearLayout1"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:text="@string/EmptyString" />
+    
 
 </RelativeLayout>
