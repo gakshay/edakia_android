@@ -3,6 +3,7 @@ package com.gakshay.android.edakia;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import org.apache.http.HttpEntity;
@@ -17,8 +18,11 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -30,7 +34,14 @@ import android.widget.Toast;
 
 public class SendActivity extends Activity {
 	private static final int NO_WRAP = 2;
+	private ProgressDialog progressDialog;
+	private String senderMobile;
+	private String senderPassword;
+	private String receiverMobile;
+	private String sendResponse;
+	private String file;
 	private String authURL = "http://www.edakia.in/transactions.xml";
+    private static final int REQUEST_STATUS = 1;
 
 
 	@Override
@@ -45,48 +56,49 @@ public class SendActivity extends Activity {
 		return true;
 	}
 
+	 /** Called when an activity called by using startActivityForResult finishes. */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+    	if (requestCode == REQUEST_STATUS) {
+            if (resultCode == RESULT_OK) {
+                // A contact was picked.  Here we will just display it
+                // to the user.
+            	file = data.getStringExtra("filePath");
+            	sendFileToUser(true);
+            }
+        }
+    }
 
 
 	// Will be connected with the buttons via XML
 	public void sendFile(View aview) {
-		EditText receiverMobile = (EditText) findViewById(R.id.receiverMobile);
+		receiverMobile = ((EditText) findViewById(R.id.receiverMobile)).getText().toString();
 
 		RadioGroup selectFileGroup = (RadioGroup)findViewById(R.id.selectFileGroup);
 		int selectedRadioButtonId = selectFileGroup.getCheckedRadioButtonId();
+		RadioButton selectedRadioButton = (RadioButton)selectFileGroup.findViewById(selectedRadioButtonId);
 		
 		Intent intent = getIntent();
 		Bundle bundleData = intent.getExtras();
-		String senderMobile =(String) bundleData.get("sendMobile");
-		String senderPassword =(String) bundleData.get("sendPassword");
+		senderMobile =(String) bundleData.get("sendMobile");
+		senderPassword =(String) bundleData.get("sendPassword");
 		String file = null;
-		if(selectedRadioButtonId == 1){//File Explorer.
+		if(selectedRadioButton.getTag().toString().equalsIgnoreCase("Recent")){//File Explorer.
 			//Assuming recently scanned file has been saved as recentlyScanned.jpg @ path /mnt/sdcard
 			file = "/mnt/sdcard/logo.jpg";
-		}else if (selectedRadioButtonId == 2){
-			Toast.makeText(this, "Development in progress.....", Toast.LENGTH_LONG).show();
+        	sendFileToUser(true);
+		}else if (selectedRadioButton.getTag().toString().equalsIgnoreCase("Browse")){
 			// "/mnt/sdcard/logo.jpg"
-		}else if (selectedRadioButtonId == 3) {
+			Intent selectFile = new Intent(this, FileChooser.class);
+			startActivityForResult(selectFile, REQUEST_STATUS);    		
+		}else if (selectedRadioButton.getTag().toString().equalsIgnoreCase("Edakia")) {
 			Toast.makeText(this, "Development in progress.....", Toast.LENGTH_LONG).show();
 
 		}else {
 			Toast.makeText(this, "You Clicked on wrong option.", Toast.LENGTH_LONG).show();
 
 		}
-		
-	
-		//initialize error text value to null.
-		TextView text = (TextView) findViewById(R.id.Error);
-		text.setText(null);
-
-		if(sendToEdakiaServer(authURL, senderMobile, senderPassword,receiverMobile.getText().toString(),file).contains("Exception")){
-			text.setText("Could not send your document !! \n Please make sure you file is correctly scanned.");
-		}else{
-			Toast.makeText(this, "Your document has been sent.", Toast.LENGTH_LONG).show();
-
-			Intent sendIntent = new Intent(this, Edakia.class);
-			startActivity(sendIntent);
-		}
-
 	}
 
 
@@ -128,6 +140,7 @@ public class SendActivity extends Activity {
 				}
 
 			}
+			response = "Success";
 			resEntity.consumeContent();
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
@@ -143,4 +156,46 @@ public class SendActivity extends Activity {
 		return response;
 
 	}
+	
+	
+	private void sendFileToUser(boolean showProcessDialog) {
+		if(showProcessDialog)
+			progressDialog = ProgressDialog.show(this, "", 
+					"Sending Your file \n................" );
+		new Thread() {
+			public void run() {
+				InputStream in = null;
+				Message msg = Message.obtain();
+				try {
+					sendResponse = sendToEdakiaServer(authURL, senderMobile, senderPassword,receiverMobile,file);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				messageHandler.sendMessage(msg);					
+			}
+		}.start();
+	}
+
+	
+	
+	private Handler messageHandler = new Handler() {
+
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			progressDialog.dismiss();
+			//initialize error text value to null.
+			TextView text = (TextView) findViewById(R.id.Error);
+			text.setText(null);
+			
+			if(sendResponse != null && sendResponse.contains("Exception")){
+				text.setText("Could not send your document !! \n Please make sure you file is correctly scanned.");
+			}else{
+				Toast.makeText(SendActivity.this, "Your document has been sent.", Toast.LENGTH_LONG).show();
+				Intent homeIntent = new Intent(SendActivity.this, Edakia.class);
+				startActivity(homeIntent);
+			}
+
+		}
+	};
+
 }

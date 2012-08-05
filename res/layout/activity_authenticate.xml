@@ -87,7 +87,8 @@
         android:layout_below="@id/linearLayout1"
         android:layout_centerVertical="true"
         android:layout_marginTop="@dimen/padding_medium"
-        android:text="@string/EmptyString" />
+        android:text="@string/EmptyString"
+        android:textColor="@color/red" />
     
 
 </RelativeLayout>

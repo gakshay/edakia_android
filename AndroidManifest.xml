@@ -87,6 +87,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity
+            android:name=".FileChooser"
+            android:label="@string/select_file_send_activity" >
+           
+        </activity>
+        
     </application>
 
 </manifest>

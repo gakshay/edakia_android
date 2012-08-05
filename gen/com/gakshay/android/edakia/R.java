@@ -29,6 +29,7 @@ public final class R {
     public static final class id {
         public static final int Error=0x7f090006;
         public static final int TextView01=0x7f09000f;
+        public static final int TextView02=0x7f090014;
         public static final int YourMobile=0x7f090002;
         public static final int YourPassword=0x7f090004;
         public static final int button1=0x7f090016;
@@ -41,7 +42,6 @@ public final class R {
         public static final int radio0=0x7f090011;
         public static final int radio1=0x7f090012;
         public static final int radio2=0x7f090013;
-        public static final int radioGroup1=0x7f090014;
         public static final int receiveMobile=0x7f09000a;
         public static final int receiveNextButton=0x7f090005;
         public static final int receiverMobile=0x7f09000e;
@@ -57,14 +57,16 @@ public final class R {
         public static final int activity_main=0x7f030001;
         public static final int activity_receive=0x7f030002;
         public static final int activity_send=0x7f030003;
-        public static final int print_activity=0x7f030004;
+        public static final int file_view=0x7f030004;
+        public static final int print_activity=0x7f030005;
     }
     public static final class menu {
         public static final int activity_authenticate=0x7f080000;
         public static final int activity_main=0x7f080001;
         public static final int activity_receive=0x7f080002;
         public static final int activity_send=0x7f080003;
-        public static final int print_activity=0x7f080004;
+        public static final int file_view=0x7f080004;
+        public static final int print_activity=0x7f080005;
     }
     public static final class string {
         public static final int EmptyString=0x7f05000f;

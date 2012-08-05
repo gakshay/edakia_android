@@ -76,30 +76,35 @@
             android:layout_width="273dp"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="@string/recently_scanned_file_send_activity" />
+            android:text="@string/recently_scanned_file_send_activity" 
+            android:tag="Recent"/>
 
         <RadioButton
             android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/edakia_file_send_activity" />
+            android:text="@string/edakia_file_send_activity" 
+            android:tag="Edakia"/>
+
 
         <RadioButton
             android:id="@+id/radio2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/local_file_send_activity" />
+            android:text="@string/local_file_send_activity" 
+            android:tag="Browse"/>
+
     </RadioGroup>
 
     <Button
         android:id="@+id/receiveNextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/radioGroup1"
+        android:layout_below="@+id/selectFileGroup"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="31dp"
         android:background="@color/green"
-        android:onClick="authenticate"
+        android:onClick="sendFile"
         android:text="@string/send_button_send_activity"
         android:textAllCaps="true" />
 
