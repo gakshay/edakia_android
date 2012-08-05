@@ -24,7 +24,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         android:layout_marginTop="30dp"
-        android:text="@string/send_activity_mobile"
+        android:text="@string/authenticate_activity_mobile"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText

@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AuthenticateActivity extends Activity {
 
@@ -45,7 +46,11 @@ public class AuthenticateActivity extends Activity {
 		if(connectToServer(authURL, mobile.getText().toString(), password.getText().toString()).contains("Exception")){
 			text.setText("Could not authenticate You !! \n Please make sure you entered correct details.");
 		}else{
+			Toast.makeText(this, "Authenticated Successfullly.Go Ahead !!", Toast.LENGTH_SHORT).show();
+
 			Intent sendIntent = new Intent(this, SendActivity.class);
+			sendIntent.putExtra("sendMobile", mobile.getText().toString());
+			sendIntent.putExtra("sendPassword", password.getText().toString());
 			startActivity(sendIntent);
 		}
 		

@@ -21,17 +21,16 @@
     <string name="title_activity_print">PrintActivity</string>
     <string name="option_print_button">onPrintClick</string>
     <string name="EmptyString"></string>
-    
-    
     <string name="title_activity_authenticate">Autenticate Your Self</string>
     <string name="authenticate_activity_mobile">Enter Your Mobile Number</string>
     <string name="authenticate_activity_password">Enter Your Password</string>
     <string name="authenticate_activity_authenticate_button">Authenticate Yourself</string>
-
- 
     <string name="title_activity_send">Send File</string>
-    <string name="send_activity_mobile">Enter Receiver Mobile Number</string>
-    <string name="send_activity_select_file">Browse file</string>
-    <string name="send_activity_send_button">Send</string>
-    
+    <string name="receiver_mobile_send_activity">Enter Receiver Mobile Number</string>
+    <string name="local_file_send_activity">Browse file from your local machine.</string>
+    <string name="select_file_send_activity">Select a file to send</string>
+    <string name="edakia_file_send_activity">Select a file from your Edakia account.</string>
+    <string name="recently_scanned_file_send_activity">Select recently scanned file.</string>
+    <string name="send_button_send_activity">Send</string>
+
 </resources>
