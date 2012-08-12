@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <LinearLayout
+     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,32 +13,32 @@
         android:minHeight="10dp"
         android:orientation="vertical" >
     </LinearLayout>
-
-    <TextView
+    
+     
+      <TextView
         android:id="@+id/textview01"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearLayout1"
+        android:onClick="doSendFile"
+        android:text="Confirm To Send" 
+        android:background="@color/green"
+        />
 
     <ImageView
         android:id="@+id/imageview01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textview01"
-        android:layout_marginTop="17dp"
+        android:layout_below="@+id/button1"
+        android:layout_marginTop="14dp"
         android:contentDescription="@string/EmptyString"
         android:cropToPadding="true" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageview01"
-        android:layout_marginLeft="56dp"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@+id/imageview01"
-        android:background="@color/green"
-        android:onClick="doSendFile"
-        android:text="Confirm To Send" />
 
 </RelativeLayout>
