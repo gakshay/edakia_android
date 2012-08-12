@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.FileObserver;
 import android.os.Handler;
@@ -106,7 +107,22 @@ public class SendActivity extends Activity {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+		
 			
+			
+			/*try {
+				Intent i = new Intent(Intent.ACTION_VIEW);
+				i.setPackage("com.dynamixsoftware.printershare");
+				i.setDataAndType(Uri.fromFile(new File("/mnt/storage/Download/logo.jpg")), "image/jpeg");
+				startActivity(i);
+
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				//Toast.makeText(this, "Got some exception trying another way 5 !! ", Toast.LENGTH_LONG).show();
+
+			}*/
 			scanFileLookup();
 
 		}else if (selectedRadioButton.getTag().toString().equalsIgnoreCase("Browse")){
@@ -125,7 +141,7 @@ public class SendActivity extends Activity {
 	private void prepareThisUserDocumentFolder(String receiverMobile){
 		File aScanPDFDir = new File("/mnt/storage/cannonEPP/scan_pdf/");
 		if(aScanPDFDir.exists() && aScanPDFDir.isDirectory() && aScanPDFDir.list().length != 0){//rename this directory name.
-			aScanPDFDir.renameTo(new File("/mnt/storage/" + receiverMobile + "/sendDocs"));
+			//aScanPDFDir.renameTo(new File("/mnt/storage/" + receiverMobile + "/sendDocs"));
 			File aTempFile =null;
 			File[] aTempFilesCollection = aScanPDFDir.listFiles();
 			for(int i = 0; i < aTempFilesCollection.length; i++){
@@ -234,14 +250,19 @@ public class SendActivity extends Activity {
 
 
 	private void scanFileLookup(){
-
+		///mnt/storage/cannonEPP/scan_pdf
 		aFileobsFileObserver = new FileObserver("/mnt/storage/cannonEPP/scan_pdf") {
 
 			@Override
 			public void onEvent(int event, String path) {
 				try {
-					if(event == CREATE){
+					Log.d("FileObserver", "Directory is being observed");
+
+					if(event == FileObserver.CREATE){
+						Log.d("FileObserver", "File created has been observed.");
+
 						aFileobsFileObserver.stopWatching();
+						stopService(getIntent());
 						File scanfile = new File("/mnt/storage/cannonEPP/scan_pdf");
 						scannedFile = scanfile.listFiles()[0].getAbsolutePath();
 						Intent sendIntent = new Intent(SendActivity.this, ConfirmSend.class);
@@ -258,6 +279,7 @@ public class SendActivity extends Activity {
 						}
 
 						startActivity(sendIntent);
+						finish();
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -268,6 +290,7 @@ public class SendActivity extends Activity {
 		};
 
 		aFileobsFileObserver.startWatching();
+		startService(getIntent());
 	}
 
 }

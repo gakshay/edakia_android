@@ -80,17 +80,11 @@ public class ConfirmSend extends Activity {
 		String action = intent.getAction();
 		String type = intent.getType();
 
-		if (Intent.ACTION_SEND.equals(action) && type != null) {
 			if ("text/plain".equals(type)) {
 				prepareTextDocument(intent); // Handle text being sent
 			} else if (type.startsWith("image/")) {
 				prepareImageDocument(intent); // Handle single image being sent
 			}
-		} else if (Intent.ACTION_SEND_MULTIPLE.equals(action) && type != null) {
-			//Handle multiple intent functionality.
-		} else {
-			// Handle other intents, such as being started from the home screen
-		}
 	}
 
     
@@ -236,7 +230,7 @@ public class ConfirmSend extends Activity {
 			progressDialog.dismiss();
 			//initialize error text value to null.
 			TextView text = (TextView) findViewById(R.id.Error);
-			text.setText(null);
+			//text.setText(null);
 
 			if(sendResponse != null && sendResponse.contains("Exception")){
 				text.setText("Could not send your document !! \n Please make sure you file is correctly scanned.");
