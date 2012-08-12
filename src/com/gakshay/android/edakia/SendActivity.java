@@ -19,8 +19,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.FileObserver;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -41,7 +43,10 @@ public class SendActivity extends Activity {
 	private String sendResponse;
 	private String file;
 	private String authURL = "http://www.edakia.in/transactions.xml";
-    private static final int REQUEST_STATUS = 1;
+	private static final int REQUEST_STATUS = 1;
+	private FileObserver aFileobsFileObserver;
+	private String scannedFile;
+
 
 
 	@Override
@@ -56,19 +61,19 @@ public class SendActivity extends Activity {
 		return true;
 	}
 
-	 /** Called when an activity called by using startActivityForResult finishes. */
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-    	if (requestCode == REQUEST_STATUS) {
-            if (resultCode == RESULT_OK) {
-                // A contact was picked.  Here we will just display it
-                // to the user.
-            	file = data.getStringExtra("filePath");
-            	sendFileToUser(true);
-            }
-        }
-    }
+	/** Called when an activity called by using startActivityForResult finishes. */
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if (requestCode == REQUEST_STATUS) {
+			if (resultCode == RESULT_OK) {
+				// A contact was picked.  Here we will just display it
+				// to the user.
+				file = data.getStringExtra("filePath");
+				sendFileToUser(true);
+			}
+		}
+	}
 
 
 	// Will be connected with the buttons via XML
@@ -78,7 +83,7 @@ public class SendActivity extends Activity {
 		RadioGroup selectFileGroup = (RadioGroup)findViewById(R.id.selectFileGroup);
 		int selectedRadioButtonId = selectFileGroup.getCheckedRadioButtonId();
 		RadioButton selectedRadioButton = (RadioButton)selectFileGroup.findViewById(selectedRadioButtonId);
-		
+
 		Intent intent = getIntent();
 		Bundle bundleData = intent.getExtras();
 		senderMobile =(String) bundleData.get("sendMobile");
@@ -86,8 +91,24 @@ public class SendActivity extends Activity {
 		String file = null;
 		if(selectedRadioButton.getTag().toString().equalsIgnoreCase("Recent")){//File Explorer.
 			//Assuming recently scanned file has been saved as recentlyScanned.jpg @ path /mnt/sdcard
-			file = "/mnt/sdcard/logo.jpg";
-        	sendFileToUser(true);
+			//file = "/mnt/sdcard/recentlyScanned.jpg";
+
+			//prepare the document folder for the user.
+			prepareThisUserDocumentFolder(receiverMobile);
+
+			//scan the document using app.
+			try {
+				intent = new Intent();
+				intent.setComponent(ComponentName.unflattenFromString("jp.co.canon.bsd.android.aepp.activity/jp.co.canon.bsd.android.aepp.activity.ScannerMainActivity"));
+				intent.setAction(Intent.ACTION_VIEW);
+				startActivityForResult(intent, REQUEST_STATUS);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			scanFileLookup();
+
 		}else if (selectedRadioButton.getTag().toString().equalsIgnoreCase("Browse")){
 			// "/mnt/sdcard/logo.jpg"
 			Intent selectFile = new Intent(this, FileChooser.class);
@@ -101,6 +122,19 @@ public class SendActivity extends Activity {
 		}
 	}
 
+	private void prepareThisUserDocumentFolder(String receiverMobile){
+		File aScanPDFDir = new File("/mnt/storage/cannonEPP/scan_pdf/");
+		if(aScanPDFDir.exists() && aScanPDFDir.isDirectory() && aScanPDFDir.list().length != 0){//rename this directory name.
+			aScanPDFDir.renameTo(new File("/mnt/storage/" + receiverMobile + "/sendDocs"));
+			File aTempFile =null;
+			File[] aTempFilesCollection = aScanPDFDir.listFiles();
+			for(int i = 0; i < aTempFilesCollection.length; i++){
+				aTempFile = aTempFilesCollection[i];
+				aTempFile.delete();
+			}
+		}
+
+	}
 
 
 	private String sendToEdakiaServer(String urlStr,String senderMobile, String senderPassword,String receiverMobile,String file) {
@@ -156,8 +190,8 @@ public class SendActivity extends Activity {
 		return response;
 
 	}
-	
-	
+
+
 	private void sendFileToUser(boolean showProcessDialog) {
 		if(showProcessDialog)
 			progressDialog = ProgressDialog.show(this, "", 
@@ -176,8 +210,8 @@ public class SendActivity extends Activity {
 		}.start();
 	}
 
-	
-	
+
+
 	private Handler messageHandler = new Handler() {
 
 		public void handleMessage(Message msg) {
@@ -186,7 +220,7 @@ public class SendActivity extends Activity {
 			//initialize error text value to null.
 			TextView text = (TextView) findViewById(R.id.Error);
 			text.setText(null);
-			
+
 			if(sendResponse != null && sendResponse.contains("Exception")){
 				text.setText("Could not send your document !! \n Please make sure you file is correctly scanned.");
 			}else{
@@ -197,5 +231,43 @@ public class SendActivity extends Activity {
 
 		}
 	};
+
+
+	private void scanFileLookup(){
+
+		aFileobsFileObserver = new FileObserver("/mnt/storage/cannonEPP/scan_pdf") {
+
+			@Override
+			public void onEvent(int event, String path) {
+				try {
+					if(event == CREATE){
+						aFileobsFileObserver.stopWatching();
+						File scanfile = new File("/mnt/storage/cannonEPP/scan_pdf");
+						scannedFile = scanfile.listFiles()[0].getAbsolutePath();
+						Intent sendIntent = new Intent(SendActivity.this, ConfirmSend.class);
+						sendIntent.putExtra("sendMobile", senderMobile);
+						sendIntent.putExtra("sendPassword", senderPassword);
+						sendIntent.putExtra("receiverMobile", receiverMobile);
+						sendIntent.putExtra("file", scannedFile);
+						if(scannedFile != null && (scannedFile.contains("jpeg")  || scannedFile.contains("jpg") || scannedFile.contains("png"))){
+							sendIntent.setType("image/jpeg");
+							
+						}else{
+							sendIntent.setType("text/plain");
+
+						}
+
+						startActivity(sendIntent);
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		};
+
+		aFileobsFileObserver.startWatching();
+	}
 
 }

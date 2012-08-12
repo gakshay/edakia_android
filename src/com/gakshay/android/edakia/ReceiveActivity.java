@@ -2,6 +2,7 @@ package com.gakshay.android.edakia;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -66,11 +67,11 @@ public class ReceiveActivity extends Activity {
 
 		EditText mobile = (EditText) findViewById(R.id.receiveMobile);
 		EditText secretCode = (EditText) findViewById(R.id.secretCode);
-		
+
 		//initialize error text value to null.
 		TextView text = (TextView) findViewById(R.id.textView3);
 
-		
+
 		//Validate mobile no.
 		int valStatusCode = Validator.validateMobileNumber(mobile).ordinal();
 		switch(valStatusCode){
@@ -241,14 +242,32 @@ public class ReceiveActivity extends Activity {
 
 					documentPath =Environment.getExternalStorageDirectory()+ "/" + documentName;
 
-					Intent intent = new Intent(ReceiveActivity.this,PrintActivity.class);
+					try {
+						Intent i = new Intent(Intent.ACTION_VIEW);
+						i.setPackage("com.dynamixsoftware.printershare");
+						i.setDataAndType(Uri.fromFile(new File(documentPath)), "image/jpeg");
+						startActivity(i);
+
+
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						Toast.makeText(ReceiveActivity.this, "Got some exception while trying to invoke printer share App !!  \n Going to Home Page" , Toast.LENGTH_LONG).show();
+						startActivity((new Intent(ReceiveActivity.this, Edakia.class)));
+
+					}
+
+
+
+					//commenting below code as to avoid internal print Activity call.
+					/*Intent intent = new Intent(ReceiveActivity.this,PrintActivity.class);
 					intent.setAction(Intent.ACTION_SEND);
 					intent.setData(Uri.parse(documentPath));
 					intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(documentPath));
 					intent.setType("image/jpeg");
 
 					startActivity(intent);
-
+					 */
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -261,21 +280,47 @@ public class ReceiveActivity extends Activity {
 				progressDialog.dismiss();
 				try {
 					//save the text file @local
-					OutputStream outStream = null;
+					/*OutputStream outStream = null;
 					File file = new File(Environment.getExternalStorageDirectory(), documentName);
 					outStream = new FileOutputStream(file);
+					outStream.write(buffer)
 					outStream.flush();
-					outStream.close();
+					outStream.close();*/
+					
+					
+					File outFile = new File(Environment.getExternalStorageDirectory(), documentName);
+					FileWriter out = new FileWriter(outFile);
+					//		out.write
+					out.write(msg.getData().getString("text"));
+					out.flush();
+					out.close();
+
+					try {
+						Intent i = new Intent(Intent.ACTION_VIEW);
+						i.setPackage("com.dynamixsoftware.printershare");
+						i.setDataAndType(Uri.fromFile(new File(documentPath)), "text/plain");
+						startActivity(i);
 
 
-					documentPath =Environment.getExternalStorageDirectory()+ "/" + documentName;
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						Toast.makeText(ReceiveActivity.this, "Got some exception while trying to invoke printer share App !! ", Toast.LENGTH_LONG).show();
+						startActivity((new Intent(ReceiveActivity.this, Edakia.class)));
+
+
+					}
+
+					//commenting below code as to avoid internal print Activity call.
+
+					/*documentPath =Environment.getExternalStorageDirectory()+ "/" + documentName;
 					Intent intent = new Intent(ReceiveActivity.this,PrintActivity.class);
 					intent.setAction(Intent.ACTION_SEND);
 					intent.setData(Uri.parse(documentPath));
 					intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(documentPath));
 					intent.setType("text/plain");
 
-					startActivity(intent);
+					startActivity(intent);*/
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

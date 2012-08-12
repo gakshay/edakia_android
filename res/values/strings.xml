@@ -30,7 +30,8 @@
     <string name="local_file_send_activity">Browse file from your local machine.</string>
     <string name="select_file_send_activity">Select a file to send</string>
     <string name="edakia_file_send_activity">Select a file from your Edakia account.</string>
-    <string name="recently_scanned_file_send_activity">Select recently scanned file.</string>
+    <string name="recently_scanned_file_send_activity">Scan and send the file.</string>
     <string name="send_button_send_activity">Send</string>
+    <string name="title_activity_confirm_send">ConfirmSend</string>
 
 </resources>

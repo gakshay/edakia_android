@@ -81,19 +81,20 @@
         <activity
             android:name=".SendActivity"
             android:label="@string/title_activity_send" >
+        </activity>
+        <activity
+            android:name=".FileChooser"
+            android:label="@string/select_file_send_activity" >
+        </activity>
+        <activity
+            android:name=".ConfirmSend"
+            android:label="@string/title_activity_confirm_send" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <activity
-            android:name=".FileChooser"
-            android:label="@string/select_file_send_activity" >
-           
-        </activity>
-        
     </application>
 
 </manifest>
