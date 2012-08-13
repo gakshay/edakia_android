@@ -281,7 +281,7 @@ public class SendActivity extends Activity {
 						}else{
 							sendIntent.setType("application/pdf");
 						}
-
+						Thread.sleep(3000);
 						startActivity(sendIntent);
 						finish();
 					}
