@@ -32,8 +32,8 @@ public final class R {
         public static final int TextView02=0x7f090016;
         public static final int YourMobile=0x7f090002;
         public static final int YourPassword=0x7f090004;
-        public static final int button1=0x7f090009;
-        public static final int imageview01=0x7f090008;
+        public static final int button1=0x7f090008;
+        public static final int imageview01=0x7f090009;
         public static final int linearLayout1=0x7f090000;
         public static final int menu_settings=0x7f090017;
         public static final int navBottom=0x7f09000a;

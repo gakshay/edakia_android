@@ -96,7 +96,7 @@ public class SendActivity extends Activity {
 
 			//prepare the document folder for the user.
 			prepareThisUserDocumentFolder(receiverMobile);
-
+			scanFileLookup();
 			//scan the document using app.
 			try {
 				intent = new Intent();
@@ -123,7 +123,7 @@ public class SendActivity extends Activity {
 				//Toast.makeText(this, "Got some exception trying another way 5 !! ", Toast.LENGTH_LONG).show();
 
 			}*/
-			scanFileLookup();
+			//scanFileLookup();
 
 		}else if (selectedRadioButton.getTag().toString().equalsIgnoreCase("Browse")){
 			// "/mnt/sdcard/logo.jpg"
@@ -139,7 +139,8 @@ public class SendActivity extends Activity {
 	}
 
 	private void prepareThisUserDocumentFolder(String receiverMobile){
-		File aScanPDFDir = new File("/mnt/storage/cannonEPP/scan_pdf/");
+		File aScanPDFDir = new File("/mnt/storage/CanonEPP/scan_pdf/");
+		Toast.makeText(this, "Preparing user Document", Toast.LENGTH_SHORT).show();
 		if(aScanPDFDir.exists() && aScanPDFDir.isDirectory() && aScanPDFDir.list().length != 0){//rename this directory name.
 			//aScanPDFDir.renameTo(new File("/mnt/storage/" + receiverMobile + "/sendDocs"));
 			File aTempFile =null;
@@ -250,20 +251,24 @@ public class SendActivity extends Activity {
 
 
 	private void scanFileLookup(){
-		///mnt/storage/cannonEPP/scan_pdf
-		aFileobsFileObserver = new FileObserver("/mnt/storage/cannonEPP/scan_pdf") {
-
+		///mnt/storage/CanonEPP/scan_pdf
+		Log.d("FileObserver", "Inside scan file lookup");
+		aFileobsFileObserver = new FileObserver("/mnt/storage/CanonEPP/scan_pdf/", FileObserver.MOVED_TO) {
 			@Override
 			public void onEvent(int event, String path) {
 				try {
+					Log.d("FileObserver", "event "+ event);
 					Log.d("FileObserver", "Directory is being observed");
-
-					if(event == FileObserver.CREATE){
+					if(event == FileObserver.MOVED_TO){
 						Log.d("FileObserver", "File created has been observed.");
 
 						aFileobsFileObserver.stopWatching();
+						Log.d("FileObserver", "File created stop observing.");
+
 						stopService(getIntent());
-						File scanfile = new File("/mnt/storage/cannonEPP/scan_pdf");
+						Log.d("FileObserver", "File created stop service.");
+
+						File scanfile = new File("/mnt/storage/CanonEPP/scan_pdf");
 						scannedFile = scanfile.listFiles()[0].getAbsolutePath();
 						Intent sendIntent = new Intent(SendActivity.this, ConfirmSend.class);
 						sendIntent.putExtra("sendMobile", senderMobile);
@@ -274,8 +279,7 @@ public class SendActivity extends Activity {
 							sendIntent.setType("image/jpeg");
 							
 						}else{
-							sendIntent.setType("text/plain");
-
+							sendIntent.setType("application/pdf");
 						}
 
 						startActivity(sendIntent);
