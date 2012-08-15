@@ -126,10 +126,8 @@ public class SendActivity extends Activity {
 				e.printStackTrace();
 				//Toast.makeText(this, "Got some exception trying another way 5 !! ", Toast.LENGTH_LONG).show();
 
-			}*/
-			
+			}*/			
 			scanFileLookup();
-
 		}else if (selectedRadioButton.getTag().toString().equalsIgnoreCase("Browse")){
 			// "/mnt/sdcard/logo.jpg"
 			Intent selectFile = new Intent(this, FileChooser.class);
