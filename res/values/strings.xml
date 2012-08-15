@@ -33,5 +33,6 @@
     <string name="recently_scanned_file_send_activity">Scan and send the file.</string>
     <string name="send_button_send_activity">Send</string>
     <string name="title_activity_confirm_send">ConfirmSend</string>
+    <string name="title_activity_pop_up">PopUpActivity</string>
 
 </resources>

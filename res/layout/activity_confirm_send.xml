@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
+<!-- 
      <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
@@ -12,15 +12,15 @@
         android:background="@color/green"
         android:minHeight="10dp"
         android:orientation="vertical" >
-    </LinearLayout>
+    </LinearLayout> -->
     
      
-      <TextView
+   <!--    <TextView
         android:id="@+id/textview01"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" /> -->
 
-    <Button
+  <!--   <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,8 +29,8 @@
         android:onClick="doSendFile"
         android:text="Confirm To Send" 
         android:background="@color/green"
-        />
-
+        /> -->
+<!-- 
     <ImageView
         android:id="@+id/imageview01"
         android:layout_width="wrap_content"
@@ -39,6 +39,6 @@
         android:layout_below="@+id/button1"
         android:layout_marginTop="14dp"
         android:contentDescription="@string/EmptyString"
-        android:cropToPadding="true" />
+        android:cropToPadding="true" /> -->
 
 </RelativeLayout>

@@ -1,11 +1,10 @@
 package com.gakshay.android.edakia;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.app.Activity;
-import android.widget.Toast;
-import android.content.Intent;
 
 
 public class Edakia extends Activity {
@@ -14,7 +13,7 @@ public class Edakia extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
+       }
 
     public void optionClickHandler(View view) {
     	switch(view.getId()){

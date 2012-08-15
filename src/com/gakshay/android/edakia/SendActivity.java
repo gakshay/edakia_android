@@ -18,8 +18,10 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,8 +29,11 @@ import android.os.FileObserver;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -95,8 +100,7 @@ public class SendActivity extends Activity {
 			//file = "/mnt/sdcard/recentlyScanned.jpg";
 
 			//prepare the document folder for the user.
-			prepareThisUserDocumentFolder(receiverMobile);
-
+			prepareThisUserDocumentFolder();
 			//scan the document using app.
 			try {
 				intent = new Intent();
@@ -108,10 +112,10 @@ public class SendActivity extends Activity {
 				e1.printStackTrace();
 			}
 		
-			
-			
-			/*try {
-				Intent i = new Intent(Intent.ACTION_VIEW);
+		/*	
+			Intent i  = null;
+			try {
+				i = new Intent(Intent.ACTION_VIEW);
 				i.setPackage("com.dynamixsoftware.printershare");
 				i.setDataAndType(Uri.fromFile(new File("/mnt/storage/Download/logo.jpg")), "image/jpeg");
 				startActivity(i);
@@ -123,6 +127,7 @@ public class SendActivity extends Activity {
 				//Toast.makeText(this, "Got some exception trying another way 5 !! ", Toast.LENGTH_LONG).show();
 
 			}*/
+			
 			scanFileLookup();
 
 		}else if (selectedRadioButton.getTag().toString().equalsIgnoreCase("Browse")){
@@ -138,8 +143,9 @@ public class SendActivity extends Activity {
 		}
 	}
 
-	private void prepareThisUserDocumentFolder(String receiverMobile){
-		File aScanPDFDir = new File("/mnt/storage/cannonEPP/scan_pdf/");
+	private void prepareThisUserDocumentFolder(){
+		File aScanPDFDir = new File("/mnt/storage/CanonEPP/scan_pdf/");
+		Toast.makeText(this, "Preparing user Document", Toast.LENGTH_SHORT).show();
 		if(aScanPDFDir.exists() && aScanPDFDir.isDirectory() && aScanPDFDir.list().length != 0){//rename this directory name.
 			//aScanPDFDir.renameTo(new File("/mnt/storage/" + receiverMobile + "/sendDocs"));
 			File aTempFile =null;
@@ -151,7 +157,8 @@ public class SendActivity extends Activity {
 		}
 
 	}
-
+	
+	
 
 	private String sendToEdakiaServer(String urlStr,String senderMobile, String senderPassword,String receiverMobile,String file) {
 		String response = null;
@@ -250,20 +257,24 @@ public class SendActivity extends Activity {
 
 
 	private void scanFileLookup(){
-		///mnt/storage/cannonEPP/scan_pdf
-		aFileobsFileObserver = new FileObserver("/mnt/storage/cannonEPP/scan_pdf") {
-
+		///mnt/storage/CanonEPP/scan_pdf
+		Log.d("FileObserver", "Inside scan file lookup");
+		aFileobsFileObserver = new FileObserver("/mnt/storage/CanonEPP/scan_pdf/", FileObserver.MOVED_TO) {
 			@Override
 			public void onEvent(int event, String path) {
 				try {
+					Log.d("FileObserver", "event "+ event);
 					Log.d("FileObserver", "Directory is being observed");
-
-					if(event == FileObserver.CREATE){
+					if(event == FileObserver.MOVED_TO){
 						Log.d("FileObserver", "File created has been observed.");
 
 						aFileobsFileObserver.stopWatching();
+						Log.d("FileObserver", "File created stop observing.");
+
 						stopService(getIntent());
-						File scanfile = new File("/mnt/storage/cannonEPP/scan_pdf");
+						Log.d("FileObserver", "File created stop service.");
+
+						File scanfile = new File("/mnt/storage/CanonEPP/scan_pdf");
 						scannedFile = scanfile.listFiles()[0].getAbsolutePath();
 						Intent sendIntent = new Intent(SendActivity.this, ConfirmSend.class);
 						sendIntent.putExtra("sendMobile", senderMobile);
@@ -274,10 +285,9 @@ public class SendActivity extends Activity {
 							sendIntent.setType("image/jpeg");
 							
 						}else{
-							sendIntent.setType("text/plain");
-
+							sendIntent.setType("application/pdf");
 						}
-
+						Thread.sleep(3000);
 						startActivity(sendIntent);
 						finish();
 					}

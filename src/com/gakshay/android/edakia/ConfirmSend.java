@@ -25,15 +25,20 @@ import android.os.FileObserver;
 import android.os.Handler;
 import android.os.Message;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -61,8 +66,8 @@ public class ConfirmSend extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_send);
-		prepareActivityContent();
-
+		//prepareActivityContent();
+		prepareConfirmSendDialogBox();
     }
 
     @Override
@@ -71,6 +76,66 @@ public class ConfirmSend extends Activity {
         return true;
     }
 
+    private void prepareConfirmSendDialogBox(){
+		 AlertDialog.Builder adb = new AlertDialog.Builder(this);
+			adb.setTitle("Confirm Send");
+			adb.setCancelable(false);
+			adb.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+			{
+				public void onClick(DialogInterface dialog, int id)
+				{
+					onDialogPressedOK();
+					//Action for 'Ok' Button
+				}
+			});
+
+
+			adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+			{
+				public void onClick(DialogInterface dialog, int id)
+				{
+					// Action for 'Cancel' Button
+					dialog.cancel();
+					onDialogPressedCancel();
+				}
+			});
+			
+			AlertDialog dialog = adb.create();
+			dialog.onWindowFocusChanged(false);
+			dialog.setCancelable(false);
+			Window window = dialog.getWindow();
+			WindowManager.LayoutParams wlp = window.getAttributes();
+
+			wlp.gravity = Gravity.BOTTOM;
+			wlp.width = 1000;
+			wlp.height = 1000;
+			WindowManager.LayoutParams params = window.getAttributes();  
+		       params.x = -100;  
+		       params.height = 70;  
+		       params.width = 1000;  
+		       params.y = -50;  
+		  
+		       dialog.getWindow().setAttributes(params); 
+		       wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+			window.setAttributes(wlp);
+			adb.setIcon(R.drawable.ic_launcher_send);
+			//adb.show(); 
+			dialog.show();
+	}
+
+    
+    private void onDialogPressedCancel(){
+		Toast.makeText(this, "Sending Your Document", Toast.LENGTH_LONG).show();
+		doSendFile();
+    }
+    
+    
+    private void onDialogPressedOK(){
+    	Toast.makeText(this, "Taking you home page.", Toast.LENGTH_LONG).show();
+		Intent homeIntent = new Intent(this, Edakia.class);
+		startActivity(homeIntent);
+		finish();
+    }
     
     
     public void prepareActivityContent(){
@@ -134,7 +199,7 @@ public class ConfirmSend extends Activity {
     
 
 	// Will be connected with the buttons via XML
-	public void doSendFile(View aview) {
+	public void doSendFile() {
 		
 		Intent intent = getIntent();
 		Bundle bundleData = intent.getExtras();
@@ -233,11 +298,12 @@ public class ConfirmSend extends Activity {
 			//text.setText(null);
 
 			if(sendResponse != null && sendResponse.contains("Exception")){
-				text.setText("Could not send your document !! \n Please make sure you file is correctly scanned.");
+				Toast.makeText(ConfirmSend.this, "Could not send your document.Plz check .", Toast.LENGTH_LONG).show();
 			}else{
 				Toast.makeText(ConfirmSend.this, "Your document has been sent.", Toast.LENGTH_LONG).show();
 				Intent homeIntent = new Intent(ConfirmSend.this, Edakia.class);
 				startActivity(homeIntent);
+				finish();
 			}
 
 		}
