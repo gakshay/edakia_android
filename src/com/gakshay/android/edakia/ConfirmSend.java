@@ -57,17 +57,13 @@ public class ConfirmSend extends Activity {
 	private String sendResponse;
 	private String file;
 	private String authURL = "http://www.edakia.in/transactions.xml";
-	private static final int REQUEST_STATUS = 1;
-	private FileObserver aFileobsFileObserver;
-	private String scannedFile;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_send);
-		//prepareActivityContent();
-		prepareConfirmSendDialogBox();
+        prepareConfirmSendDialogBox();
     }
 
     @Override
@@ -78,14 +74,13 @@ public class ConfirmSend extends Activity {
 
     private void prepareConfirmSendDialogBox(){
 		 AlertDialog.Builder adb = new AlertDialog.Builder(this);
-			adb.setTitle("Confirm Send");
+			adb.setTitle("Please Confirm to Send");
 			adb.setCancelable(false);
 			adb.setPositiveButton("Ok", new DialogInterface.OnClickListener()
 			{
 				public void onClick(DialogInterface dialog, int id)
 				{
 					onDialogPressedOK();
-					//Action for 'Ok' Button
 				}
 			});
 
@@ -94,7 +89,6 @@ public class ConfirmSend extends Activity {
 			{
 				public void onClick(DialogInterface dialog, int id)
 				{
-					// Action for 'Cancel' Button
 					dialog.cancel();
 					onDialogPressedCancel();
 				}
@@ -106,7 +100,7 @@ public class ConfirmSend extends Activity {
 			Window window = dialog.getWindow();
 			WindowManager.LayoutParams wlp = window.getAttributes();
 
-			wlp.gravity = Gravity.BOTTOM;
+			//wlp.gravity = Gravity.BOTTOM;
 			wlp.width = 1000;
 			wlp.height = 1000;
 			WindowManager.LayoutParams params = window.getAttributes();  
@@ -118,86 +112,24 @@ public class ConfirmSend extends Activity {
 		       dialog.getWindow().setAttributes(params); 
 		       wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
 			window.setAttributes(wlp);
-			adb.setIcon(R.drawable.ic_launcher_send);
-			//adb.show(); 
+			adb.setIcon(R.drawable.ic_launcher_send); 
 			dialog.show();
 	}
 
     
     private void onDialogPressedCancel(){
-		Toast.makeText(this, "Sending Your Document", Toast.LENGTH_LONG).show();
-		doSendFile();
-    }
-    
-    
-    private void onDialogPressedOK(){
-    	Toast.makeText(this, "Taking you home page.", Toast.LENGTH_LONG).show();
-		Intent homeIntent = new Intent(this, Edakia.class);
-		startActivity(homeIntent);
+    	Toast.makeText(this, "Please try again to send file :", Toast.LENGTH_LONG).show();
 		finish();
     }
     
     
-    public void prepareActivityContent(){
-
-		// Get intent, action and MIME type
-		Intent intent = getIntent();
-		String action = intent.getAction();
-		String type = intent.getType();
-
-			if ("text/plain".equals(type)) {
-				prepareTextDocument(intent); // Handle text being sent
-			} else if (type.startsWith("image/")) {
-				prepareImageDocument(intent); // Handle single image being sent
-			}
-	}
-
-    
-    private void prepareImageDocument(Intent intent){
-
-    	String imagePath =((Bundle) intent.getExtras()).getString("file");
-		File imgFile = new  File(imagePath.toString());
-		if(imgFile.exists())
-		{
-			Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-			ImageView myImage = (ImageView) findViewById(R.id.imageview01);
-			myImage.setImageBitmap(myBitmap);
-
-		}
-	}
+    private void onDialogPressedOK(){
+    	Toast.makeText(this, "Sending Your Document", Toast.LENGTH_LONG).show();
+		doSendFile();    	
+    }
     
     
-    private void prepareTextDocument(Intent intent){
-		try {
-	    	String textPath =((Bundle) intent.getExtras()).getString("file");
-
-			File textFile = new  File(textPath);
-			if(textFile.exists()){    
-				StringBuffer fileData = new StringBuffer(1000);
-				BufferedReader reader = new BufferedReader(new FileReader(textFile));
-				char[] buf = new char[1024];
-				int numRead = 0;
-				while ((numRead = reader.read(buf)) != -1) {
-					String readData = String.valueOf(buf, 0, numRead);
-					fileData.append(readData);
-					buf = new char[1024];
-				}
-				reader.close();
-
-				TextView text = (TextView) findViewById(R.id.textview01);
-				text.setText(fileData.toString());
-			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
     
-    
-
 	// Will be connected with the buttons via XML
 	public void doSendFile() {
 		
@@ -298,9 +230,9 @@ public class ConfirmSend extends Activity {
 			//text.setText(null);
 
 			if(sendResponse != null && sendResponse.contains("Exception")){
-				Toast.makeText(ConfirmSend.this, "Could not send your document.Plz check .", Toast.LENGTH_LONG).show();
+				Toast.makeText(ConfirmSend.this, "Could not send your document.\nPlz try again after some time.", Toast.LENGTH_LONG).show();
 			}else{
-				Toast.makeText(ConfirmSend.this, "Your document has been sent.", Toast.LENGTH_LONG).show();
+				Toast.makeText(ConfirmSend.this, "Your document has been sent.Try other transaction.", Toast.LENGTH_LONG).show();
 				Intent homeIntent = new Intent(ConfirmSend.this, Edakia.class);
 				startActivity(homeIntent);
 				finish();

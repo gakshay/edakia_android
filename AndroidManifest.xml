@@ -88,16 +88,21 @@
         </activity>
         <activity
             android:name=".ConfirmSend"
-            android:label="@string/title_activity_confirm_send" 
-           android:theme="@style/Theme.Transparent">
+            android:label="@string/title_activity_confirm_send"
+            android:theme="@style/Theme.Transparent" >
         </activity>
         <activity
             android:name=".PopUpActivity"
+            android:excludeFromRecents="true"
+            android:finishOnCloseSystemDialogs="true"
             android:label="@string/title_activity_pop_up"
-            android:theme="@style/Theme.Transparent"
-            android:excludeFromRecents="true" 
             android:noHistory="true"
-            android:finishOnCloseSystemDialogs="true">
+            android:theme="@style/Theme.Transparent" >
+        </activity>
+        <activity
+            android:name=".FileSelectionActivity"
+            android:label="@string/title_activity_file_selection"
+            android:theme="@style/Theme.Transparent"> 
         </activity>
     </application>
 

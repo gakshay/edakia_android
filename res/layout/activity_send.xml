@@ -51,7 +51,9 @@
         android:layout_below="@id/linearLayout1"
         android:layout_centerVertical="true"
         android:layout_marginTop="@dimen/padding_medium"
-        android:text="@string/EmptyString" />
+        android:text="@string/EmptyString"
+        android:textColor="@color/red" />
+
 
     <TextView
         android:id="@+id/TextView01"
@@ -77,14 +79,14 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="@string/recently_scanned_file_send_activity" 
-            android:tag="Recent"/>
+            android:tag="ScanAndSend"/>
 
         <RadioButton
             android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/edakia_file_send_activity" 
-            android:tag="Edakia"/>
+            android:tag="EdakiaAccount"/>
 
 
         <RadioButton
@@ -92,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/local_file_send_activity" 
-            android:tag="Browse"/>
+            android:tag="LocalFile"/>
 
     </RadioGroup>
 
@@ -107,5 +109,20 @@
         android:onClick="sendFile"
         android:text="@string/send_button_send_activity"
         android:textAllCaps="true" />
+    
+    
+     <!-- <TextView
+        android:id="@+id/Error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignRight="@+id/textView1"
+        android:layout_alignTop="@dimen/padding_medium"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_below="@id/linearLayout1"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:text="@string/EmptyString"
+        android:textColor="@color/red" /> -->
 
 </RelativeLayout>

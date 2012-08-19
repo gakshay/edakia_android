@@ -73,7 +73,7 @@ public class ReceiveActivity extends Activity {
 
 
 		//Validate mobile no.
-		int valStatusCode = Validator.validateMobileNumber(mobile).ordinal();
+		int valStatusCode = Validator.validateMobileNumber(mobile.getText().toString()).ordinal();
 		switch(valStatusCode){
 		case 1:
 			Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
@@ -88,7 +88,7 @@ public class ReceiveActivity extends Activity {
 		}
 
 		//Validate secret no.
-		valStatusCode = Validator.validateSecretNumber(secretCode).ordinal();
+		valStatusCode = Validator.validateSecretNumber(secretCode.getText().toString()).ordinal();
 		switch(valStatusCode){
 		case 3:
 			Toast.makeText(this, "Enter Secret Number", Toast.LENGTH_LONG).show();
@@ -121,7 +121,7 @@ public class ReceiveActivity extends Activity {
 	private void downloadImage(String urlStr,boolean showProcessingDialog) {
 		if(showProcessingDialog)
 			progressDialog = ProgressDialog.show(this, "", 
-					"Downloading Your Document \n प्राप्त हो रहा है \n ................" );
+					"Downloading Your Document \n à¤ªà¥�à¤°à¤¾à¤ªà¥�à¤¤ à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆ \n ................" );
 		final String url = urlStr;
 
 		new Thread() {
@@ -148,7 +148,7 @@ public class ReceiveActivity extends Activity {
 
 		if(showProcessingDialog)
 			progressDialog = ProgressDialog.show(this, "", 
-					"Downloading Your Document \n प्राप्त हो रहा है \n ................" + urlStr);
+					"Downloading Your Document \n à¤ªà¥�à¤°à¤¾à¤ªà¥�à¤¤ à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆ \n ................" + urlStr);
 		final String url = urlStr;
 
 		new CustomizedThread(showProcessingDialog) {

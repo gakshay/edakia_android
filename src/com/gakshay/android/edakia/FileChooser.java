@@ -58,7 +58,7 @@ public class FileChooser extends ListActivity {
 			 {
 				 if(!skipFiles.contains(ff.getName())){
 					 if(ff.isDirectory())
-							dir.add(new Option(ff.getName(),"Directory ()Go Inside -->",ff.getAbsolutePath()));
+							dir.add(new Option(ff.getName(),"This is a folder.",ff.getAbsolutePath()));
 						else
 						{
 							fls.add(new Option(ff.getName(),"Last Access Date : "+ dateFormatter.format(new Date(ff.lastModified()))  ,ff.getAbsolutePath()));
@@ -74,7 +74,7 @@ public class FileChooser extends ListActivity {
 		 Collections.sort(fls);
 		 dir.addAll(fls);
 		 if(!f.getName().equalsIgnoreCase("sdcard"))
-			 dir.add(0,new Option("..","Parent Directory ()Back <--",f.getParent()));
+			 dir.add(0,new Option("..","Parent Folder.",f.getParent()));
 		 adapter = new FileArrayAdapter(FileChooser.this,R.layout.file_view,dir);
 		 this.setListAdapter(adapter);
     }
@@ -83,7 +83,7 @@ public class FileChooser extends ListActivity {
 		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
 		Option o = adapter.getItem(position);
-		if(o.getData().equalsIgnoreCase("Directory ()Go Inside -->")||o.getData().equalsIgnoreCase("Parent Directory ()Back <--")){
+		if(o.getData().equalsIgnoreCase("This is a folder.")||o.getData().equalsIgnoreCase("Parent Folder.")){
 				currentDir = new File(o.getPath());
 				fill(currentDir);
 		}
