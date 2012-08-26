@@ -90,5 +90,28 @@
         android:text="@string/EmptyString"
         android:textColor="@color/red" />
     
+<LinearLayout
+        android:id="@+id/bottomlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@color/green"
+        android:minHeight="10dp"
+        android:orientation="vertical">
+    </LinearLayout>
 
+    <Button
+        android:id="@+id/CancelTransaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottomlayout"
+        android:background="@color/green"
+        android:text="@string/homeButton" 
+        android:onClick="rediretHomeActivity"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="31dp"
+        android:paddingRight="31dp"
+        android:layout_marginBottom="5dp"
+        />
 </RelativeLayout>

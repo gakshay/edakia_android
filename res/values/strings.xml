@@ -27,14 +27,22 @@
     <string name="authenticate_activity_authenticate_button">Authenticate Yourself</string>
     <string name="title_activity_send">Send File</string>
     <string name="receiver_mobile_send_activity">Enter Receiver Mobile Number</string>
+    <string name="receiver_email_send_activity">Enter Receiver Email</string>
     <string name="local_file_send_activity">Browse file from your pendrive/CD.</string>
     <string name="select_file_send_activity">Select a file to send</string>
     <string name="edakia_file_send_activity">Select a file from your Edakia account.</string>
     <string name="recently_scanned_file_send_activity">Scan and send the file.</string>
-    <string name="send_button_send_activity">Send</string>
+    <string name="send_button_send_activity">Send Your Document</string>
     <string name="title_activity_confirm_send">Confirm Your Scan</string>
     <string name="title_activity_pop_up">Confirm Your Scan</string>
     <string name="title_activity_browser_pictures">BrowserPicturesActivity</string>
     <string name="title_activity_file_selection">Select a File to Send</string>
+    <string name="homeButton">Cancel Transaction</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="receiver_email_receive_activity">Enter Your Email</string>
+    
+    
+   <string name="ORText">OR</string>
+    
 
 </resources>

@@ -32,16 +32,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gakshay.android.util.ActivitiesHelper;
 import com.gakshay.android.util.CustomizedThread;
 import com.gakshay.android.validation.Validator;
 
 
-public class ReceiveActivity extends Activity {
+public class ReceiveActivity extends BaseActivity {
 
 	private ProgressDialog progressDialog;	
 	private Bitmap bitmap;
 	private String documentName;
 	private String documentPath;
+	private EditText mobile;
+	private EditText secretCode;
+	private EditText receiverEmailAddress;
+	private String authURL = "http://staging.edakia.in/api/transactions/receive.xml";//"http://edakia.in/transactions/receive.xml";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -65,55 +70,30 @@ public class ReceiveActivity extends Activity {
 
 	public void getDocument(View view) {
 
-		EditText mobile = (EditText) findViewById(R.id.receiveMobile);
-		EditText secretCode = (EditText) findViewById(R.id.secretCode);
+		mobile = (EditText) findViewById(R.id.receiveMobile);
+		secretCode = (EditText) findViewById(R.id.secretCode);
+		receiverEmailAddress = (EditText) findViewById(R.id.receiverEmail);
 
-		//initialize error text value to null.
-		TextView text = (TextView) findViewById(R.id.textView3);
-
-
-		//Validate mobile no.
-		int valStatusCode = Validator.validateMobileNumber(mobile.getText().toString()).ordinal();
-		switch(valStatusCode){
-		case 1:
-			Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
-			text.setText("You missed mobile number. Plz enter the same.");
-			mobile.findFocus();
-			return;
-		case 2:
-			Toast.makeText(this, "Incorrect Mobile Number", Toast.LENGTH_LONG).show();
-			text.setText("You entered incorrect mobile number. Plz correct the same.");
-			mobile.findFocus();
-			return;		
+		if(validateInputData()){
+			try {// Process the request further.
+				downloadText(prepareEdakiaURL(mobile,secretCode,receiverEmailAddress),false);			
+			}
+			catch (Exception e) {
+				//handle the exception !
+				e.printStackTrace();
+			}
 		}
 
-		//Validate secret no.
-		valStatusCode = Validator.validateSecretNumber(secretCode.getText().toString()).ordinal();
-		switch(valStatusCode){
-		case 3:
-			Toast.makeText(this, "Enter Secret Number", Toast.LENGTH_LONG).show();
-			text.setText("You missed secret number. Plz enter the same.");
-			secretCode.findFocus();
-			return;
-		case 4:
-			Toast.makeText(this, "Incorrect Secret Code", Toast.LENGTH_LONG).show();
-			text.setText("You entered incorrect secret number. Plz correct the same");
-			secretCode.findFocus();
-			return;					
-		}
 
-		try {// Process the request further.
-			downloadText(prepareEdakiaURL(mobile,secretCode),false);			
-		}
-		catch (Exception e) {
-			//handle the exception !
-			e.printStackTrace();
-		}
 	}
 
-	private String prepareEdakiaURL(EditText mobile, EditText secretCode){
+	private String prepareEdakiaURL(EditText mobile, EditText secretCode, EditText emailAddress){
 		String edakiaURL = null;
-		edakiaURL = "http://edakia.in/transactions/receive.xml?transaction[receiver_mobile]=" + mobile.getText() + "&transaction[document_secret]="+secretCode.getText();	
+		//sample URL 
+		//http://staging.edakia.in/api/transactions/receive.xml?transaction[receiver_mobile]=<sender>&transaction[receiver_email]=<email>&transaction[document_secret]=<secret_code>&serial_number=<serial_number>
+		edakiaURL = authURL + "?transaction[receiver_mobile]=" + mobile.getText() + "&transaction[document_secret]="+secretCode.getText()
+				+ "&transaction[receiver_email]="+emailAddress.getText().toString() 
+				+ "&serial_number=" + getSerialNumber();	
 		return edakiaURL;
 	}
 
@@ -121,7 +101,7 @@ public class ReceiveActivity extends Activity {
 	private void downloadImage(String urlStr,boolean showProcessingDialog) {
 		if(showProcessingDialog)
 			progressDialog = ProgressDialog.show(this, "", 
-					"Downloading Your Document \n à¤ªà¥�à¤°à¤¾à¤ªà¥�à¤¤ à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆ \n ................" );
+					"Downloading Your Document \n  ................" );
 		final String url = urlStr;
 
 		new Thread() {
@@ -148,7 +128,7 @@ public class ReceiveActivity extends Activity {
 
 		if(showProcessingDialog)
 			progressDialog = ProgressDialog.show(this, "", 
-					"Downloading Your Document \n à¤ªà¥�à¤°à¤¾à¤ªà¥�à¤¤ à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆ \n ................" + urlStr);
+					"Downloading Your Document \n ................" + urlStr);
 		final String url = urlStr;
 
 		new CustomizedThread(showProcessingDialog) {
@@ -279,15 +259,6 @@ public class ReceiveActivity extends Activity {
 
 				progressDialog.dismiss();
 				try {
-					//save the text file @local
-					/*OutputStream outStream = null;
-					File file = new File(Environment.getExternalStorageDirectory(), documentName);
-					outStream = new FileOutputStream(file);
-					outStream.write(buffer)
-					outStream.flush();
-					outStream.close();*/
-					
-					
 					File outFile = new File(Environment.getExternalStorageDirectory(), documentName);
 					FileWriter out = new FileWriter(outFile);
 					//		out.write
@@ -343,23 +314,7 @@ public class ReceiveActivity extends Activity {
 			//Fetch value of document x path from returned XML string response.
 			if(responseXPath != null && !"".equalsIgnoreCase(responseXPath) && !responseXPath.contains("error")){
 				try{
-
-					XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-					factory.setNamespaceAware(true);
-					XmlPullParser xpp = factory.newPullParser();
-
-					xpp.setInput( new StringReader ( responseXPath ) );
-					int eventType = xpp.getEventType();
-					while (eventType != XmlPullParser.END_DOCUMENT) {
-						if(eventType == XmlPullParser.START_TAG && xpp.getName() != null && xpp.getName().equalsIgnoreCase("document_url")){
-							xpp.next();
-							if(xpp.getText().contains("edakia.in"))
-								//document found
-								documentPath = xpp.getText();
-							break;
-						}
-						eventType = xpp.next();
-					}
+					documentPath = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("document_url");
 
 					documentName = (documentPath.split("/"))[documentPath.split("/").length-1];
 					//Fetch document.
@@ -383,4 +338,63 @@ public class ReceiveActivity extends Activity {
 			}
 		}
 	};
+
+
+
+	private boolean validateInputData(){
+		boolean isValid = false;
+		//initialize error text value to null.
+
+		TextView text = (TextView) findViewById(R.id.Error);
+		text.setText(null);
+
+
+		//Validate mobile no.
+		int valStatusCode = Validator.validateMobileNumber(mobile.getText().toString()).ordinal();
+		switch(valStatusCode){
+		case 1:
+			Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
+			text.setText("You missed mobile number. Plz enter the same.");
+			mobile.findFocus();
+			return false;
+		case 2:
+			Toast.makeText(this, "Incorrect Mobile Number", Toast.LENGTH_LONG).show();
+			text.setText("You entered incorrect mobile number. Plz correct the same.");
+			mobile.findFocus();
+			return false;		
+		}
+
+		//Validate secret no.
+		valStatusCode = Validator.validateSecretNumber(secretCode.getText().toString()).ordinal();
+		switch(valStatusCode){
+		case 3:
+			Toast.makeText(this, "Enter Secret Number", Toast.LENGTH_LONG).show();
+			text.setText("You missed secret number. Plz enter the same.");
+			secretCode.findFocus();
+			return false;
+		case 4:
+			Toast.makeText(this, "Incorrect Secret Code", Toast.LENGTH_LONG).show();
+			text.setText("You entered incorrect secret number. Plz correct the same");
+			secretCode.findFocus();
+			return false;					
+		}
+
+		if (receiverEmailAddress != null && receiverEmailAddress.getText() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())) {
+			//Validate email address.
+			valStatusCode = Validator.validateEmailAddress(receiverEmailAddress.getText().toString()).ordinal();
+			switch (valStatusCode) {
+			case 7:
+				Toast.makeText(this, "Incorrect Email Address",Toast.LENGTH_LONG).show();
+				text.setText("You entered incorrect email address. Plz correct the same.");
+				receiverEmailAddress.findFocus();
+				return false;
+			}
+		}else{//send empty email address
+			receiverEmailAddress.setText("");
+		}
+		if(valStatusCode == 0)
+			isValid = true;
+		return isValid;	
+	}
+
 }

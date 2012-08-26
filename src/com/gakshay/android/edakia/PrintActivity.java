@@ -28,7 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class PrintActivity extends Activity {
+public class PrintActivity extends BaseActivity {
 
 	private ProgressDialog progressDialog;	
 	private Bitmap bitmap = null;

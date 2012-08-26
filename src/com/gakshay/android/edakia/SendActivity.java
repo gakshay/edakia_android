@@ -18,15 +18,17 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SendActivity extends Activity {
+public class SendActivity extends BaseActivity {
 	private String senderMobile;
 	private String senderPassword;
 	private EditText receiverMobile;
+	private EditText receiverEmailAddress;
 	private static final int FILE_SELECTED_STATUS = 1;
 	private static final int CONFIRM_SEND_STATUS = 2;
 	private static final int SCANNED_FILE_SELECTED_STATUS = 3;
 	private FileObserver aFileobsFileObserver;
 	private String scannedFile;
+	private String userId;
 	private String fileObserverPath = "/mnt/storage/CanonEPP/scan_pdf";
 	private RadioButton selectedRadioButton; 
 
@@ -57,6 +59,11 @@ public class SendActivity extends Activity {
 				sendIntent.putExtra("sendPassword", senderPassword);
 				sendIntent.putExtra("receiverMobile", receiverMobile.getText().toString());
 				sendIntent.putExtra("file", scannedFile);
+				sendIntent.putExtra("userId", userId);
+				sendIntent.putExtra("serialNumber", getSerialNumber());
+				sendIntent.putExtra("receiverEmail", receiverEmailAddress.getText().toString());
+
+
 				if(scannedFile != null && (scannedFile.contains("jpeg")  || scannedFile.contains("jpg") || scannedFile.contains("png"))){
 					sendIntent.setType("image/jpeg");
 					
@@ -65,7 +72,9 @@ public class SendActivity extends Activity {
 				}
 				startActivityForResult(sendIntent,CONFIRM_SEND_STATUS);
 		}else if (requestCode == CONFIRM_SEND_STATUS && resultCode == RESULT_OK){
-			
+			    if("killParentActivity".equalsIgnoreCase(data.getStringExtra("whichAction"))){
+			    	finish();
+			    }
 		}
 	}
 
@@ -73,6 +82,7 @@ public class SendActivity extends Activity {
 	// Will be connected with the buttons via XML
 	public void sendFile(View aview) {
 		receiverMobile = ((EditText) findViewById(R.id.receiverMobile));
+		receiverEmailAddress = ((EditText) findViewById(R.id.receiverEmail));
 
 		RadioGroup selectFileGroup = (RadioGroup)findViewById(R.id.selectFileGroup);
 		int selectedRadioButtonId = selectFileGroup.getCheckedRadioButtonId();
@@ -83,6 +93,8 @@ public class SendActivity extends Activity {
 			Bundle bundleData = intent.getExtras();
 			senderMobile =(String) bundleData.get("sendMobile");
 			senderPassword =(String) bundleData.get("sendPassword");
+			userId =(String) bundleData.get("userId");
+
 			if(selectedRadioButton.getTag().toString().equalsIgnoreCase("ScanAndSend")){//File Explorer.	
 				//prepare the document folder for this user.
 				prepareThisUserDocumentFolder();
@@ -154,6 +166,9 @@ public class SendActivity extends Activity {
 						sendIntent.putExtra("sendPassword", senderPassword);
 						sendIntent.putExtra("receiverMobile", receiverMobile.getText().toString());
 						sendIntent.putExtra("file", scannedFile);
+						sendIntent.putExtra("userId", userId);
+						sendIntent.putExtra("serialNumber", getSerialNumber());
+						sendIntent.putExtra("receiverEmail", receiverEmailAddress.getText().toString());
 						if(scannedFile != null && (scannedFile.contains("jpeg")  || scannedFile.contains("jpg") || scannedFile.contains("png"))){
 							sendIntent.setType("image/jpeg");
 							
@@ -161,8 +176,8 @@ public class SendActivity extends Activity {
 							sendIntent.setType("application/pdf");
 						}
 						Thread.sleep(3000);
-						startActivity(sendIntent);
-						finish();
+						startActivityForResult(sendIntent,CONFIRM_SEND_STATUS);
+						//finish();
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -196,7 +211,22 @@ public class SendActivity extends Activity {
 					receiverMobile.findFocus();
 					return false;		
 				}
+				
+				if (receiverEmailAddress != null && receiverEmailAddress.getText() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())) {
+					//Validate email address.
+					valStatusCode = Validator.validateEmailAddress(receiverEmailAddress.getText().toString()).ordinal();
+					switch(valStatusCode){
+					case 7:
+						Toast.makeText(this, "Incorrect Email Address", Toast.LENGTH_LONG).show();
+						text.setText("You entered incorrect email address. Plz correct the same.");
+						receiverEmailAddress.findFocus();
+						return false;				
+					}
 
+				}else{//send empty email address
+					receiverEmailAddress.setText("");		
+				}
+				
 				//Validate radio button selected.
 				if(selectedRadioButton == null || selectedRadioButton.getTag() == null || "".equalsIgnoreCase(selectedRadioButton.getTag().toString()))
 					return false;

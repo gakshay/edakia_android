@@ -3,6 +3,9 @@
  */
 package com.gakshay.android.validation;
 
+import java.util.regex.Pattern;
+
+import android.util.Patterns;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -47,6 +50,15 @@ public class Validator {
 		if(password.length() < 4 || password.length() > 6){
 			return ValidationErrorCodes.SECRET_CODE_INCORRECT;
 		}
+		return ValidationErrorCodes.SUCCESS;
+	}
+	
+	public static ValidationErrorCodes validateEmailAddress(String emailAddress){
+
+		Pattern pattern = Patterns.EMAIL_ADDRESS;
+	    if(!pattern.matcher(emailAddress).matches()){
+	    	return ValidationErrorCodes.INCORRECT_EMAIL_ADDRESS;
+	    }
 		return ValidationErrorCodes.SUCCESS;
 	}
 }

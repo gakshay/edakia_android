@@ -102,7 +102,11 @@
         <activity
             android:name=".FileSelectionActivity"
             android:label="@string/title_activity_file_selection"
-            android:theme="@style/Theme.Transparent"> 
+            android:theme="@style/Theme.Transparent" >
+        </activity>
+        <activity
+            android:name=".BaseActivity"
+            android:label="@string/title_activity_base" >
         </activity>
     </application>
 

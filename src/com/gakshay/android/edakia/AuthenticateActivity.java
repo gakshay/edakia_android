@@ -21,15 +21,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gakshay.android.util.ActivitiesHelper;
 import com.gakshay.android.validation.Validator;
 
-public class AuthenticateActivity extends Activity {
+public class AuthenticateActivity extends BaseActivity {
 
 	private ProgressDialog progressDialog;
 	private String authResponse;
 	private EditText mobile;
 	private EditText password;
-    private String authURL = "http://www.edakia.in/api/users.xml";
+	private String userId;
+    private String authURL = "http://staging.edakia.in/api/users.xml"; //"http://www.edakia.in/api/users.xml";
 
 
 	@Override
@@ -109,6 +111,7 @@ public class AuthenticateActivity extends Activity {
 				Intent sendIntent = new Intent(AuthenticateActivity.this, SendActivity.class);
 				sendIntent.putExtra("sendMobile", mobile.getText().toString());
 				sendIntent.putExtra("sendPassword", password.getText().toString());
+				sendIntent.putExtra("userId", userId);
 				startActivity(sendIntent);
 				finish();
 			}
@@ -165,14 +168,13 @@ public class AuthenticateActivity extends Activity {
 				Message msg = Message.obtain();
 				try {
 					authResponse = connectToServer(authURL, mobile, password);
+					if(authResponse != null && !"Exception".equalsIgnoreCase(authResponse))
+					userId = (ActivitiesHelper.fetchValuesFromReponse(authResponse)).get("id");
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 				messageHandler.sendMessage(msg);					
 			}
 		}.start();
-	}
-
-
-    
+	}    
 }

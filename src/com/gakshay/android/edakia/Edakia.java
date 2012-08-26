@@ -9,24 +9,31 @@ import android.view.View;
 
 public class Edakia extends Activity {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-       }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+	}
 
-    public void optionClickHandler(View view) {
-    	switch(view.getId()){
-    	case R.id.optionReceive:
-    		Intent receiveIntent = new Intent(Edakia.this, ReceiveActivity.class);
+	public void optionClickHandler(View view) {
+		switch(view.getId()){
+		case R.id.optionReceive:
+			Intent receiveIntent = new Intent(Edakia.this, ReceiveActivity.class);
 			Edakia.this.startActivity(receiveIntent);
-    		break;
-    	case R.id.optionSend:
-    		Intent authenticateIntent = new Intent(Edakia.this, AuthenticateActivity.class);
+			break;
+		case R.id.optionSend:
+			Intent authenticateIntent = new Intent(Edakia.this, AuthenticateActivity.class);
 			Edakia.this.startActivity(authenticateIntent);
-    		break;
-    	default:
-    		break;
-    	}
-    }
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		finish();
+	}
 }

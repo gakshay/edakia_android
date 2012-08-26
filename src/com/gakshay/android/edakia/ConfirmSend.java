@@ -47,7 +47,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
-public class ConfirmSend extends Activity {
+public class ConfirmSend extends BaseActivity {
 	
 	private static final int NO_WRAP = 2;
 	private ProgressDialog progressDialog;
@@ -56,7 +56,10 @@ public class ConfirmSend extends Activity {
 	private String receiverMobile;
 	private String sendResponse;
 	private String file;
-	private String authURL = "http://www.edakia.in/transactions.xml";
+	private String userId;
+	private String serialNumber;
+	private String receiverEmailAddress;
+	private String authURL =  "http://staging.edakia.in/api/transactions.xml";//"http://www.edakia.in/transactions.xml";
 
 
     @Override
@@ -118,14 +121,14 @@ public class ConfirmSend extends Activity {
 
     
     private void onDialogPressedCancel(){
-    	Toast.makeText(this, "Please try again to send file :", Toast.LENGTH_LONG).show();
+    	Toast.makeText(this, "Try again !!", Toast.LENGTH_LONG).show();
 		finish();
     }
     
     
     private void onDialogPressedOK(){
-    	Toast.makeText(this, "Sending Your Document", Toast.LENGTH_LONG).show();
-		doSendFile();    	
+    	Toast.makeText(this, "Sending Your Document.Have Patience......", Toast.LENGTH_LONG).show();
+		doSendFile();//don't finish activity here, finish it after you send your file.
     }
     
     
@@ -139,12 +142,16 @@ public class ConfirmSend extends Activity {
 		senderPassword =(String) bundleData.get("sendPassword");
 		receiverMobile =(String) bundleData.get("receiverMobile");
 		file =(String) bundleData.get("file");
+		serialNumber =(String) bundleData.get("serialNumber");
+		receiverEmailAddress =(String) bundleData.get("receiverEmail");
+		userId =(String) bundleData.get("userId");
+
 		sendFileToUser(true);
 
 	}
 	
 	
-	private String sendToEdakiaServer(String urlStr,String senderMobile, String senderPassword,String receiverMobile,String file) {
+	private String sendToEdakiaServer(String urlStr,String senderMobile, String senderPassword,String receiverMobile,String file,String userId,String serialNumber,String receiverEmailAdd) {
 		String response = null;
 		HttpClient httpclient = null;
 		try {
@@ -161,7 +168,11 @@ public class ConfirmSend extends Activity {
 
 			entity.addPart("transaction[document_attributes][doc]",new FileBody(new File(file) , "image/jpeg"));
 			entity.addPart("transaction[receiver_mobile]",new StringBody(receiverMobile));
+			entity.addPart("transaction[receiver_email]",new StringBody(receiverEmailAdd));
+			entity.addPart("transaction[document_attributes][user_id]",new StringBody(userId));
 			entity.addPart("transaction[sender_mobile]",new StringBody(senderMobile));
+			entity.addPart("serial_number",new StringBody(serialNumber));
+
 
 			httppost.setEntity(entity);
 
@@ -209,7 +220,7 @@ public class ConfirmSend extends Activity {
 				InputStream in = null;
 				Message msg = Message.obtain();
 				try {
-					sendResponse = sendToEdakiaServer(authURL, senderMobile, senderPassword,receiverMobile,file);
+					sendResponse = sendToEdakiaServer(authURL, senderMobile, senderPassword,receiverMobile,file,userId,serialNumber,receiverEmailAddress);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -233,11 +244,15 @@ public class ConfirmSend extends Activity {
 				Toast.makeText(ConfirmSend.this, "Could not send your document.\nPlz try again after some time.", Toast.LENGTH_LONG).show();
 			}else{
 				Toast.makeText(ConfirmSend.this, "Your document has been sent.Try other transaction.", Toast.LENGTH_LONG).show();
-				Intent homeIntent = new Intent(ConfirmSend.this, Edakia.class);
-				startActivity(homeIntent);
-				finish();
 			}
-
+			
+			Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
+			homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			Intent returnData = new Intent();
+	    	returnData.putExtra("whichAction","killParentActivity");
+	    	setResult(Activity.RESULT_OK,returnData);
+			startActivity(homeIntent);
+			finish();
 		}
 	};
 
