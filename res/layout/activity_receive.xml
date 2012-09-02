@@ -46,9 +46,7 @@
         android:contentDescription="@string/EmptyString"
         android:cropToPadding="true" />
 
-   
-    
-       <TextView
+    <TextView
         android:id="@+id/Error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,7 +71,8 @@
         android:orientation="vertical" >
     </LinearLayout>
 
-    <Button
+    <!--
+          <Button
         android:id="@+id/CancelTransaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -85,38 +84,7 @@
         android:paddingLeft="31dp"
         android:paddingRight="31dp"
         android:text="@string/homeButton" />
-
-    <Button
-        android:id="@+id/receiveNextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/CancelTransaction"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="14dp"
-        android:background="@color/green"
-        android:onClick="getDocument"
-        android:text="@string/next"
-        android:textAllCaps="true" />
-
-    <EditText
-        android:id="@+id/secretCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/receiveNextButton"
-        android:layout_alignLeft="@+id/CancelTransaction"
-        android:layout_marginBottom="26dp"
-        android:ems="10"
-        android:inputType="numberSigned"
-        android:maxLength="6" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/secretCode"
-        android:layout_centerHorizontal="true"
-        android:text="@string/secret_code"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    -->
 
     <TextView
         android:id="@+id/ORString"
@@ -144,5 +112,38 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:inputType="textEmailAddress" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/receiverEmail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="@string/secret_code"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/secretCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:inputType="numberSigned"
+        android:maxLength="6" />
+
+    <Button
+        android:id="@+id/receiveNextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/secretCode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:background="@color/green"
+        android:onClick="getDocument"
+        android:text="@string/next"
+        android:textAllCaps="true" />
 
 </RelativeLayout>
