@@ -110,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/receiverEmailText"
         android:layout_centerHorizontal="true"
-        android:ems="10"
+        android:ems="12"
         android:inputType="textEmailAddress" />
 
     <TextView

@@ -71,7 +71,6 @@
         android:layout_below="@+id/YourPassword"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp"
-        android:layout_padding="10dp"
         android:background="@color/green"
         android:onClick="authenticate"
         android:padding="20dp"
