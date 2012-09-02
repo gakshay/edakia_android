@@ -71,8 +71,10 @@
         android:layout_below="@+id/YourPassword"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp"
+        android:layout_padding="10dp"
         android:background="@color/green"
         android:onClick="authenticate"
+        android:padding="20dp"
         android:text="@string/authenticate_activity_authenticate_button"
         android:textAllCaps="true" />
 
@@ -101,7 +103,7 @@
         android:orientation="vertical">
     </LinearLayout>
 
-    <Button
+  <!-- <Button
         android:id="@+id/CancelTransaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -113,5 +115,5 @@
         android:paddingLeft="31dp"
         android:paddingRight="31dp"
         android:layout_marginBottom="5dp"
-        />
+        /> -->
 </RelativeLayout>

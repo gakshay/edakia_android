@@ -66,7 +66,8 @@
         android:orientation="vertical" >
     </LinearLayout>
 
-    <Button
+    <!--
+        <Button
         android:id="@+id/CancelTransaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -78,50 +79,7 @@
         android:paddingLeft="31dp"
         android:paddingRight="31dp"
         android:text="@string/homeButton" />
-
-    <Button
-        android:id="@+id/sendFileButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/CancelTransaction"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:background="@color/green"
-        android:onClick="sendFile"
-        android:paddingLeft="31dp"
-        android:paddingRight="31dp"
-        android:text="@string/send_button_send_activity"
-        android:textAllCaps="true" />
-
-    <RadioGroup
-        android:id="@+id/selectFileGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/sendFileButton"
-        android:layout_centerHorizontal="true" >
-
-        <RadioButton
-            android:id="@+id/radio0"
-            android:layout_width="273dp"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:tag="ScanAndSend"
-            android:text="@string/recently_scanned_file_send_activity" />
-
-        <RadioButton
-            android:id="@+id/radio1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:tag="EdakiaAccount"
-            android:text="@string/edakia_file_send_activity" />
-
-        <RadioButton
-            android:id="@+id/radio2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:tag="LocalFile"
-            android:text="@string/local_file_send_activity" />
-    </RadioGroup>
+    -->
 
     <EditText
         android:id="@+id/receiverMobile"
@@ -140,6 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/receiverMobile"
         android:layout_centerHorizontal="true"
+        android:padding="10dp"
         android:text="@string/ORText" />
 
     <TextView
@@ -155,18 +114,59 @@
         android:id="@+id/receiverEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/receiverEmailText"
         android:layout_below="@+id/receiverEmailText"
-        android:ems="10"
-        android:inputType="textEmailAddress" />
+        android:ems="15"
+        android:inputType="textEmailAddress"
+        android:padding="@dimen/padding_small" />
 
-    <TextView
+    <!--
+         <TextView
         android:id="@+id/TextView01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/selectFileGroup"
-        android:layout_alignParentLeft="true"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/receiverEmail"
+        android:layout_marginTop="20dp"
         android:text="@string/select_file_send_activity"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+    -->
+
+    <RadioGroup
+        android:id="@+id/selectFileGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/receiverMobile"
+        android:layout_alignTop="@+id/receiverEmail" >
+
+        <RadioButton
+            android:id="@+id/radio0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:checked="true"
+            android:tag="ScanAndSend"
+            android:text="@string/recently_scanned_file_send_activity" />
+
+        <RadioButton
+            android:id="@+id/radio2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="LocalFile"
+            android:text="@string/local_file_send_activity" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/sendFileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/selectFileGroup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:background="@color/green"
+        android:onClick="sendFile"
+        android:paddingLeft="31dp"
+        android:paddingRight="31dp"
+        android:text="@string/send_button_send_activity"
+        android:textAllCaps="true" />
 
 </RelativeLayout>

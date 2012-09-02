@@ -6,6 +6,7 @@
     <string name="title_activity_main">eDakia</string>
     <string name="option_send_button">Send Document \n सन्देश भेजे</string>
     <string name="option_receive_button">Receive Document \n सन्देश प्राप्त करे</string>
+    <string name="option_print">Print \n प्रिंट</string>
 
     <color name="green">#d1f099</color>
     <color name="yellow">#ffc000</color>
@@ -13,22 +14,22 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_receive">eDakia - Receive</string>
-    <string name="personal_mobile">Enter Your Mobile Number</string>
-    <string name="receiver_mobile">Enter Receiver Mobile Number</string>
-    <string name="secret_code">Enter Document Secret Code</string>
+    <string name="personal_mobile">Your Mobile Number</string>
+    <string name="receiver_mobile">Receiver Mobile Number</string>
+    <string name="secret_code">Secret Code</string>
     <string name="next">Next</string>
     <string name="print">Print \n छापिये</string>
     <string name="title_activity_print">PrintActivity</string>
     <string name="option_print_button">onPrintClick</string>
     <string name="EmptyString"></string>
-    <string name="title_activity_authenticate">Autenticate Your Self</string>
+    <string name="title_activity_authenticate">Authenticate Your Self</string>
     <string name="authenticate_activity_mobile">Enter Your Mobile Number</string>
     <string name="authenticate_activity_password">Enter Your Password</string>
-    <string name="authenticate_activity_authenticate_button">Authenticate Yourself</string>
+    <string name="authenticate_activity_authenticate_button">Login</string>
     <string name="title_activity_send">Send File</string>
-    <string name="receiver_mobile_send_activity">Enter Receiver Mobile Number</string>
-    <string name="receiver_email_send_activity">Enter Receiver Email</string>
-    <string name="local_file_send_activity">Browse file from your pendrive/CD.</string>
+    <string name="receiver_mobile_send_activity">Receiver Mobile</string>
+    <string name="receiver_email_send_activity">Receiver Email</string>
+    <string name="local_file_send_activity">Search a file</string>
     <string name="select_file_send_activity">Select a file to send</string>
     <string name="edakia_file_send_activity">Select a file from your Edakia account.</string>
     <string name="recently_scanned_file_send_activity">Scan and send the file.</string>
