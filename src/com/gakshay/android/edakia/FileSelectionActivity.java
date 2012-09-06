@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
@@ -147,16 +148,16 @@ public class FileSelectionActivity extends Activity {
 		Window window = dialog.getWindow();
 		WindowManager.LayoutParams wlp = window.getAttributes();
 
-		//wlp.gravity = Gravity.BOTTOM;
-		wlp.width = 1000;
+		wlp.gravity = Gravity.CENTER;
+	/*	wlp.width = 1000;
 		wlp.height = 1000;
 		WindowManager.LayoutParams params = window.getAttributes();  
 		params.x = -100;  
 		params.height = 70;  
 		params.width = 1000;  
-		params.y = -50;  
+		params.y = -50; */ 
 
-		dialog.getWindow().setAttributes(params); 
+		//dialog.getWindow().setAttributes(params); 
 		wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
 		window.setAttributes(wlp);
 		adb.setIcon(R.drawable.ic_launcher_send); 

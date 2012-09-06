@@ -1,5 +1,7 @@
 package com.gakshay.android.edakia;
 
+import java.io.BufferedOutputStream;
+import java.io.Externalizable;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -26,14 +28,18 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gakshay.android.util.ActivitiesHelper;
 import com.gakshay.android.util.CustomizedThread;
+import com.gakshay.android.util.NetworkOperations;
 import com.gakshay.android.validation.Validator;
 
 
@@ -52,6 +58,9 @@ public class ReceiveActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_receive);
+		StrictMode.ThreadPolicy policy = new StrictMode.
+				ThreadPolicy.Builder().permitAll().build();
+				StrictMode.setThreadPolicy(policy);
 	}
 
 	@Override
@@ -76,7 +85,7 @@ public class ReceiveActivity extends BaseActivity {
 
 		if(validateInputData()){
 			try {// Process the request further.
-				downloadText(prepareEdakiaURL(mobile,secretCode,receiverEmailAddress),false);			
+				readAndDownloadDocument(prepareEdakiaURL(mobile,secretCode,receiverEmailAddress));			
 			}
 			catch (Exception e) {
 				//handle the exception !
@@ -93,12 +102,12 @@ public class ReceiveActivity extends BaseActivity {
 		//http://staging.edakia.in/api/transactions/receive.xml?transaction[receiver_mobile]=<sender>&transaction[receiver_email]=<email>&transaction[document_secret]=<secret_code>&serial_number=<serial_number>
 		edakiaURL = authURL + "?transaction[receiver_mobile]=" + mobile.getText() + "&transaction[document_secret]="+secretCode.getText()
 				+ "&transaction[receiver_email]="+emailAddress.getText().toString() 
-				+ "&serial_number=" + getSerialNumber();	
+				+ "&serial_number=" + "3sdfdsfdsfdsf23432sdfdsfdsfdssd324";	
 		return edakiaURL;
 	}
 
 
-	private void downloadImage(String urlStr,boolean showProcessingDialog) {
+	/*private void downloadImage(final String reqURL, final String documentPath, final boolean showProcessingDialog,final String processingMsg) {
 		if(showProcessingDialog)
 			progressDialog = ProgressDialog.show(this, "", 
 					"Downloading Your Document \n  ................" );
@@ -123,38 +132,64 @@ public class ReceiveActivity extends BaseActivity {
 			}
 		}.start();
 	}
+*/
 
-	private void downloadText(String urlStr, final boolean showProcessingDialog) {
+	private void readAndDownloadDocument(final String reqURL) {
+			progressDialog = ProgressDialog.show(this, "", 
+					"Downloading Your Document \n  ................" );
+
+		new Thread() {
+			public void run() {
+				Message msg = Message.obtain();
+				msg.what = 1;
+				try {
+					Bundle b = new Bundle();
+					b.putString("response", NetworkOperations.readXMLResponseFromEdakia(reqURL));
+					msg.setData(b);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				messageHandlerForXPath.sendMessage(msg);					
+			}
+		}.start();
+	}
+
+	/*private void downloadText(final String reqURL, final String documentPath, final boolean showProcessingDialog,final String processingMsg) {
 
 		if(showProcessingDialog)
 			progressDialog = ProgressDialog.show(this, "", 
-					"Downloading Your Document \n ................" + urlStr);
-		final String url = urlStr;
+					processingMsg);
 
 		new CustomizedThread(showProcessingDialog) {
 			public void run() {
-				int BUFFER_SIZE = 2000;
 				InputStream in = null;
 				Message msg = Message.obtain();
 				msg.what=2;
 				try {
-					in = openHttpConnection(url);
-
+					in = openHttpConnection(reqURL);
 					InputStreamReader isr = new InputStreamReader(in);
 					int charRead;
 					String text = "";
 					char[] inputBuffer = new char[BUFFER_SIZE];
+					File outFile = new File("/mnt/sdcard/" +  documentName);
+					FileWriter out = new FileWriter(outFile);
 
 					while ((charRead = isr.read(inputBuffer))>0)
-					{                    
+					{      
+						if(showProcessingDialog){
+							out.write(inputBuffer, 0, charRead);
+						}
 						String readString = 
 								String.copyValueOf(inputBuffer, 0, charRead);                    
 						text += readString;
 						inputBuffer = new char[BUFFER_SIZE];
 					}
+					//out.flush();
+					out.close();
 					Bundle b = new Bundle();
 					b.putString("text", text);
 					msg.setData(b);
+					isr.close();
 					in.close();
 
 				}catch (IOException e2) {
@@ -170,35 +205,7 @@ public class ReceiveActivity extends BaseActivity {
 	}
 
 
-	private InputStream openHttpConnection(String urlStr){
-		InputStream in = null;
-		int resCode = -1;
-
-		try {
-			URL url = new URL(urlStr);
-			URLConnection urlConn = url.openConnection();
-
-			if (!(urlConn instanceof HttpURLConnection)) {
-				throw new IOException ("URL is not an Http URL");
-			}
-
-			HttpURLConnection httpConn = (HttpURLConnection)urlConn;
-			httpConn.setAllowUserInteraction(false);
-			httpConn.setInstanceFollowRedirects(true);
-			httpConn.setRequestMethod("GET");
-			httpConn.connect(); 
-
-			resCode = httpConn.getResponseCode();                 
-			if (resCode == HttpURLConnection.HTTP_OK) {
-				in = httpConn.getInputStream();                                 
-			}         
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return in;
-	}
+*/
 
 
 
@@ -207,6 +214,7 @@ public class ReceiveActivity extends BaseActivity {
 
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
+			String mimeType = (MimeTypeMap.getSingleton()).getMimeTypeFromExtension((MimeTypeMap.getFileExtensionFromUrl(documentPath)));
 			switch (msg.what) {
 			case 1:
 				progressDialog.dismiss();
@@ -221,11 +229,10 @@ public class ReceiveActivity extends BaseActivity {
 					outStream.close();
 
 					documentPath =Environment.getExternalStorageDirectory()+ "/" + documentName;
-
 					try {
 						Intent i = new Intent(Intent.ACTION_VIEW);
 						i.setPackage("com.dynamixsoftware.printershare");
-						i.setDataAndType(Uri.fromFile(new File(documentPath)), "image/jpeg");
+						i.setDataAndType(Uri.fromFile(new File(documentPath)), mimeType);
 						startActivity(i);
 
 
@@ -259,17 +266,24 @@ public class ReceiveActivity extends BaseActivity {
 
 				progressDialog.dismiss();
 				try {
-					File outFile = new File(Environment.getExternalStorageDirectory(), documentName);
+					/*File outFile = new File(Environment.getExternalStorageDirectory(), documentName);
 					FileWriter out = new FileWriter(outFile);
 					//		out.write
+					Log.d("valu of file text ", msg.getData().getString("text"));
 					out.write(msg.getData().getString("text"));
 					out.flush();
-					out.close();
+					out.close();*/
+
+					/*FileOutputStream fos = new FileOutputStream(new File(Environment.getExternalStorageDirectory(), documentName));
+					fos.write(((String)msg.getData().getString("text")).getBytes());
+					fos.flush();
+					fos.close();*/
+					documentPath =Environment.getExternalStorageDirectory()+ "/" + documentName;
 
 					try {
 						Intent i = new Intent(Intent.ACTION_VIEW);
 						i.setPackage("com.dynamixsoftware.printershare");
-						i.setDataAndType(Uri.fromFile(new File(documentPath)), "text/plain");
+						i.setDataAndType(Uri.fromFile(new File(documentPath)), mimeType);
 						startActivity(i);
 
 
@@ -309,8 +323,7 @@ public class ReceiveActivity extends BaseActivity {
 
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-			String responseXPath = msg.getData().getString("text");
-			String documentPath = null;
+			String responseXPath = msg.getData().getString("response");
 			//Fetch value of document x path from returned XML string response.
 			if(responseXPath != null && !"".equalsIgnoreCase(responseXPath) && !responseXPath.contains("error")){
 				try{
@@ -318,15 +331,37 @@ public class ReceiveActivity extends BaseActivity {
 
 					documentName = (documentPath.split("/"))[documentPath.split("/").length-1];
 					//Fetch document.
-					Toast.makeText(ReceiveActivity.this, "Thanks fetching Document !! ", Toast.LENGTH_LONG).show();		
-					if(documentPath.contains(".png") || documentPath.contains(".jpeg") || documentPath.contains(".jpg")){
-						downloadImage("http://" + documentPath, true);
+					boolean isFileCreated;
+					if(documentPath.contains(".png") || documentPath.contains(".jpeg") || documentPath.contains(".jpg") || documentPath.contains(".gif")){
+						//downloadImage(documentPath, true);
+						isFileCreated = NetworkOperations.readAndCreateImageDocumentFromEdakia(documentPath, Environment.getExternalStorageDirectory()+ "/" + documentName);
 					}else {
-						downloadText("http://" + documentPath, true);
+						isFileCreated = NetworkOperations.readAndCreateAnyDocumentFromEdakia(documentPath, Environment.getExternalStorageDirectory()+ "/" + documentName);
+					}
+					if(isFileCreated){
+						String mimeType = (MimeTypeMap.getSingleton()).getMimeTypeFromExtension((MimeTypeMap.getFileExtensionFromUrl(documentPath)));
+							
+							try {
+								Intent i = new Intent(Intent.ACTION_VIEW);
+								i.setPackage("com.dynamixsoftware.printershare");
+								i.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory()+ "/" + documentName)), mimeType);
+								startActivity(i);
+
+
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								Toast.makeText(ReceiveActivity.this, "Got some exception while trying to invoke printer share App !!  \n Going to Home Page" , Toast.LENGTH_LONG).show();
+								startActivity((new Intent(ReceiveActivity.this, Edakia.class)));
+							}
+							progressDialog.dismiss();	
+					}else{
+						Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find your document due to some internal error. Please bear with us for some time to serve you again.", Toast.LENGTH_LONG).show();	
 					}
 
 				}catch(Exception anExcep){
 					anExcep.printStackTrace();
+					Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find your document due to some internal error. Please bear with us for some time to serve you again.", Toast.LENGTH_LONG).show();
 				}
 			}else if(responseXPath.contains("error") && responseXPath.contains("Document not found")){
 				//could not find any document with this.
@@ -390,7 +425,7 @@ public class ReceiveActivity extends BaseActivity {
 				return false;
 			}
 		}else{//send empty email address
-			receiverEmailAddress.setText("");
+			//receiverEmailAddress.setText("");
 		}
 		if(valStatusCode == 0)
 			isValid = true;
