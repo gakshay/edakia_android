@@ -102,7 +102,7 @@ public class ReceiveActivity extends BaseActivity {
 		//http://staging.edakia.in/api/transactions/receive.xml?transaction[receiver_mobile]=<sender>&transaction[receiver_email]=<email>&transaction[document_secret]=<secret_code>&serial_number=<serial_number>
 		edakiaURL = authURL + "?transaction[receiver_mobile]=" + mobile.getText() + "&transaction[document_secret]="+secretCode.getText()
 				+ "&transaction[receiver_email]="+emailAddress.getText().toString() 
-				+ "&serial_number=" + "3sdfdsfdsfdsf23432sdfdsfdsfdssd324";	
+				+ "&serial_number=" + getSerialNumber();	
 		return edakiaURL;
 	}
 
