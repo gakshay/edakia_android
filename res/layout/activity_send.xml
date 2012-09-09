@@ -15,22 +15,9 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout1"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="30dp"
-        android:text="@string/receiver_mobile_send_activity"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
         android:id="@+id/Error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_alignRight="@+id/textView1"
         android:layout_alignTop="@dimen/padding_medium"
         android:layout_alignWithParentIfMissing="false"
         android:layout_below="@id/linearLayout1"
@@ -81,43 +68,6 @@
         android:text="@string/homeButton" />
     -->
 
-    <EditText
-        android:id="@+id/receiverMobile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="numberSigned"
-        android:maxLength="10"
-        android:padding="@dimen/padding_small" />
-
-    <TextView
-        android:id="@+id/ChooseOption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/receiverMobile"
-        android:layout_centerHorizontal="true"
-        android:padding="10dp"
-        android:text="@string/ORText" />
-
-    <TextView
-        android:id="@+id/receiverEmailText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ChooseOption"
-        android:layout_centerHorizontal="true"
-        android:text="@string/receiver_email_send_activity"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <EditText
-        android:id="@+id/receiverEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/sendFileButton"
-        android:layout_below="@+id/receiverEmailText"
-        android:ems="12"
-        android:inputType="textEmailAddress" />
 
     <!--
          <TextView
@@ -131,6 +81,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
     -->
 
+
+    <!--
     <RadioGroup
         android:id="@+id/selectFileGroup"
         android:layout_width="wrap_content"
@@ -154,19 +106,85 @@
             android:tag="LocalFile"
             android:text="@string/local_file_send_activity" />
     </RadioGroup>
+    -->
 
-    <Button
-        android:id="@+id/sendFileButton"
+    <TextView
+        android:id="@+id/receiverEmailText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/selectFileGroup"
+        android:layout_alignTop="@+id/Error"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
+        android:text="@string/receiver_email_send_activity"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/receiverEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/receiverEmailText"
+        android:layout_centerHorizontal="true"
+        android:ems="12"
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:id="@+id/ChooseOption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/receiverEmail"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:text="@string/ORText" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ChooseOption"
+        android:layout_centerHorizontal="true"
+        android:text="@string/receiver_mobile_send_activity"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/receiverMobile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:focusable="true"
+        android:ems="10"
+        android:inputType="numberSigned"
+        android:maxLength="10"
+        android:padding="@dimen/padding_small" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/scanFileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/receiverMobile"
+        android:layout_marginTop="46dp"
+        android:layout_toLeftOf="@+id/ChooseOption"
         android:background="@color/green"
-        android:onClick="sendFile"
+        android:onClick="scanFile"
         android:paddingLeft="31dp"
         android:paddingRight="31dp"
-        android:text="@string/send_button_send_activity"
+        android:text="@string/send_button_search_activity"
+        android:textAllCaps="true" />
+
+    <Button
+        android:id="@+id/searchFileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/scanFileButton"
+        android:layout_alignBottom="@+id/scanFileButton"
+        android:layout_toRightOf="@+id/ChooseOption"
+        android:background="@color/green"
+        android:onClick="searchFile"
+        android:paddingLeft="31dp"
+        android:paddingRight="31dp"
+        android:text="@string/send_button_scan_activity"
         android:textAllCaps="true" />
 
 </RelativeLayout>

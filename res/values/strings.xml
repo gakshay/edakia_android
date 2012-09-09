@@ -36,7 +36,8 @@
     <string name="select_file_send_activity">Select a file to send</string>
     <string name="edakia_file_send_activity">Select a file from your Edakia account.</string>
     <string name="recently_scanned_file_send_activity">Scan and send the file.</string>
-    <string name="send_button_send_activity">Send Your Document</string>
+    <string name="send_button_scan_activity">Copy</string>
+    <string name="send_button_search_activity">Search</string>
     <string name="title_activity_confirm_send">Confirm Your Scan</string>
     <string name="title_activity_pop_up">Confirm Your Scan</string>
     <string name="title_activity_browser_pictures">BrowserPicturesActivity</string>
