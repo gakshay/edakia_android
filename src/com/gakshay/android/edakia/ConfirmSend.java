@@ -1,9 +1,6 @@
 package com.gakshay.android.edakia;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,36 +16,25 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.FileObserver;
-import android.os.Handler;
-import android.os.Message;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v4.app.NavUtils;
 
 public class ConfirmSend extends BaseActivity {
-	
+
 	private static final int NO_WRAP = 2;
 	private ProgressDialog progressDialog;
 	private String senderMobile;
@@ -62,80 +48,80 @@ public class ConfirmSend extends BaseActivity {
 	private String authURL =  "http://staging.edakia.in/api/transactions.xml";//"http://www.edakia.in/transactions.xml";
 
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_confirm_send);
-        prepareConfirmSendDialogBox();
-    }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_confirm_send);
+		prepareConfirmSendDialogBox();
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_confirm_send, menu);
-        return true;
-    }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_confirm_send, menu);
+		return true;
+	}
 
-    private void prepareConfirmSendDialogBox(){
-		 AlertDialog.Builder adb = new AlertDialog.Builder(this);
-			adb.setTitle("Please Confirm to Send");
-			adb.setCancelable(false);
-			adb.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+	private void prepareConfirmSendDialogBox(){
+		AlertDialog.Builder adb = new AlertDialog.Builder(this);
+		adb.setTitle("Please Confirm to Send");
+		adb.setCancelable(false);
+		adb.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int id)
 			{
-				public void onClick(DialogInterface dialog, int id)
-				{
-					onDialogPressedOK();
-				}
-			});
+				onDialogPressedOK();
+			}
+		});
 
 
-			adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+		adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int id)
 			{
-				public void onClick(DialogInterface dialog, int id)
-				{
-					dialog.cancel();
-					onDialogPressedCancel();
-				}
-			});
-			
-			AlertDialog dialog = adb.create();
-			dialog.onWindowFocusChanged(false);
-			dialog.setCancelable(false);
-			Window window = dialog.getWindow();
-			WindowManager.LayoutParams wlp = window.getAttributes();
+				dialog.cancel();
+				onDialogPressedCancel();
+			}
+		});
 
-			//wlp.gravity = Gravity.BOTTOM;
-			wlp.width = 1000;
+		AlertDialog dialog = adb.create();
+		dialog.onWindowFocusChanged(false);
+		dialog.setCancelable(false);
+		Window window = dialog.getWindow();
+		WindowManager.LayoutParams wlp = window.getAttributes();
+
+		wlp.gravity = Gravity.CENTER;
+		/*wlp.width = 1000;
 			wlp.height = 1000;
 			WindowManager.LayoutParams params = window.getAttributes();  
 		       params.x = -100;  
 		       params.height = 70;  
 		       params.width = 1000;  
 		       params.y = -50;  
-		  
-		       dialog.getWindow().setAttributes(params); 
-		       wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-			window.setAttributes(wlp);
-			adb.setIcon(R.drawable.ic_launcher_send); 
-			dialog.show();
+
+		  dialog.getWindow().setAttributes(params); */
+		wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+		window.setAttributes(wlp);
+		adb.setIcon(R.drawable.ic_launcher_send); 
+		dialog.show();
 	}
 
-    
-    private void onDialogPressedCancel(){
-    	Toast.makeText(this, "Try again !!", Toast.LENGTH_LONG).show();
+
+	private void onDialogPressedCancel(){
+		Toast.makeText(this, "Try again !!", Toast.LENGTH_LONG).show();
 		finish();
-    }
-    
-    
-    private void onDialogPressedOK(){
-    	Toast.makeText(this, "Sending Your Document.Have Patience......", Toast.LENGTH_LONG).show();
+	}
+
+
+	private void onDialogPressedOK(){
+		Toast.makeText(this, "Sending Your Document.Have Patience......", Toast.LENGTH_LONG).show();
 		doSendFile();//don't finish activity here, finish it after you send your file.
-    }
-    
-    
-    
+	}
+
+
+
 	// Will be connected with the buttons via XML
 	public void doSendFile() {
-		
+
 		Intent intent = getIntent();
 		Bundle bundleData = intent.getExtras();
 		senderMobile =(String) bundleData.get("sendMobile");
@@ -149,8 +135,8 @@ public class ConfirmSend extends BaseActivity {
 		sendFileToUser(true);
 
 	}
-	
-	
+
+
 	private String sendToEdakiaServer(String urlStr,String senderMobile, String senderPassword,String receiverMobile,String file,String userId,String serialNumber,String receiverEmailAdd) {
 		String response = null;
 		HttpClient httpclient = null;
@@ -165,34 +151,34 @@ public class ConfirmSend extends BaseActivity {
 			httppost.setHeader("Authorization", "Basic " + authStringEnc);
 
 			MultipartEntity entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+			//Identify MIME type of the document
 
-			entity.addPart("transaction[document_attributes][doc]",new FileBody(new File(file) , "image/jpeg"));
+			String mimeType = (MimeTypeMap.getSingleton()).getMimeTypeFromExtension((MimeTypeMap.getFileExtensionFromUrl(file)));
+			entity.addPart("transaction[document_attributes][doc]",new FileBody(new File(file) , mimeType));
 			entity.addPart("transaction[receiver_mobile]",new StringBody(receiverMobile));
 			entity.addPart("transaction[receiver_email]",new StringBody(receiverEmailAdd));
 			entity.addPart("transaction[document_attributes][user_id]",new StringBody(userId));
 			entity.addPart("transaction[sender_mobile]",new StringBody(senderMobile));
-			entity.addPart("serial_number",new StringBody(serialNumber));
+			entity.addPart("serial_number",new StringBody(getSerialNumber()));
 
 
 			httppost.setEntity(entity);
 
 			HttpResponse httpResponse = httpclient.execute(httppost);
-			BufferedReader rd = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent()));
+			InputStream respStream = (InputStream)httpResponse.getEntity().getContent();
+			InputStreamReader isr = new InputStreamReader(respStream);
 
+			int numCharsRead;
+			char[] charArray = new char[2048];
+			StringBuffer sb = new StringBuffer();
+			while ((numCharsRead = isr.read(charArray)) > 0) {
+				sb.append(charArray, 0, numCharsRead);
+			}
+			response = sb.toString();
 
 			HttpEntity resEntity = httpResponse.getEntity();
 			Log.d("Response from server while uploading file : ",httpResponse.getStatusLine().toString());
-
-			String line = "";
-			while ((line = rd.readLine()) != null) {
-				Log.d("Response",line);
-				if (line.startsWith("Auth=")) {
-					String key = line.substring(5);
-					// Do something with the key
-				}
-
-			}
-			response = "Success";
+			Log.d("", response);
 			resEntity.consumeContent();
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
@@ -208,7 +194,7 @@ public class ConfirmSend extends BaseActivity {
 		return response;
 
 	}
-	
+
 
 
 	private void sendFileToUser(boolean showProcessDialog) {
@@ -239,18 +225,23 @@ public class ConfirmSend extends BaseActivity {
 			//initialize error text value to null.
 			TextView text = (TextView) findViewById(R.id.Error);
 			//text.setText(null);
+			Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
+			homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
 			if(sendResponse != null && sendResponse.contains("Exception")){
 				Toast.makeText(ConfirmSend.this, "Could not send your document.\nPlz try again after some time.", Toast.LENGTH_LONG).show();
+				homeIntent.putExtra("showCostDialogBox", "false");
 			}else{
 				Toast.makeText(ConfirmSend.this, "Your document has been sent.Try other transaction.", Toast.LENGTH_LONG).show();
+				homeIntent.putExtra("showCostDialogBox", "true");
+				homeIntent.putExtra("transactionType", "sent");
+				//homeIntent.putExtra("transactionMsg", "Total Cost : Rs " + ActivitiesHelper.fetchValuesFromReponse(sendResponse).get("cost"));
+				homeIntent.putExtra("transactionMsg", "Total Cost : Rs 10.");
+
 			}
-			
-			Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
-			homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			Intent returnData = new Intent();
-	    	returnData.putExtra("whichAction","killParentActivity");
-	    	setResult(Activity.RESULT_OK,returnData);
+			returnData.putExtra("whichAction","killParentActivity");
+			setResult(Activity.RESULT_OK,returnData);
 			startActivity(homeIntent);
 			finish();
 		}

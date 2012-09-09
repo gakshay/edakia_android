@@ -12,6 +12,7 @@ import android.os.FileObserver;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -63,13 +64,14 @@ public class SendActivity extends BaseActivity {
 				sendIntent.putExtra("serialNumber", getSerialNumber());
 				sendIntent.putExtra("receiverEmail", receiverEmailAddress.getText().toString());
 
-
-				if(scannedFile != null && (scannedFile.contains("jpeg")  || scannedFile.contains("jpg") || scannedFile.contains("png"))){
+				String mimeType = (MimeTypeMap.getSingleton()).getMimeTypeFromExtension((MimeTypeMap.getFileExtensionFromUrl(scannedFile)));
+				sendIntent.setType(mimeType);
+				/*if(scannedFile != null && (scannedFile.contains("jpeg")  || scannedFile.contains("jpg") || scannedFile.contains("png"))){
 					sendIntent.setType("image/jpeg");
 					
 				}else{
 					sendIntent.setType("application/pdf");
-				}
+				}*/
 				startActivityForResult(sendIntent,CONFIRM_SEND_STATUS);
 		}else if (requestCode == CONFIRM_SEND_STATUS && resultCode == RESULT_OK){
 			    if("killParentActivity".equalsIgnoreCase(data.getStringExtra("whichAction"))){
@@ -169,12 +171,14 @@ public class SendActivity extends BaseActivity {
 						sendIntent.putExtra("userId", userId);
 						sendIntent.putExtra("serialNumber", getSerialNumber());
 						sendIntent.putExtra("receiverEmail", receiverEmailAddress.getText().toString());
-						if(scannedFile != null && (scannedFile.contains("jpeg")  || scannedFile.contains("jpg") || scannedFile.contains("png"))){
+						String mimeType = (MimeTypeMap.getSingleton()).getMimeTypeFromExtension((MimeTypeMap.getFileExtensionFromUrl(scannedFile)));
+						sendIntent.setType(mimeType);
+						/*if(scannedFile != null && (scannedFile.contains("jpeg")  || scannedFile.contains("jpg") || scannedFile.contains("png"))){
 							sendIntent.setType("image/jpeg");
 							
 						}else{
 							sendIntent.setType("application/pdf");
-						}
+						}*/
 						Thread.sleep(3000);
 						startActivityForResult(sendIntent,CONFIRM_SEND_STATUS);
 						//finish();
