@@ -6,13 +6,18 @@
     <string name="title_activity_main">eDakia</string>
     <string name="option_send_button">Send Document \n सन्देश भेजे</string>
     <string name="option_receive_button">Receive Document \n सन्देश प्राप्त करे</string>
-    <string name="option_print">Print \n प्रिंट</string>
+    <string name="option_print">Print \n प्रिंट करे</string>
 
     <color name="green">#d1f099</color>
-    <color name="yellow">#ffc000</color>
+    <color name="yellow">#f9f9dd</color>
     <color name="red">#ff0000</color>
+    <color name="white">#ffffff</color>
+    
 
     <string name="hello_world">Hello world!</string>
+    <string name="postage">Mail Postage</string>
+    
+    
     <string name="title_activity_receive">eDakia - Receive</string>
     <string name="personal_mobile">Your Mobile Number</string>
     <string name="receiver_mobile">Receiver Mobile Number</string>
