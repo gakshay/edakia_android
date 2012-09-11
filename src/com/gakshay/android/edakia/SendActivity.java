@@ -1,6 +1,7 @@
 package com.gakshay.android.edakia;
 
 import java.io.File;
+import java.io.IOException;
 
 import com.gakshay.android.validation.Validator;
 
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.FileObserver;
+import android.provider.ContactsContract.Directory;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -33,7 +35,8 @@ public class SendActivity extends BaseActivity {
 	private FileObserver aFileobsFileObserver;
 	private String scannedFile;
 	private String userId;
-	private String fileObserverPath = "/mnt/storage/CanonEPP/scan_pdf";
+	private String fileObserverPath = "/mnt/storage/CanonEPP";
+	//private String fileObserverPath = "/mnt/storage/CanonEPP/scan_pdf";
 	private Button selectedSendButton; 
 
 
@@ -100,6 +103,14 @@ public class SendActivity extends BaseActivity {
 		receiverEmailAddress = ((EditText) findViewById(R.id.receiverEmail));
 		selectedSendButton = (Button)aview;
 
+		//Either provide mobile no. or email address not both.
+		if(receiverEmailAddress.getText().toString() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())
+				&& receiverMobile.getText().toString() != null && !"".equalsIgnoreCase(receiverMobile.getText().toString())){
+
+			Toast.makeText(this, "Please provide single input,either email address or mobile no.", Toast.LENGTH_LONG).show();
+			return;
+		}
+
 		if(validateInputData()){
 			Intent intent = getIntent();
 			Bundle bundleData = intent.getExtras();
@@ -144,17 +155,31 @@ public class SendActivity extends BaseActivity {
 	}
 
 	private void prepareThisUserDocumentFolder(){
-		File aScanPDFDir = new File(fileObserverPath);
-		Toast.makeText(this, "Preparing user Document", Toast.LENGTH_SHORT).show();
-		if(aScanPDFDir.exists() && aScanPDFDir.isDirectory() && aScanPDFDir.list().length != 0){//rename this directory name.
-			File aTempFile =null;
-			File[] aTempFilesCollection = aScanPDFDir.listFiles();
-			for(int i = 0; i < aTempFilesCollection.length; i++){
-				aTempFile = aTempFilesCollection[i];
-				aTempFile.delete();
-			}
+		Toast.makeText(this, "Processing Your Request", Toast.LENGTH_SHORT).show();
+		try {
+			deleteContentOfFile(new File(fileObserverPath+"/scan_pdf"));//delete existing any pdf files.
+			deleteContentOfFile(new File(fileObserverPath+"/scan_image"));//delete existing any scan files.
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
 
+	private void deleteContentOfFile(File file)
+			throws IOException{
+
+		if(file.isDirectory() && file.list() != null && file.list().length != 0){
+			//list all the directory contents
+			String files[] = file.list();
+			for (String temp : files) {
+				//construct the file structure
+				File fileDelete = new File(file, temp);
+				//recursive delete
+				deleteContentOfFile(fileDelete);
+			}
+		}else{
+			Log.d("File is already empty",file.getAbsolutePath());
+		}
 	}
 
 
@@ -162,9 +187,9 @@ public class SendActivity extends BaseActivity {
 	private void scanFileLookup(){
 		///mnt/storage/CanonEPP/scan_pdf
 		Log.d("FileObserver", "Inside scan file lookup");
-		aFileobsFileObserver = new FileObserver(fileObserverPath + "/", FileObserver.MOVED_TO) {
+		aFileobsFileObserver = new FileObserver(fileObserverPath+"/", FileObserver.MOVED_TO) {
 			@Override
-			public void onEvent(int event, String path) {
+			public void onEvent(int event, String observedFile) {
 				try {
 					Log.d("FileObserver", "event "+ event);
 					Log.d("FileObserver", "Directory is being observed");
@@ -178,7 +203,9 @@ public class SendActivity extends BaseActivity {
 						Log.d("FileObserver", "File created stop service.");
 
 						File scanfile = new File(fileObserverPath);
-						scannedFile = scanfile.listFiles()[0].getAbsolutePath();
+						//scannedFile = scanfile.listFiles()[0].getAbsolutePath();
+						scannedFile =  fileObserverPath+"/"+observedFile;
+						Log.d("file observed is ", scannedFile);
 						Intent sendIntent = new Intent(SendActivity.this, ConfirmSend.class);
 						sendIntent.putExtra("sendMobile", senderMobile);
 						sendIntent.putExtra("sendPassword", senderPassword);
@@ -189,12 +216,6 @@ public class SendActivity extends BaseActivity {
 						sendIntent.putExtra("receiverEmail", receiverEmailAddress.getText().toString());
 						String mimeType = (MimeTypeMap.getSingleton()).getMimeTypeFromExtension((MimeTypeMap.getFileExtensionFromUrl(scannedFile)));
 						sendIntent.setType(mimeType);
-						/*if(scannedFile != null && (scannedFile.contains("jpeg")  || scannedFile.contains("jpg") || scannedFile.contains("png"))){
-							sendIntent.setType("image/jpeg");
-
-						}else{
-							sendIntent.setType("application/pdf");
-						}*/
 						Thread.sleep(3000);
 						startActivityForResult(sendIntent,CONFIRM_SEND_STATUS);
 						//finish();
