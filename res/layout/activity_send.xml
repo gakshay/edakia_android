@@ -150,8 +150,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:focusable="true"
         android:ems="10"
+        android:focusable="true"
         android:inputType="numberSigned"
         android:maxLength="10"
         android:padding="@dimen/padding_small" >
@@ -164,13 +164,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/receiverMobile"
-        android:layout_marginTop="46dp"
-        android:layout_toLeftOf="@+id/ChooseOption"
+        android:layout_marginTop="42dp"
+        android:layout_toRightOf="@+id/ChooseOption"
         android:background="@color/green"
-        android:onClick="scanFile"
+        android:onClick="sendFile"
         android:paddingLeft="31dp"
         android:paddingRight="31dp"
-        android:text="@string/send_button_search_activity"
+        android:tag="scanFile"
+        android:text="@string/send_button_scan_activity"
         android:textAllCaps="true" />
 
     <Button
@@ -179,12 +180,13 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/scanFileButton"
         android:layout_alignBottom="@+id/scanFileButton"
-        android:layout_toRightOf="@+id/ChooseOption"
+        android:layout_toLeftOf="@+id/ChooseOption"
         android:background="@color/green"
-        android:onClick="searchFile"
+        android:onClick="sendFile"
         android:paddingLeft="31dp"
         android:paddingRight="31dp"
-        android:text="@string/send_button_scan_activity"
+        android:tag="searchFile"
+        android:text="@string/send_button_search_activity"
         android:textAllCaps="true" />
 
 </RelativeLayout>

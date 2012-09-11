@@ -1,15 +1,22 @@
 package com.gakshay.android.edakia;
 
 
+import java.io.File;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.MimeTypeMap;
+import android.widget.Toast;
 
 
 public class Edakia extends Activity {
+
+	private static final int ACTIVITY_CHOOSE_FILE = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -33,8 +40,40 @@ public class Edakia extends Activity {
 			Intent authenticateIntent = new Intent(Edakia.this, AuthenticateActivity.class);
 			Edakia.this.startActivity(authenticateIntent);
 			break;
+		case R.id.optionPrint:
+			Intent chooseFile,intent;
+			chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+			chooseFile.setType("file/*");
+			intent = Intent.createChooser(chooseFile, "Choose a file");
+			startActivityForResult(intent, ACTIVITY_CHOOSE_FILE);
+			break;	
 		default:
 			break;
+		}
+	}
+	
+	/** Called when an activity called by using startActivityForResult finishes. */
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if(requestCode == ACTIVITY_CHOOSE_FILE && resultCode == RESULT_OK){
+			Uri uri = data.getData();
+			Toast.makeText(this, "File selected to send :  " + uri.getPath(), Toast.LENGTH_LONG).show();
+			String mimeType = (MimeTypeMap.getSingleton()).getMimeTypeFromExtension((MimeTypeMap.getFileExtensionFromUrl(uri.getPath())));
+			try {
+				Intent i = new Intent(Intent.ACTION_VIEW);
+				i.setPackage("com.dynamixsoftware.printershare");
+				i.setDataAndType(Uri.fromFile(new File(uri.getPath())), mimeType);
+				startActivity(i);
+
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				Toast.makeText(this, "Invoke to printer share App didn't work !!  \n Going to Home Page" , Toast.LENGTH_LONG).show();
+			}
+
+
 		}
 	}
 

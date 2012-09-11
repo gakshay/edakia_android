@@ -60,7 +60,7 @@ public class ReceiveActivity extends BaseActivity {
 		setContentView(R.layout.activity_receive);
 		StrictMode.ThreadPolicy policy = new StrictMode.
 				ThreadPolicy.Builder().permitAll().build();
-				StrictMode.setThreadPolicy(policy);
+		StrictMode.setThreadPolicy(policy);
 	}
 
 	@Override
@@ -82,7 +82,13 @@ public class ReceiveActivity extends BaseActivity {
 		mobile = (EditText) findViewById(R.id.receiveMobile);
 		secretCode = (EditText) findViewById(R.id.secretCode);
 		receiverEmailAddress = (EditText) findViewById(R.id.receiverEmail);
+		//Either provide mobile no. or email address not both.
+		if(receiverEmailAddress.getText().toString() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())
+				&& mobile.getText().toString() != null && !"".equalsIgnoreCase(mobile.getText().toString())){
 
+			Toast.makeText(this, "Please provide single input,either email address or mobile no.", Toast.LENGTH_LONG).show();
+			return;
+		}
 		if(validateInputData()){
 			try {// Process the request further.
 				readAndDownloadDocument(prepareEdakiaURL(mobile,secretCode,receiverEmailAddress));			
@@ -102,7 +108,7 @@ public class ReceiveActivity extends BaseActivity {
 		//http://staging.edakia.in/api/transactions/receive.xml?transaction[receiver_mobile]=<sender>&transaction[receiver_email]=<email>&transaction[document_secret]=<secret_code>&serial_number=<serial_number>
 		edakiaURL = authURL + "?transaction[receiver_mobile]=" + mobile.getText() + "&transaction[document_secret]="+secretCode.getText()
 				+ "&transaction[receiver_email]="+emailAddress.getText().toString() 
-				+ "&serial_number=" + getSerialNumber();	
+				+ "&serial_number=" + "sdfdsfdsf324sdfsdfds324324";	
 		return edakiaURL;
 	}
 
@@ -132,11 +138,11 @@ public class ReceiveActivity extends BaseActivity {
 			}
 		}.start();
 	}
-*/
+	 */
 
 	private void readAndDownloadDocument(final String reqURL) {
-			progressDialog = ProgressDialog.show(this, "", 
-					"Downloading Your Document \n  ................" );
+		progressDialog = ProgressDialog.show(this, "", 
+				"Processing Your request \n  ................" );
 
 		new Thread() {
 			public void run() {
@@ -205,7 +211,7 @@ public class ReceiveActivity extends BaseActivity {
 	}
 
 
-*/
+	 */
 
 
 
@@ -326,6 +332,8 @@ public class ReceiveActivity extends BaseActivity {
 			String responseXPath = msg.getData().getString("response");
 			//Fetch value of document x path from returned XML string response.
 			if(responseXPath != null && !"".equalsIgnoreCase(responseXPath) && !responseXPath.contains("error")){
+				progressDialog.dismiss();	
+				progressDialog = ProgressDialog.show(ReceiveActivity.this, "","Downloading Your document \n  ................" );
 				try{
 					documentPath = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("document_url");
 
@@ -340,34 +348,40 @@ public class ReceiveActivity extends BaseActivity {
 					}
 					if(isFileCreated){
 						String mimeType = (MimeTypeMap.getSingleton()).getMimeTypeFromExtension((MimeTypeMap.getFileExtensionFromUrl(documentPath)));
-							
-							try {
-								Intent i = new Intent(Intent.ACTION_VIEW);
-								i.setPackage("com.dynamixsoftware.printershare");
-								i.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory()+ "/" + documentName)), mimeType);
-								startActivity(i);
+
+						try {
+							Intent i = new Intent(Intent.ACTION_VIEW);
+							i.setPackage("com.dynamixsoftware.printershare");
+							i.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory()+ "/" + documentName)), mimeType);
+							startActivity(i);
 
 
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-								Toast.makeText(ReceiveActivity.this, "Got some exception while trying to invoke printer share App !!  \n Going to Home Page" , Toast.LENGTH_LONG).show();
-								startActivity((new Intent(ReceiveActivity.this, Edakia.class)));
-							}
-							progressDialog.dismiss();	
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							Toast.makeText(ReceiveActivity.this, "Got some exception while trying to invoke printer share App !!  \n Going to Home Page" , Toast.LENGTH_LONG).show();
+							startActivity((new Intent(ReceiveActivity.this, Edakia.class)));
+						}
+						progressDialog.dismiss();
 					}else{
+						progressDialog.dismiss();
 						Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find your document due to some internal error. Please bear with us for some time to serve you again.", Toast.LENGTH_LONG).show();	
 					}
 
 				}catch(Exception anExcep){
+					progressDialog.dismiss();
 					anExcep.printStackTrace();
 					Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find your document due to some internal error. Please bear with us for some time to serve you again.", Toast.LENGTH_LONG).show();
 				}
 			}else if(responseXPath.contains("error") && responseXPath.contains("Document not found")){
+				progressDialog.cancel();
+				progressDialog.dismiss();
 				//could not find any document with this.
 				Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find document matching this secret code & mobile number. \n Please make sure you entered correct inputs.", Toast.LENGTH_LONG).show();
 			}
 			else {
+				progressDialog.dismiss();
+				progressDialog.cancel();
 				//some other error.
 				Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find your document due to some internal error. Please bear with us for some time to serve you again.", Toast.LENGTH_LONG).show();
 			}

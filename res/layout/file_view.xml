@@ -2,22 +2,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-   
-    
-       <LinearLayout
+
+    <!--
+    <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@color/green"
-        android:minHeight="10dp"
+        android:background="@color/light_green"
+        android:minHeight="3dp"
         android:orientation="vertical" >
     </LinearLayout>
-    
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_height="wrap_content" android:orientation="vertical" android:layout_width="fill_parent">
-<TextView android:text="@+id/TextView01" android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:textStyle="bold" android:layout_marginTop="5dip" android:layout_marginLeft="5dip"></TextView>
-<TextView android:text="@+id/TextView02" android:id="@+id/TextView02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10dip"></TextView>
-</LinearLayout>
+    -->
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/docIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dip"
+            android:paddingTop="10dip"
+            android:paddingBottom="10dip"
+            android:singleLine="true"
+            android:textStyle="bold" />
+
+        <!--
+        android:layout_marginLeft="5dip"
+            android:layout_marginTop="5dip"
+        -->
+
+        <TextView
+            android:id="@+id/fileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="10dip"
+            android:paddingTop="10dip"
+            android:scrollHorizontally="true"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/green"
+            android:textSize="14dip"
+            android:textStyle="bold"
+            android:typeface="serif" />
+
+    </LinearLayout>
+
 </RelativeLayout>

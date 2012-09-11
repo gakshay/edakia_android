@@ -11,13 +11,12 @@
     <color name="green">#d1f099</color>
     <color name="yellow">#f9f9dd</color>
     <color name="red">#ff0000</color>
-    <color name="white">#ffffff</color>
-    
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="light_green">#CEF2E0</color>
 
     <string name="hello_world">Hello world!</string>
     <string name="postage">Mail Postage</string>
-    
-    
     <string name="title_activity_receive">eDakia - Receive</string>
     <string name="personal_mobile">Your Mobile Number</string>
     <string name="receiver_mobile">Receiver Mobile Number</string>
@@ -47,9 +46,6 @@
     <string name="homeButton">Cancel Transaction</string>
     <string name="title_activity_base">BaseActivity</string>
     <string name="receiver_email_receive_activity">Email address</string>
-    
-    
-   <string name="ORText">OR</string>
-    
+    <string name="ORText">OR</string>
 
 </resources>

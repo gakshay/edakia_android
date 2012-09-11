@@ -16,6 +16,8 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.gakshay.android.util.ActivitiesHelper;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -235,8 +237,8 @@ public class ConfirmSend extends BaseActivity {
 				Toast.makeText(ConfirmSend.this, "Your document has been sent.Try other transaction.", Toast.LENGTH_LONG).show();
 				homeIntent.putExtra("showCostDialogBox", "true");
 				homeIntent.putExtra("transactionType", "sent");
-				//homeIntent.putExtra("transactionMsg", "Total Cost : Rs " + ActivitiesHelper.fetchValuesFromReponse(sendResponse).get("cost"));
-				homeIntent.putExtra("transactionMsg", "Total Cost : Rs 10.");
+				homeIntent.putExtra("transactionMsg", "Total Cost : Rs " + ActivitiesHelper.fetchValuesFromReponse(sendResponse).get("cost"));
+				//homeIntent.putExtra("transactionMsg", "Total Cost : Rs 10.");
 
 			}
 			Intent returnData = new Intent();

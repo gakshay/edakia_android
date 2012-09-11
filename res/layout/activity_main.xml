@@ -3,38 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:contentDescription="@string/app_name"
-    android:visibility="visible" >
-
-    <LinearLayout
-        android:id="@+id/navBottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/green"
-        android:clickable="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:longClickable="false"
-        android:minHeight="10dp"
-        android:orientation="vertical"
-        android:visibility="visible" >
-    </LinearLayout>
-
+    android:visibility="visible" 
+    android:background="@drawable/background">
+
     <Button
         android:id="@+id/optionSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/navBottom"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp"
-        android:background="@color/green"
+        android:background="@drawable/button"
         android:drawableLeft="@drawable/ic_launcher_send"
         android:focusableInTouchMode="true"
         android:onClick="optionClickHandler"
-        android:padding="@dimen/padding_small"
-        android:text="@string/option_send_button" />
-
+        android:padding="@dimen/padding_large"
+        android:text="@string/option_send_button"
+        android:textColor="@color/white"
+        android:textSize="30dip" />
+    
     <Button
         android:id="@+id/optionReceive"
         android:layout_width="wrap_content"
@@ -42,12 +28,14 @@
         android:layout_below="@+id/optionSend"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="52dp"
-        android:background="@color/green"
+        android:background="@drawable/button"
         android:drawableLeft="@drawable/ic_launcher_receive"
         android:onClick="optionClickHandler"
-        android:padding="@dimen/padding_small"
-        android:text="@string/option_receive_button" />
-    
+        android:padding="@dimen/padding_large"
+        android:text="@string/option_receive_button"
+        android:textColor="@color/white"
+        android:textSize="30dip" />
+
     <Button
         android:id="@+id/optionPrint"
         android:layout_width="wrap_content"
@@ -55,10 +43,29 @@
         android:layout_below="@+id/optionReceive"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="52dp"
-        android:background="@color/green"
+        android:background="@drawable/button"
         android:drawableLeft="@drawable/ic_launcher_print"
         android:onClick="optionClickHandler"
         android:padding="@dimen/padding_small"
-        android:text="@string/option_print" />
+        android:text="@string/option_print"
+        android:textColor="@color/white"
+        android:textSize="30dip" />
+
+    <LinearLayout
+        android:id="@+id/navBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@color/green"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="bottom"
+        android:longClickable="false"
+        android:minHeight="10dp"
+        android:orientation="vertical"
+        android:visibility="visible" >
+    </LinearLayout>
 
 </RelativeLayout>
