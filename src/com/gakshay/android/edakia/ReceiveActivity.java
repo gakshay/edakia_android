@@ -1,35 +1,18 @@
 package com.gakshay.android.edakia;
 
-import java.io.BufferedOutputStream;
-import java.io.Externalizable;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -38,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gakshay.android.util.ActivitiesHelper;
-import com.gakshay.android.util.CustomizedThread;
 import com.gakshay.android.util.NetworkOperations;
 import com.gakshay.android.validation.Validator;
 
@@ -82,13 +64,7 @@ public class ReceiveActivity extends BaseActivity {
 		mobile = (EditText) findViewById(R.id.receiveMobile);
 		secretCode = (EditText) findViewById(R.id.secretCode);
 		receiverEmailAddress = (EditText) findViewById(R.id.receiverEmail);
-		//Either provide mobile no. or email address not both.
-		if(receiverEmailAddress.getText().toString() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())
-				&& mobile.getText().toString() != null && !"".equalsIgnoreCase(mobile.getText().toString())){
 
-			Toast.makeText(this, "Please provide single input,either email address or mobile no.", Toast.LENGTH_LONG).show();
-			return;
-		}
 		if(validateInputData()){
 			try {// Process the request further.
 				readAndDownloadDocument(prepareEdakiaURL(mobile,secretCode,receiverEmailAddress));			
@@ -396,21 +372,54 @@ public class ReceiveActivity extends BaseActivity {
 
 		TextView text = (TextView) findViewById(R.id.Error);
 		text.setText(null);
+		//Either provide mobile no. or email address not both.
+		if(receiverEmailAddress.getText().toString() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())
+				&& mobile.getText().toString() != null && !"".equalsIgnoreCase(mobile.getText().toString())){
 
-
-		//Validate mobile no.
-		int valStatusCode = Validator.validateMobileNumber(mobile.getText().toString()).ordinal();
-		switch(valStatusCode){
-		case 1:
-			Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
-			text.setText("You missed mobile number. Plz enter the same.");
-			mobile.findFocus();
+			Toast.makeText(this, "Please provide single input,either email address or mobile no.", Toast.LENGTH_LONG).show();
 			return false;
-		case 2:
-			Toast.makeText(this, "Incorrect Mobile Number", Toast.LENGTH_LONG).show();
-			text.setText("You entered incorrect mobile number. Plz correct the same.");
-			mobile.findFocus();
-			return false;		
+		}
+
+		if((receiverEmailAddress.getText().toString() == null || "".equalsIgnoreCase(receiverEmailAddress.getText().toString()))
+				&& (mobile.getText().toString() == null || "".equalsIgnoreCase(mobile.getText().toString()))){
+
+			Toast.makeText(this, "Please provide inputs,either email address or mobile no. with secret code.", Toast.LENGTH_LONG).show();
+			return false;
+		}
+		int valStatusCode = -5;
+		if((receiverEmailAddress.getText() == null || "".equalsIgnoreCase(receiverEmailAddress.getText().toString()) || receiverEmailAddress.getText().toString().length() == 0)
+				&& (mobile.getText().toString() != null && !"".equalsIgnoreCase(mobile.getText().toString()) && mobile.getText().toString().length() != 0)){
+			//Validate mobile no.
+			valStatusCode = Validator.validateMobileNumber(mobile.getText().toString()).ordinal();
+			switch(valStatusCode){
+			case 1:
+				Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
+				text.setText("You missed mobile number. Plz enter the same.");
+				mobile.findFocus();
+				return false;
+			case 2:
+				Toast.makeText(this, "Incorrect Mobile Number", Toast.LENGTH_LONG).show();
+				text.setText("You entered incorrect mobile number. Plz correct the same.");
+				mobile.findFocus();
+				return false;		
+			}
+
+		}
+
+
+		if((mobile.getText() == null || "".equalsIgnoreCase(mobile.getText().toString()) || mobile.getText().toString().length() == 0)
+				&& (receiverEmailAddress.getText().toString() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString()) && receiverEmailAddress.getText().toString().length() != 0)){
+			if (receiverEmailAddress != null && receiverEmailAddress.getText() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())) {
+				//Validate email address.
+				valStatusCode = Validator.validateEmailAddress(receiverEmailAddress.getText().toString()).ordinal();
+				switch (valStatusCode) {
+				case 7:
+					Toast.makeText(this, "Incorrect Email Address",Toast.LENGTH_LONG).show();
+					text.setText("You entered incorrect email address. Plz correct the same.");
+					receiverEmailAddress.findFocus();
+					return false;
+				}
+			}
 		}
 
 		//Validate secret no.
@@ -428,19 +437,7 @@ public class ReceiveActivity extends BaseActivity {
 			return false;					
 		}
 
-		if (receiverEmailAddress != null && receiverEmailAddress.getText() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())) {
-			//Validate email address.
-			valStatusCode = Validator.validateEmailAddress(receiverEmailAddress.getText().toString()).ordinal();
-			switch (valStatusCode) {
-			case 7:
-				Toast.makeText(this, "Incorrect Email Address",Toast.LENGTH_LONG).show();
-				text.setText("You entered incorrect email address. Plz correct the same.");
-				receiverEmailAddress.findFocus();
-				return false;
-			}
-		}else{//send empty email address
-			//receiverEmailAddress.setText("");
-		}
+		
 		if(valStatusCode == 0)
 			isValid = true;
 		return isValid;	
