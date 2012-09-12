@@ -103,14 +103,6 @@ public class SendActivity extends BaseActivity {
 		receiverEmailAddress = ((EditText) findViewById(R.id.receiverEmail));
 		selectedSendButton = (Button)aview;
 
-		//Either provide mobile no. or email address not both.
-		if(receiverEmailAddress.getText().toString() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())
-				&& receiverMobile.getText().toString() != null && !"".equalsIgnoreCase(receiverMobile.getText().toString())){
-
-			Toast.makeText(this, "Please provide single input,either email address or mobile no.", Toast.LENGTH_LONG).show();
-			return;
-		}
-
 		if(validateInputData()){
 			Intent intent = getIntent();
 			Bundle bundleData = intent.getExtras();
@@ -174,8 +166,11 @@ public class SendActivity extends BaseActivity {
 			for (String temp : files) {
 				//construct the file structure
 				File fileDelete = new File(file, temp);
-				//recursive delete
-				deleteContentOfFile(fileDelete);
+				if(fileDelete.isDirectory())				//recursive delete
+					deleteContentOfFile(fileDelete);
+				else{
+					fileDelete.delete();
+				}
 			}
 		}else{
 			Log.d("File is already empty",file.getAbsolutePath());
@@ -238,34 +233,54 @@ public class SendActivity extends BaseActivity {
 		TextView text = (TextView) findViewById(R.id.Error);
 		text.setText(null);
 
-		//Validate mobile no.
-		int valStatusCode = Validator.validateMobileNumber(receiverMobile.getText().toString()).ordinal();
-		switch(valStatusCode){
-		case 1:
-			Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
-			text.setText("You missed mobile number. Plz enter the same.");
-			receiverMobile.findFocus();
+		//Either provide mobile no. or email address not both.
+		if(receiverEmailAddress.getText().toString() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())
+				&& receiverMobile.getText().toString() != null && !"".equalsIgnoreCase(receiverMobile.getText().toString())){
+
+			Toast.makeText(this, "Please provide single input,either email address or mobile no.", Toast.LENGTH_LONG).show();
 			return false;
-		case 2:
-			Toast.makeText(this, "Incorrect Mobile Number", Toast.LENGTH_LONG).show();
-			text.setText("You entered incorrect mobile number. Plz correct the same.");
-			receiverMobile.findFocus();
-			return false;		
 		}
 
-		if (receiverEmailAddress != null && receiverEmailAddress.getText() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())) {
-			//Validate email address.
-			valStatusCode = Validator.validateEmailAddress(receiverEmailAddress.getText().toString()).ordinal();
+		if((receiverEmailAddress.getText().toString() == null || "".equalsIgnoreCase(receiverEmailAddress.getText().toString()))
+				&& (receiverMobile.getText().toString() == null || "".equalsIgnoreCase(receiverMobile.getText().toString()))){
+
+			Toast.makeText(this, "Please provide any input,either email address or mobile no.", Toast.LENGTH_LONG).show();
+			return false;
+		}
+		int valStatusCode = -5;
+		if((receiverEmailAddress.getText() == null || "".equalsIgnoreCase(receiverEmailAddress.getText().toString()) || receiverEmailAddress.getText().toString().length() == 0)
+				&& (receiverMobile.getText().toString() != null && !"".equalsIgnoreCase(receiverMobile.getText().toString()) && receiverMobile.getText().toString().length() != 0)){
+			//Validate mobile no.
+			valStatusCode = Validator.validateMobileNumber(receiverMobile.getText().toString()).ordinal();
 			switch(valStatusCode){
-			case 7:
-				Toast.makeText(this, "Incorrect Email Address", Toast.LENGTH_LONG).show();
-				text.setText("You entered incorrect email address. Plz correct the same.");
-				receiverEmailAddress.findFocus();
-				return false;				
+			case 1:
+				Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
+				text.setText("You missed mobile number. Plz enter the same.");
+				receiverMobile.findFocus();
+				return false;
+			case 2:
+				Toast.makeText(this, "Incorrect Mobile Number", Toast.LENGTH_LONG).show();
+				text.setText("You entered incorrect mobile number. Plz correct the same.");
+				receiverMobile.findFocus();
+				return false;		
 			}
 
-		}else{//send empty email address
-			receiverEmailAddress.setText("");		
+		}
+
+
+		if((receiverMobile.getText() == null || "".equalsIgnoreCase(receiverMobile.getText().toString()) || receiverMobile.getText().toString().length() == 0)
+				&& (receiverEmailAddress.getText().toString() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString()) && receiverEmailAddress.getText().toString().length() != 0)){
+			if (receiverEmailAddress != null && receiverEmailAddress.getText() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())) {
+				//Validate email address.
+				valStatusCode = Validator.validateEmailAddress(receiverEmailAddress.getText().toString()).ordinal();
+				switch (valStatusCode) {
+				case 7:
+					Toast.makeText(this, "Incorrect Email Address",Toast.LENGTH_LONG).show();
+					text.setText("You entered incorrect email address. Plz correct the same.");
+					receiverEmailAddress.findFocus();
+					return false;
+				}
+			}
 		}
 
 		//Validate radio button selected.

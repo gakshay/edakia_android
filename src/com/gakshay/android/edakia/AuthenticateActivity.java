@@ -31,68 +31,75 @@ public class AuthenticateActivity extends BaseActivity {
 	private EditText mobile;
 	private EditText password;
 	private String userId;
-    private String authURL = "http://staging.edakia.in/api/users.xml"; //"http://www.edakia.in/api/users.xml";
+	private String authURL = "http://staging.edakia.in/api/users.xml"; //"http://www.edakia.in/api/users.xml";
 
 
 	@Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_authenticate);
-    }
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_authenticate);
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_authenticate, menu);
-        return true;
-    }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_authenticate, menu);
+		return true;
+	}
 
 	// Will be connected with the buttons via XML
 	public void authenticate(View aview) {
 		mobile = ((EditText) findViewById(R.id.YourMobile));
 		password = ((EditText) findViewById(R.id.YourPassword));
 		if(validateInputData())
-		authenticateUser(authURL, mobile.getText().toString(), password.getText().toString(),true);			
+			authenticateUser(authURL, mobile.getText().toString(), password.getText().toString(),true);			
 	}
-		
-	
+
+
 	private boolean validateInputData(){
 		boolean isValid = false;
 		TextView text = (TextView) findViewById(R.id.Error);
 		text.setText(null);
 
-		//Validate mobile no.
-				int valStatusCode = Validator.validateMobileNumber(mobile.getText().toString()).ordinal();
-				switch(valStatusCode){
-				case 1:
-					Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
-					text.setText("You missed mobile number. Plz enter the same.");
-					mobile.findFocus();
-					return false;
-				case 2:
-					Toast.makeText(this, "Incorrect Mobile Number", Toast.LENGTH_LONG).show();
-					text.setText("You entered incorrect mobile number. Plz correct the same.");
-					mobile.findFocus();
-					return false;		
-				}
+		//both are mandatory fields.
+		if((password.getText().toString() == null || "".equalsIgnoreCase(password.getText().toString()))
+				|| (mobile.getText().toString() == null || "".equalsIgnoreCase(mobile.getText().toString()))){
 
-				//Validate secret no.
-				valStatusCode = Validator.validatePassword(password.getText().toString()).ordinal();
-				switch(valStatusCode){
-				case 5:
-					Toast.makeText(this, "Enter your password.", Toast.LENGTH_LONG).show();
-					text.setText("You missed password number. Plz enter the same.");
-					password.findFocus();
-					return false;
-				case 6:
-					Toast.makeText(this, "Incorrect password.", Toast.LENGTH_LONG).show();
-					text.setText("You entered incorrect password . Plz correct the same");
-					password.findFocus();
-					return false;					
-				}		
-				
-				if(valStatusCode == 0)
-					 isValid = true;
-			return isValid;	
+			Toast.makeText(this, "Please provide both inputs,mobile number and secret number.", Toast.LENGTH_LONG).show();
+			return false;
+		}
+		//Validate mobile no.
+		int valStatusCode = Validator.validateMobileNumber(mobile.getText().toString()).ordinal();
+		switch(valStatusCode){
+		case 1:
+			Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
+			text.setText("You missed mobile number. Plz enter the same.");
+			mobile.findFocus();
+			return false;
+		case 2:
+			Toast.makeText(this, "Incorrect Mobile Number", Toast.LENGTH_LONG).show();
+			text.setText("You entered incorrect mobile number. Plz correct the same.");
+			mobile.findFocus();
+			return false;		
+		}
+
+		//Validate secret no.
+		valStatusCode = Validator.validatePassword(password.getText().toString()).ordinal();
+		switch(valStatusCode){
+		case 5:
+			Toast.makeText(this, "Enter your password.", Toast.LENGTH_LONG).show();
+			text.setText("You missed password number. Plz enter the same.");
+			password.findFocus();
+			return false;
+		case 6:
+			Toast.makeText(this, "Incorrect password.", Toast.LENGTH_LONG).show();
+			text.setText("You entered incorrect password . Plz correct the same");
+			password.findFocus();
+			return false;					
+		}		
+
+		if(valStatusCode == 0)
+			isValid = true;
+		return isValid;	
 	}
 
 	private Handler messageHandler = new Handler() {
@@ -103,7 +110,7 @@ public class AuthenticateActivity extends BaseActivity {
 			//initialize error text value to null.
 			TextView text = (TextView) findViewById(R.id.Error);
 			text.setText(null);
-			
+
 			if(authResponse.contains("Exception")){
 				text.setText("Could not authenticate You !! \n Please make sure you entered correct details.");
 			}else{
@@ -118,14 +125,14 @@ public class AuthenticateActivity extends BaseActivity {
 
 		}
 	};
-	
-	
+
+
 	private String connectToServer(String urlStr,String name, String password) {
 		String response = null;
 		try {
-			
+
 			String authString = name + ":" + password;
-			
+
 			byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
 			String authStringEnc = new String(authEncBytes);
 			URL url = new URL(urlStr);
@@ -153,11 +160,11 @@ public class AuthenticateActivity extends BaseActivity {
 			response = "Exception";
 		}
 		return response;
-		
+
 	}
-	
-	
-	
+
+
+
 	private void authenticateUser(final String authURL,final String mobile,final String password, boolean showProcessDialog) {
 		if(showProcessDialog)
 			progressDialog = ProgressDialog.show(this, "", 
@@ -169,7 +176,7 @@ public class AuthenticateActivity extends BaseActivity {
 				try {
 					authResponse = connectToServer(authURL, mobile, password);
 					if(authResponse != null && !"Exception".equalsIgnoreCase(authResponse))
-					userId = (ActivitiesHelper.fetchValuesFromReponse(authResponse)).get("id");
+						userId = (ActivitiesHelper.fetchValuesFromReponse(authResponse)).get("id");
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
