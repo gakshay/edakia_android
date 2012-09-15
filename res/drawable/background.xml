@@ -4,10 +4,11 @@
       <bitmap android:src="@drawable/ic_postage_long"
         android:gravity= "top"  />
     </item>
-    <item android:top="10dp" android:left="10dp">
-      <bitmap android:src="@drawable/ic_seal"
-        android:gravity="right" />
+    <item android:top="30dp" android:right="20dp">
+      <bitmap android:src="@drawable/ic_stamp"
+        android:gravity="top|right" />
     </item>
+    
     <item>
       <bitmap android:src="@drawable/ic_postage_long"
         android:gravity="bottom"  />
