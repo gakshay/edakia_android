@@ -23,11 +23,13 @@ public class Edakia extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		String showCostDialog = "false";
-		if(getIntent() != null && getIntent().getExtras() != null)
+		if(getIntent() != null && getIntent().getExtras() != null){
 			showCostDialog = (String)getIntent().getExtras().get("showCostDialogBox");
-		
-		if("true".equalsIgnoreCase(showCostDialog))
-			prepareCostDialogBox();
+			if("true".equalsIgnoreCase(showCostDialog))
+				prepareCostDialogBox();	
+		}	
+
+
 	}
 
 	public void optionClickHandler(View view) {
@@ -51,7 +53,7 @@ public class Edakia extends Activity {
 			break;
 		}
 	}
-	
+
 	/** Called when an activity called by using startActivityForResult finishes. */
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
