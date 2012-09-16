@@ -2,8 +2,10 @@ package com.gakshay.android.edakia;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -30,15 +32,14 @@ import com.gakshay.android.validation.Validator;
 public class ReceiveActivity extends BaseActivity {
 
 	private ProgressDialog progressDialog;	
-	private Bitmap bitmap;
 	private String documentName;
 	private String documentPath;
 	private EditText mobile;
 	private EditText secretCode;
 	private EditText receiverEmailAddress;
-	private FileObserver aFileobsFileObserver;
-	private String fileObserverPath = "/mnt/storage/Android/data/com.dynamixsoftware.printershare/cache/";
-	private static final int CONFIRM_SEND_STATUS = 2;
+	private String docTransCost;
+	private static final int PRINT_ACTIVITY = 1;
+	private String localEdakiaDocStorage = Environment.getExternalStorageDirectory() + "/EdakiaDocs/ReceiveDocs/";
 	private String authURL = "http://staging.edakia.in/api/transactions/receive.xml";//"http://edakia.in/transactions/receive.xml";
 
 	@Override
@@ -93,34 +94,6 @@ public class ReceiveActivity extends BaseActivity {
 		return edakiaURL;
 	}
 
-
-	/*private void downloadImage(final String reqURL, final String documentPath, final boolean showProcessingDialog,final String processingMsg) {
-		if(showProcessingDialog)
-			progressDialog = ProgressDialog.show(this, "", 
-					"Downloading Your Document \n  ................" );
-		final String url = urlStr;
-
-		new Thread() {
-			public void run() {
-				InputStream in = null;
-				Message msg = Message.obtain();
-				msg.what = 1;
-				try {
-					in = openHttpConnection(url);
-					bitmap = BitmapFactory.decodeStream(in);
-					Bundle b = new Bundle();
-					b.putParcelable("bitmap", bitmap);
-					msg.setData(b);
-					in.close();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				messageHandler.sendMessage(msg);					
-			}
-		}.start();
-	}
-	 */
-
 	private void readAndDownloadDocument(final String reqURL) {
 		progressDialog = ProgressDialog.show(this, "", 
 				"Processing Your request \n  ................" );
@@ -141,172 +114,40 @@ public class ReceiveActivity extends BaseActivity {
 		}.start();
 	}
 
-	/*private void downloadText(final String reqURL, final String documentPath, final boolean showProcessingDialog,final String processingMsg) {
-
-		if(showProcessingDialog)
-			progressDialog = ProgressDialog.show(this, "", 
-					processingMsg);
-
-		new CustomizedThread(showProcessingDialog) {
-			public void run() {
-				InputStream in = null;
-				Message msg = Message.obtain();
-				msg.what=2;
-				try {
-					in = openHttpConnection(reqURL);
-					InputStreamReader isr = new InputStreamReader(in);
-					int charRead;
-					String text = "";
-					char[] inputBuffer = new char[BUFFER_SIZE];
-					File outFile = new File("/mnt/sdcard/" +  documentName);
-					FileWriter out = new FileWriter(outFile);
-
-					while ((charRead = isr.read(inputBuffer))>0)
-					{      
-						if(showProcessingDialog){
-							out.write(inputBuffer, 0, charRead);
-						}
-						String readString = 
-								String.copyValueOf(inputBuffer, 0, charRead);                    
-						text += readString;
-						inputBuffer = new char[BUFFER_SIZE];
-					}
-					//out.flush();
-					out.close();
-					Bundle b = new Bundle();
-					b.putString("text", text);
-					msg.setData(b);
-					isr.close();
-					in.close();
-
-				}catch (IOException e2) {
-					e2.printStackTrace();
-				}
-				if(showProcessingDialog)
-					messageHandler.sendMessage(msg);
-				else{
-					messageHandlerForXPath.sendMessage(msg);
-				}
+	private void prepareThisUserDocumentFolder(){
+		try {
+			File edakiaDocsHome = new File(localEdakiaDocStorage);
+			if(edakiaDocsHome.exists() && edakiaDocsHome.isDirectory()){
+				deleteContentOfFile(new File(localEdakiaDocStorage));
+			}else{
+				edakiaDocsHome.mkdirs();
 			}
-		}.start();    
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
-	 */
+	private void deleteContentOfFile(File file)
+			throws IOException{
 
-
-
-
-	private Handler messageHandler = new Handler() {
-
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			String mimeType = (MimeTypeMap.getSingleton()).getMimeTypeFromExtension((MimeTypeMap.getFileExtensionFromUrl(documentPath)));
-			switch (msg.what) {
-			case 1:
-				progressDialog.dismiss();
-				try {
-					//save the data into a file.
-
-					OutputStream outStream = null;
-					File file = new File(Environment.getExternalStorageDirectory(), documentName);
-					outStream = new FileOutputStream(file);
-					bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
-					outStream.flush();
-					outStream.close();
-
-					documentPath =Environment.getExternalStorageDirectory()+ "/" + documentName;
-					try {
-						Intent i = new Intent(Intent.ACTION_VIEW);
-						i.setPackage("com.dynamixsoftware.printershare");
-						i.setDataAndType(Uri.fromFile(new File(documentPath)), mimeType);
-						startActivity(i);
-
-
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						Toast.makeText(ReceiveActivity.this, "Got some exception while trying to invoke printer share App !!  \n Going to Home Page" , Toast.LENGTH_LONG).show();
-						startActivity((new Intent(ReceiveActivity.this, Edakia.class)));
-
-					}
-
-
-
-					//commenting below code as to avoid internal print Activity call.
-					/*Intent intent = new Intent(ReceiveActivity.this,PrintActivity.class);
-					intent.setAction(Intent.ACTION_SEND);
-					intent.setData(Uri.parse(documentPath));
-					intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(documentPath));
-					intent.setType("image/jpeg");
-
-					startActivity(intent);
-					 */
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		if(file.isDirectory() && file.list() != null && file.list().length != 0){
+			//list all the directory contents
+			String files[] = file.list();
+			for (String temp : files) {
+				//construct the file structure
+				File fileDelete = new File(file, temp);
+				if(fileDelete.isDirectory())				//recursive delete
+					deleteContentOfFile(fileDelete);
+				else{
+					fileDelete.delete();
 				}
-
-
-				break;
-			case 2:
-
-				progressDialog.dismiss();
-				try {
-					/*File outFile = new File(Environment.getExternalStorageDirectory(), documentName);
-					FileWriter out = new FileWriter(outFile);
-					//		out.write
-					Log.d("valu of file text ", msg.getData().getString("text"));
-					out.write(msg.getData().getString("text"));
-					out.flush();
-					out.close();*/
-
-					/*FileOutputStream fos = new FileOutputStream(new File(Environment.getExternalStorageDirectory(), documentName));
-					fos.write(((String)msg.getData().getString("text")).getBytes());
-					fos.flush();
-					fos.close();*/
-					documentPath =Environment.getExternalStorageDirectory()+ "/" + documentName;
-
-					try {
-						Intent i = new Intent(Intent.ACTION_VIEW);
-						i.setPackage("com.dynamixsoftware.printershare");
-						i.setDataAndType(Uri.fromFile(new File(documentPath)), mimeType);
-						startActivity(i);
-						
-
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						Toast.makeText(ReceiveActivity.this, "Got some exception while trying to invoke printer share App !! ", Toast.LENGTH_LONG).show();
-						startActivity((new Intent(ReceiveActivity.this, Edakia.class)));
-
-
-					}
-					
-					scanFileLookup();
-					
-
-					//commenting below code as to avoid internal print Activity call.
-
-					/*documentPath =Environment.getExternalStorageDirectory()+ "/" + documentName;
-					Intent intent = new Intent(ReceiveActivity.this,PrintActivity.class);
-					intent.setAction(Intent.ACTION_SEND);
-					intent.setData(Uri.parse(documentPath));
-					intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(documentPath));
-					intent.setType("text/plain");
-
-					startActivity(intent);*/
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-
-				break;
 			}
-
+		}else{
+			Log.d("File is already empty",file.getAbsolutePath());
 		}
-	};
+	}
 
 
 	private Handler messageHandlerForXPath = new Handler() {
@@ -320,15 +161,16 @@ public class ReceiveActivity extends BaseActivity {
 				progressDialog = ProgressDialog.show(ReceiveActivity.this, "","Downloading Your document \n  ................" );
 				try{
 					documentPath = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("document_url");
-
+					docTransCost = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("cost");
 					documentName = (documentPath.split("/"))[documentPath.split("/").length-1];
+					prepareThisUserDocumentFolder();
 					//Fetch document.
 					boolean isFileCreated;
 					if(documentPath.contains(".png") || documentPath.contains(".jpeg") || documentPath.contains(".jpg") || documentPath.contains(".gif")){
 						//downloadImage(documentPath, true);
-						isFileCreated = NetworkOperations.readAndCreateImageDocumentFromEdakia(documentPath, Environment.getExternalStorageDirectory()+ "/" + documentName);
+						isFileCreated = NetworkOperations.readAndCreateImageDocumentFromEdakia(documentPath, localEdakiaDocStorage + documentName);
 					}else {
-						isFileCreated = NetworkOperations.readAndCreateAnyDocumentFromEdakia(documentPath, Environment.getExternalStorageDirectory()+ "/" + documentName);
+						isFileCreated = NetworkOperations.readAndCreateAnyDocumentFromEdakia(documentPath, localEdakiaDocStorage + documentName);
 					}
 					if(isFileCreated){
 						String mimeType = (MimeTypeMap.getSingleton()).getMimeTypeFromExtension((MimeTypeMap.getFileExtensionFromUrl(documentPath)));
@@ -337,7 +179,7 @@ public class ReceiveActivity extends BaseActivity {
 							Intent i = new Intent(Intent.ACTION_VIEW);
 							i.setPackage("com.dynamixsoftware.printershare");
 							i.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory()+ "/" + documentName)), mimeType);
-							startActivity(i);
+							startActivityForResult(i,PRINT_ACTIVITY);
 
 
 						} catch (Exception e) {
@@ -371,57 +213,6 @@ public class ReceiveActivity extends BaseActivity {
 			}
 		}
 	};
-	
-	private void scanFileLookup(){
-		///mnt/storage/CanonEPP/scan_pdf
-		Log.d("FileObserver", "Inside scan file lookup");
-		 aFileobsFileObserver = new FileObserver(fileObserverPath+"/") {
-			@Override
-			public void onEvent(int event, String observedFile) {
-				try {
-					Log.d("FileObserver", "event "+ event);
-					Log.d("FileObserver", "Directory is being observed");
-					File aFile = new File(fileObserverPath);
-					File[] subFiles = aFile.listFiles();
-					if (subFiles.length != 0) {
-						for (File asubFile : subFiles) {
-							Log.d("subFile", asubFile.getAbsolutePath());
-							Log.d("subFile", asubFile.getName());
-
-						}
-					}
-					if(event == FileObserver.DELETE || event == FileObserver.MOVED_FROM){
-						Log.d("FileObserver", "File created has been observed.");
-
-						aFileobsFileObserver.stopWatching();
-						Log.d("FileObserver", "File created stop observing.");
-
-						stopService(getIntent());
-						Log.d("FileObserver", "File created stop service.");
-
-						File scanfile = new File(fileObserverPath);
-						String scannedFile = scanfile.listFiles()[0].getAbsolutePath();
-						Log.d("file observed is ", scannedFile);
-						Intent sendIntent = new Intent(ReceiveActivity.this, ConfirmSend.class);
-					     String mimeType = (MimeTypeMap.getSingleton()).getMimeTypeFromExtension((MimeTypeMap.getFileExtensionFromUrl(scannedFile)));
-						sendIntent.setType(mimeType);
-						Thread.sleep(3000);
-						startActivityForResult(sendIntent,CONFIRM_SEND_STATUS);
-						//finish();
-					}
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-		};
-
-		aFileobsFileObserver.startWatching();
-		startService(getIntent());
-	}
-
-
 
 	private boolean validateInputData(){
 		boolean isValid = false;
@@ -494,10 +285,35 @@ public class ReceiveActivity extends BaseActivity {
 			return false;					
 		}
 
-		
+
 		if(valStatusCode == 0)
 			isValid = true;
 		return isValid;	
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		if(requestCode == PRINT_ACTIVITY){
+			if(resultCode == RESULT_OK){
+				Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
+				homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				Toast.makeText(this, "Please recieve your document.", Toast.LENGTH_LONG).show();
+				homeIntent.putExtra("showCostDialogBox", "true");
+				homeIntent.putExtra("transactionType", "received");
+				homeIntent.putExtra("transactionMsg", "Total Cost : Rs " + docTransCost);
+				startActivity(homeIntent);
+				finish();
+			}else{
+				Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
+				homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				homeIntent.putExtra("showCostDialogBox", "false");
+				Toast.makeText(this, "Due to some temporary error, could not receive your document.", Toast.LENGTH_LONG).show();
+				homeIntent.putExtra("showCostDialogBox", "false");
+				finish();
+			}
+
+		}
 	}
 
 }

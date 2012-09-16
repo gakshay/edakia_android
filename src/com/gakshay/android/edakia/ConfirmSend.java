@@ -238,7 +238,6 @@ public class ConfirmSend extends BaseActivity {
 				homeIntent.putExtra("showCostDialogBox", "true");
 				homeIntent.putExtra("transactionType", "sent");
 				homeIntent.putExtra("transactionMsg", "Total Cost : Rs " + ActivitiesHelper.fetchValuesFromReponse(sendResponse).get("cost"));
-				//homeIntent.putExtra("transactionMsg", "Total Cost : Rs 10.");
 
 			}
 			Intent returnData = new Intent();

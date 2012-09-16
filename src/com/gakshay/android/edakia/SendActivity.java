@@ -35,8 +35,7 @@ public class SendActivity extends BaseActivity {
 	private FileObserver aFileobsFileObserver;
 	private String scannedFile;
 	private String userId;
-	private String fileObserverPath = "/mnt/storage/CanonEPP";
-	//private String fileObserverPath = "/mnt/storage/CanonEPP/scan_pdf";
+	private String fileObserverPath = "/mnt/storage/CanonEPP/scan_pdf";
 	private Button selectedSendButton; 
 
 
@@ -197,7 +196,6 @@ public class SendActivity extends BaseActivity {
 						stopService(getIntent());
 						Log.d("FileObserver", "File created stop service.");
 
-						File scanfile = new File(fileObserverPath);
 						//scannedFile = scanfile.listFiles()[0].getAbsolutePath();
 						scannedFile =  fileObserverPath+"/"+observedFile;
 						Log.d("file observed is ", scannedFile);
