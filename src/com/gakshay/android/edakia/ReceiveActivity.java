@@ -10,9 +10,11 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.FileObserver;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -34,6 +36,9 @@ public class ReceiveActivity extends BaseActivity {
 	private EditText mobile;
 	private EditText secretCode;
 	private EditText receiverEmailAddress;
+	private FileObserver aFileobsFileObserver;
+	private String fileObserverPath = "/mnt/storage/Android/data/com.dynamixsoftware.printershare/cache/";
+	private static final int CONFIRM_SEND_STATUS = 2;
 	private String authURL = "http://staging.edakia.in/api/transactions/receive.xml";//"http://edakia.in/transactions/receive.xml";
 
 	@Override
@@ -267,7 +272,7 @@ public class ReceiveActivity extends BaseActivity {
 						i.setPackage("com.dynamixsoftware.printershare");
 						i.setDataAndType(Uri.fromFile(new File(documentPath)), mimeType);
 						startActivity(i);
-
+						
 
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -277,6 +282,9 @@ public class ReceiveActivity extends BaseActivity {
 
 
 					}
+					
+					scanFileLookup();
+					
 
 					//commenting below code as to avoid internal print Activity call.
 
@@ -363,6 +371,55 @@ public class ReceiveActivity extends BaseActivity {
 			}
 		}
 	};
+	
+	private void scanFileLookup(){
+		///mnt/storage/CanonEPP/scan_pdf
+		Log.d("FileObserver", "Inside scan file lookup");
+		 aFileobsFileObserver = new FileObserver(fileObserverPath+"/") {
+			@Override
+			public void onEvent(int event, String observedFile) {
+				try {
+					Log.d("FileObserver", "event "+ event);
+					Log.d("FileObserver", "Directory is being observed");
+					File aFile = new File(fileObserverPath);
+					File[] subFiles = aFile.listFiles();
+					if (subFiles.length != 0) {
+						for (File asubFile : subFiles) {
+							Log.d("subFile", asubFile.getAbsolutePath());
+							Log.d("subFile", asubFile.getName());
+
+						}
+					}
+					if(event == FileObserver.DELETE || event == FileObserver.MOVED_FROM){
+						Log.d("FileObserver", "File created has been observed.");
+
+						aFileobsFileObserver.stopWatching();
+						Log.d("FileObserver", "File created stop observing.");
+
+						stopService(getIntent());
+						Log.d("FileObserver", "File created stop service.");
+
+						File scanfile = new File(fileObserverPath);
+						String scannedFile = scanfile.listFiles()[0].getAbsolutePath();
+						Log.d("file observed is ", scannedFile);
+						Intent sendIntent = new Intent(ReceiveActivity.this, ConfirmSend.class);
+					     String mimeType = (MimeTypeMap.getSingleton()).getMimeTypeFromExtension((MimeTypeMap.getFileExtensionFromUrl(scannedFile)));
+						sendIntent.setType(mimeType);
+						Thread.sleep(3000);
+						startActivityForResult(sendIntent,CONFIRM_SEND_STATUS);
+						//finish();
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		};
+
+		aFileobsFileObserver.startWatching();
+		startService(getIntent());
+	}
 
 
 
