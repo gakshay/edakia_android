@@ -107,6 +107,8 @@ public class Edakia extends Activity {
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				//do nothing.
+				dialog.cancel();
+				dialog.dismiss();
 			}
 		});
 		altDialog.show();
