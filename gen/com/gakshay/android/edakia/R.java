@@ -35,17 +35,19 @@ public final class R {
         public static final int ic_launcher_print=0x7f020008;
         public static final int ic_launcher_receive=0x7f020009;
         public static final int ic_launcher_send=0x7f02000a;
-        public static final int ic_postage_long=0x7f02000b;
-        public static final int ic_seal=0x7f02000c;
-        public static final int ic_stamp=0x7f02000d;
-        public static final int icn_doc=0x7f02000e;
-        public static final int icn_folder=0x7f02000f;
-        public static final int icn_img=0x7f020010;
-        public static final int icn_pdf=0x7f020011;
-        public static final int icn_ppt=0x7f020012;
-        public static final int icn_txt=0x7f020013;
-        public static final int icn_xls=0x7f020014;
-        public static final int repeat_postage=0x7f020015;
+        public static final int ic_postage=0x7f02000b;
+        public static final int ic_postage_long=0x7f02000c;
+        public static final int ic_seal=0x7f02000d;
+        public static final int ic_seal_bnw=0x7f02000e;
+        public static final int ic_stamp=0x7f02000f;
+        public static final int icn_doc=0x7f020010;
+        public static final int icn_folder=0x7f020011;
+        public static final int icn_img=0x7f020012;
+        public static final int icn_pdf=0x7f020013;
+        public static final int icn_ppt=0x7f020014;
+        public static final int icn_txt=0x7f020015;
+        public static final int icn_xls=0x7f020016;
+        public static final int repeat_postage=0x7f020017;
     }
     public static final class id {
         public static final int CancelTransaction=0x7f09001a;

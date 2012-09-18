@@ -24,14 +24,14 @@
     <string name="secret_code">Secret Code (कोड)</string>
     <string name="receive">eDak Receive \n ई-डाक पाए</string>
     <string name="print">Print \n छापिये</string>
-    <string name="title_activity_print">PrintActivity</string>
+    <string name="title_activity_print">eDakia - Print</string>
     <string name="option_print_button">onPrintClick</string>
     <string name="EmptyString"></string>
-    <string name="title_activity_authenticate">Verifying</string>
+    <string name="title_activity_authenticate">eDakia - Authenticate</string>
     <string name="authenticate_activity_mobile">Enter Your Mobile Number \n आपका मोबाइल नंबर</string>
     <string name="authenticate_activity_password">Enter Your Password \n आपका पिन कोड</string>
     <string name="authenticate_activity_authenticate_button">Login \n साइन</string>
-    <string name="title_activity_send">Send File</string>
+    <string name="title_activity_send">eDakia - Send File</string>
     <string name="receiver_mobile_send_activity">Receiver Mobile \n पाने वाले का मोबाइल</string>
     <string name="receiver_email_send_activity">Receiver Email \n पाने वाले का ई-मेल</string>
     <string name="local_file_send_activity">Search a file</string>
@@ -40,12 +40,12 @@
     <string name="recently_scanned_file_send_activity">Scan and send the file.</string>
     <string name="send_button_scan_activity">Copy \n कॉपी</string>
     <string name="send_button_search_activity">Search \n खोजे</string>
-    <string name="title_activity_confirm_send">Confirm Your Scan</string>
-    <string name="title_activity_pop_up">Confirm Your Scan</string>
+    <string name="title_activity_confirm_send">eDakia - Confirm Your Scan</string>
+    <string name="title_activity_pop_up">eDakia - Confirm Your Scan</string>
     <string name="title_activity_browser_pictures">BrowserPicturesActivity</string>
     <string name="title_activity_file_selection">Select a File to Send</string>
-    <string name="homeButton">Cancel Transaction</string>
-    <string name="title_activity_base">BaseActivity</string>
+    <string name="homeButton">Cancel Mail</string>
+    <string name="title_activity_base">eDakia - Base</string>
     <string name="receiver_email_receive_activity">Email Address (ई-मेल)</string>
     <string name="ORText">OR (या)</string>
 
