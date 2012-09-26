@@ -118,7 +118,7 @@ public class ReceiveActivity extends BaseActivity {
 		try {
 			File edakiaDocsHome = new File(localEdakiaDocStorage);
 			if(edakiaDocsHome.exists() && edakiaDocsHome.isDirectory()){
-				deleteContentOfFile(new File(localEdakiaDocStorage));
+				ActivitiesHelper.deleteContentOfFile(new File(localEdakiaDocStorage));
 			}else{
 				edakiaDocsHome.mkdirs();
 			}
@@ -127,28 +127,6 @@ public class ReceiveActivity extends BaseActivity {
 			e.printStackTrace();
 		}
 	}
-
-
-	private void deleteContentOfFile(File file)
-			throws IOException{
-
-		if(file.isDirectory() && file.list() != null && file.list().length != 0){
-			//list all the directory contents
-			String files[] = file.list();
-			for (String temp : files) {
-				//construct the file structure
-				File fileDelete = new File(file, temp);
-				if(fileDelete.isDirectory())				//recursive delete
-					deleteContentOfFile(fileDelete);
-				else{
-					fileDelete.delete();
-				}
-			}
-		}else{
-			Log.d("File is already empty",file.getAbsolutePath());
-		}
-	}
-
 
 	private Handler messageHandlerForXPath = new Handler() {
 

@@ -1,15 +1,7 @@
 package com.gakshay.android.edakia;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 
-import org.apache.commons.codec.binary.Base64;
-
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gakshay.android.util.ActivitiesHelper;
+import com.gakshay.android.util.NetworkOperations;
 import com.gakshay.android.validation.Validator;
 
 public class AuthenticateActivity extends BaseActivity {
@@ -126,45 +119,6 @@ public class AuthenticateActivity extends BaseActivity {
 		}
 	};
 
-
-	private String connectToServer(String urlStr,String name, String password) {
-		String response = null;
-		try {
-
-			String authString = name + ":" + password;
-
-			byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
-			String authStringEnc = new String(authEncBytes);
-			URL url = new URL(urlStr);
-			URLConnection urlConnection = url.openConnection();
-			urlConnection.setRequestProperty("Authorization", "Basic " + authStringEnc);
-			InputStream is = urlConnection.getInputStream();
-			InputStreamReader isr = new InputStreamReader(is);
-
-			int numCharsRead;
-			char[] charArray = new char[1024];
-			StringBuffer sb = new StringBuffer();
-			while ((numCharsRead = isr.read(charArray)) > 0) {
-				sb.append(charArray, 0, numCharsRead);
-			}
-			response = sb.toString();
-			is.close();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-			response = "Exception";
-		} catch (IOException e) {
-			e.printStackTrace();
-			response = "Exception";
-		}catch (Exception ex){
-			ex.printStackTrace();
-			response = "Exception";
-		}
-		return response;
-
-	}
-
-
-
 	private void authenticateUser(final String authURL,final String mobile,final String password, boolean showProcessDialog) {
 		if(showProcessDialog)
 			progressDialog = ProgressDialog.show(this, "", 
@@ -174,7 +128,7 @@ public class AuthenticateActivity extends BaseActivity {
 				InputStream in = null;
 				Message msg = Message.obtain();
 				try {
-					authResponse = connectToServer(authURL, mobile, password);
+					authResponse = NetworkOperations.authorizeToEdakiaServer(authURL, mobile, password);
 					if(authResponse != null && !"Exception".equalsIgnoreCase(authResponse))
 						userId = (ActivitiesHelper.fetchValuesFromReponse(authResponse)).get("id");
 				} catch (Exception e1) {
