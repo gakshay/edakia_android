@@ -21,7 +21,7 @@
     <string name="personal_mobile">Your Mobile Number</string>
     <string name="mobile">Mobile Number (मोबाइल नंबर)</string>
     <string name="receiver_mobile">Receiver Mobile Number</string>
-    <string name="secret_code">Secret Code (कोड)</string>
+    <string name="secret_code">Secret Code (डाक कोड)</string>
     <string name="receive">eDak Receive \n ई-डाक पाए</string>
     <string name="print">Print \n छापिये</string>
     <string name="title_activity_print">eDakia - Print</string>
@@ -51,21 +51,21 @@
 
     <!-- Transaction details related to be shown for cost dialog -->
     <string name="costDialogTitle">Transaction Details</string>
-    <string name="costDialogSentMsg">Your eDak has been sent successfully.</string>
-    <string name="costDialogReceiveMsg">Your eDak has been received successfully.</string>
-    <string name="costDialogCostMsg">Total cost of transaction : </string>
+    <string name="costDialogSentMsg">eDak Sent Successfully \n ई-डाक सफल \n\n</string>
+    <string name="costDialogReceiveMsg">eDak Received Successfully \n ई-डाक सफल \n\n</string>
+    <string name="costDialogCostMsg">Cost: Rs </string>
     <string name="costDialogNeturalBtn">OK</string>
 
        <!-- Transaction details related to be shown for confirm send dialog -->
-    <string name="confirmSendDialogTitle">Confirmation for Transaction</string>
-    <string name="confirmSendDialogMsg">Should we go ahead sending your eDak?</string>
-    <string name="confirmSendDialogPositiveBtn">Send</string>
-    <string name="confirmSendDialogNegativeBtn">Cancel</string>
+    <string name="confirmSendDialogTitle">eDak Send Confirmation</string>
+    <string name="confirmSendDialogMsg">\n Press Send Button \n ई-डाक भेजने के लिए SEND दबाये \n</string>
+    <string name="confirmSendDialogPositiveBtn">Send \n भेजे</string>
+    <string name="confirmSendDialogNegativeBtn">Cancel \n रद्द </string>
     
     <!-- Details to be shown for all progress dialogs. -->
-    <string name="receiveDocPrgDlg">Processing Your request \n  ................</string>
-    <string name="sendDocPrgDlg">Sending Your file \n................</string>
-    <string name="authUserPrgDlg">Authenticating Your identity \n................</string>
+    <string name="receiveDocPrgDlg">eDak Receiving. Wait &#8230; \n इंतज़ार करे &#8230;</string>
+    <string name="sendDocPrgDlg">eDak Sending. Wait &#8230; \n ई-डाक भेज रहे| इंतज़ार करे &#8230;</string>
+    <string name="authUserPrgDlg">Wait Logging &#8230; \n इंतज़ार करे &#8230;</string>
     
     
     
