@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,9 @@ public class ReceiveActivity extends BaseActivity {
 		StrictMode.ThreadPolicy policy = new StrictMode.
 				ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
+		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
+		((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
+		((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
 	}
 
 	@Override
@@ -109,7 +113,7 @@ public class ReceiveActivity extends BaseActivity {
 
 	private boolean prepareThisUserDocumentFolder(){
 		boolean hasPrepared=false;
-		
+
 		try {
 			File edakiaDocsHome = new File(localEdakiaDocStorage);
 			if(edakiaDocsHome.exists() && edakiaDocsHome.isDirectory()){
@@ -141,6 +145,12 @@ public class ReceiveActivity extends BaseActivity {
 					if(!prepareThisUserDocumentFolder()){
 						throw new Exception("Error while preparing directories for user.");
 					}
+					//set success images :
+					
+					((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_success);
+					((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_success);
+					((ImageView)findViewById(R.id.errImgSecCode)).setImageResource(R.drawable.ic_success);
+
 					//Fetch document.
 					boolean isFileCreated;
 					if(documentPath.contains(".png") || documentPath.contains(".jpeg") || documentPath.contains(".jpg") || documentPath.contains(".gif")){
@@ -169,24 +179,36 @@ public class ReceiveActivity extends BaseActivity {
 					}else{
 						progressDialog.dismiss();
 						Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find your document due to some internal error. Please bear with us for some time to serve you again.", Toast.LENGTH_LONG).show();	
+						((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
+						((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
+						((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
 					}
 
 				}catch(Exception anExcep){
 					progressDialog.dismiss();
 					anExcep.printStackTrace();
 					Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find your document due to some internal error. Please bear with us for some time to serve you again.", Toast.LENGTH_LONG).show();
+					((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
+					((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
+					((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
 				}
 			}else if(responseXPath.contains("error") && responseXPath.contains("Document not found")){
 				progressDialog.cancel();
 				progressDialog.dismiss();
 				//could not find any document with this.
 				Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find document matching this secret code & mobile number. \n Please make sure you entered correct inputs.", Toast.LENGTH_LONG).show();
+				((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
+				((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
+				((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
 			}
 			else {
 				progressDialog.dismiss();
 				progressDialog.cancel();
 				//some other error.
 				Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find your document due to some internal error. Please bear with us for some time to serve you again.", Toast.LENGTH_LONG).show();
+				((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
+				((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
+				((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
 			}
 		}
 	};
@@ -197,6 +219,12 @@ public class ReceiveActivity extends BaseActivity {
 
 		TextView text = (TextView) findViewById(R.id.Error);
 		text.setText(null);
+
+		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.VISIBLE);
+		((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.VISIBLE);
+		((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.VISIBLE);
+
+
 		//Either provide mobile no. or email address not both.
 		if(receiverEmailAddress.getText().toString() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())
 				&& mobile.getText().toString() != null && !"".equalsIgnoreCase(mobile.getText().toString())){
@@ -208,24 +236,43 @@ public class ReceiveActivity extends BaseActivity {
 		if((receiverEmailAddress.getText().toString() == null || "".equalsIgnoreCase(receiverEmailAddress.getText().toString()))
 				&& (mobile.getText().toString() == null || "".equalsIgnoreCase(mobile.getText().toString()))){
 
-			Toast.makeText(this, "Please provide inputs,either email address or mobile no. with secret code.", Toast.LENGTH_LONG).show();
+			if(secretCode.getText() == null || "".equalsIgnoreCase(secretCode.getText().toString()) || secretCode.getText().toString().length() == 0){
+				Toast.makeText(this, "Please provide inputs.", Toast.LENGTH_LONG).show();
+				text.setText("Please provide required inputs.");
+
+				((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_error);
+				((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_error);
+				((ImageView)findViewById(R.id.errImgSecCode)).setImageResource(R.drawable.ic_error);
+
+			}else{
+				Toast.makeText(this, "Please provide inputs,either email address or mobile no. with secret code.", Toast.LENGTH_LONG).show();
+				text.setText("Please provide inputs,either email address or mobile no. with secret code.");
+				((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_error);
+				((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_error);
+
+			}
 			return false;
 		}
 		int valStatusCode = -5;
 		if((receiverEmailAddress.getText() == null || "".equalsIgnoreCase(receiverEmailAddress.getText().toString()) || receiverEmailAddress.getText().toString().length() == 0)
 				&& (mobile.getText().toString() != null && !"".equalsIgnoreCase(mobile.getText().toString()) && mobile.getText().toString().length() != 0)){
+
+			((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
+
 			//Validate mobile no.
 			valStatusCode = Validator.validateMobileNumber(mobile.getText().toString()).ordinal();
 			switch(valStatusCode){
 			case 1:
 				Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
 				text.setText("You missed mobile number. Plz enter the same.");
+				((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_error);
 				mobile.findFocus();
 				return false;
 			case 2:
 				Toast.makeText(this, "Incorrect Mobile Number", Toast.LENGTH_LONG).show();
 				text.setText("You entered incorrect mobile number. Plz correct the same.");
 				mobile.findFocus();
+				((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_error);
 				return false;		
 			}
 
@@ -234,18 +281,26 @@ public class ReceiveActivity extends BaseActivity {
 
 		if((mobile.getText() == null || "".equalsIgnoreCase(mobile.getText().toString()) || mobile.getText().toString().length() == 0)
 				&& (receiverEmailAddress.getText().toString() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString()) && receiverEmailAddress.getText().toString().length() != 0)){
-			if (receiverEmailAddress != null && receiverEmailAddress.getText() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())) {
-				//Validate email address.
-				valStatusCode = Validator.validateEmailAddress(receiverEmailAddress.getText().toString()).ordinal();
-				switch (valStatusCode) {
-				case 7:
-					Toast.makeText(this, "Incorrect Email Address",Toast.LENGTH_LONG).show();
-					text.setText("You entered incorrect email address. Plz correct the same.");
-					receiverEmailAddress.findFocus();
-					return false;
-				}
+
+			//invisible mobile error image.
+			((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
+
+			//Validate email address.
+			valStatusCode = Validator.validateEmailAddress(receiverEmailAddress.getText().toString()).ordinal();
+			switch (valStatusCode) {
+			case 7:
+				Toast.makeText(this, "Incorrect Email Address",Toast.LENGTH_LONG).show();
+				text.setText("You entered incorrect email address. Plz correct the same.");
+				receiverEmailAddress.findFocus();
+				((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_error);
+
+				return false;
 			}
 		}
+
+		//set as success. if had been erroneous should have been caught before.
+		((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_success);
+		((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_success);
 
 		//Validate secret no.
 		valStatusCode = Validator.validateSecretNumber(secretCode.getText().toString()).ordinal();
@@ -254,17 +309,24 @@ public class ReceiveActivity extends BaseActivity {
 			Toast.makeText(this, "Enter Secret Number", Toast.LENGTH_LONG).show();
 			text.setText("You missed secret number. Plz enter the same.");
 			secretCode.findFocus();
+			((ImageView)findViewById(R.id.errImgSecCode)).setImageResource(R.drawable.ic_error);
 			return false;
 		case 4:
 			Toast.makeText(this, "Incorrect Secret Code", Toast.LENGTH_LONG).show();
 			text.setText("You entered incorrect secret number. Plz correct the same");
 			secretCode.findFocus();
+			((ImageView)findViewById(R.id.errImgSecCode)).setImageResource(R.drawable.ic_error);
+
 			return false;					
 		}
 
 
-		if(valStatusCode == 0)
+		if(valStatusCode == 0){
 			isValid = true;
+			((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_success);
+			((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_success);
+			((ImageView)findViewById(R.id.errImgSecCode)).setImageResource(R.drawable.ic_success);
+		}	
 		return isValid;	
 	}
 

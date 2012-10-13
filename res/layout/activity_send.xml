@@ -1,10 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:orientation="vertical"
-    android:background="@drawable/background">
-
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/Error"
@@ -13,7 +12,6 @@
         android:layout_marginTop="@dimen/padding_medium"
         android:text="@string/EmptyString"
         android:textColor="@color/red" />
-
 
     <TextView
         android:id="@+id/receiverEmailText"
@@ -24,13 +22,19 @@
         android:text="@string/receiver_email_send_activity"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <ImageView
+        android:id="@+id/errImgEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_error" />
+
     <EditText
         android:id="@+id/receiverEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:ems="12"
         android:layout_marginTop="10dp"
+        android:ems="12"
         android:inputType="textEmailAddress" >
 
         <requestFocus />
@@ -49,10 +53,16 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="10dp"
+        android:gravity="center"
         android:text="@string/receiver_mobile_send_activity"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ImageView
+        android:id="@+id/errImgMob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_error" />
 
     <EditText
         android:id="@+id/receiverMobile"
@@ -64,9 +74,10 @@
         android:inputType="number"
         android:maxLength="10"
         android:padding="@dimen/padding_small" >
+
         <requestFocus />
     </EditText>
-	
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -101,7 +112,6 @@
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="16dip" />
-
     </LinearLayout>
 
 </LinearLayout>

@@ -2,39 +2,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/background" >
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/Error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="@dimen/padding_medium"
+        android:gravity="center"
         android:text="@string/EmptyString"
         android:textColor="@color/red" />
 
-    
-     <TextView
+    <ImageView
+        android:id="@+id/errImgMob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_error" />
+
+    <TextView
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="20dp"
+        android:gravity="center"
         android:text="@string/authenticate_activity_mobile"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-     <EditText
-         android:id="@+id/YourMobile"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_gravity="center"
-         android:ems="10"
-         android:inputType="number"
-         android:maxLength="10"
-         android:padding="@dimen/padding_small" >
-         <requestFocus />
-     </EditText>
+    <EditText
+        android:id="@+id/YourMobile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:enabled="true"
+        android:inputType="number"
+        android:maxLength="10"
+        android:padding="@dimen/padding_small"
+        android:scrollHorizontally="true"
+        android:selectAllOnFocus="true" >
+
+        <requestFocus />
+    </EditText>
+
+    <ImageView
+        android:id="@+id/errImgPwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_error" />
 
     <TextView
         android:id="@+id/textView2"
@@ -53,20 +67,19 @@
         android:ems="10"
         android:inputType="numberPassword|numberSigned"
         android:maxLength="6" />
-   
+
     <Button
         android:id="@+id/receiveNextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:background="@drawable/button"
         android:onClick="authenticate"
         android:padding="20dp"
         android:text="@string/authenticate_activity_authenticate_button"
-        android:textAllCaps="true" 
+        android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="24dip" />
-    
 
 </LinearLayout>

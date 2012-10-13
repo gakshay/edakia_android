@@ -19,6 +19,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -45,6 +46,8 @@ public class SendActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_send);
+		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
+		((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
 	}
 
 	@Override
@@ -104,6 +107,11 @@ public class SendActivity extends BaseActivity {
 		selectedSendButton = (Button)aview;
 
 		if(validateInputData()){
+			//set success images to fields
+			((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_success);
+			((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_success);
+			
+			
 			Intent intent = getIntent();
 			Bundle bundleData = intent.getExtras();
 			senderMobile =(String) bundleData.get("sendMobile");
@@ -198,6 +206,9 @@ public class SendActivity extends BaseActivity {
 		TextView text = (TextView) findViewById(R.id.Error);
 		text.setText(null);
 
+		
+		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.VISIBLE);
+		((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.VISIBLE);
 		//Either provide mobile no. or email address not both.
 		if(receiverEmailAddress.getText().toString() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())
 				&& receiverMobile.getText().toString() != null && !"".equalsIgnoreCase(receiverMobile.getText().toString())){
@@ -208,13 +219,17 @@ public class SendActivity extends BaseActivity {
 
 		if((receiverEmailAddress.getText().toString() == null || "".equalsIgnoreCase(receiverEmailAddress.getText().toString()))
 				&& (receiverMobile.getText().toString() == null || "".equalsIgnoreCase(receiverMobile.getText().toString()))){
-
+			((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_error);
+			((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_error);
 			Toast.makeText(this, "Please provide any input,either email address or mobile no.", Toast.LENGTH_LONG).show();
 			return false;
 		}
 		int valStatusCode = -5;
 		if((receiverEmailAddress.getText() == null || "".equalsIgnoreCase(receiverEmailAddress.getText().toString()) || receiverEmailAddress.getText().toString().length() == 0)
 				&& (receiverMobile.getText().toString() != null && !"".equalsIgnoreCase(receiverMobile.getText().toString()) && receiverMobile.getText().toString().length() != 0)){
+			
+			((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
+			
 			//Validate mobile no.
 			valStatusCode = Validator.validateMobileNumber(receiverMobile.getText().toString()).ordinal();
 			switch(valStatusCode){
@@ -222,12 +237,15 @@ public class SendActivity extends BaseActivity {
 				Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
 				text.setText("You missed mobile number. Plz enter the same.");
 				receiverMobile.findFocus();
+				((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_error);
 				return false;
 			case 2:
 				Toast.makeText(this, "Incorrect Mobile Number", Toast.LENGTH_LONG).show();
 				text.setText("You entered incorrect mobile number. Plz correct the same.");
 				receiverMobile.findFocus();
-				return false;		
+				((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_error);
+				return false;	
+				
 			}
 
 		}
@@ -235,17 +253,20 @@ public class SendActivity extends BaseActivity {
 
 		if((receiverMobile.getText() == null || "".equalsIgnoreCase(receiverMobile.getText().toString()) || receiverMobile.getText().toString().length() == 0)
 				&& (receiverEmailAddress.getText().toString() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString()) && receiverEmailAddress.getText().toString().length() != 0)){
-			if (receiverEmailAddress != null && receiverEmailAddress.getText() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())) {
-				//Validate email address.
+				
+			((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
+
+			//Validate email address.
 				valStatusCode = Validator.validateEmailAddress(receiverEmailAddress.getText().toString()).ordinal();
 				switch (valStatusCode) {
 				case 7:
 					Toast.makeText(this, "Incorrect Email Address",Toast.LENGTH_LONG).show();
 					text.setText("You entered incorrect email address. Plz correct the same.");
 					receiverEmailAddress.findFocus();
+					((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_error);
+
 					return false;
 				}
-			}
 		}
 
 		//Validate radio button selected.

@@ -45,10 +45,10 @@ public class Validator {
 	public static ValidationErrorCodes validatePassword(String password){
 
 		if(password.length() == 0){
-			return ValidationErrorCodes.SECRET_CODE_MISSING;
+			return ValidationErrorCodes.PASSWORD_MISSING;
 		}
 		if(password.length() < 4 || password.length() > 6){
-			return ValidationErrorCodes.SECRET_CODE_INCORRECT;
+			return ValidationErrorCodes.PASSWORD_INCORRECT;
 		}
 		return ValidationErrorCodes.SUCCESS;
 	}

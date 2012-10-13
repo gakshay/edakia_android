@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/background" >
+    android:background="@drawable/background"
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/Error"
@@ -21,6 +21,12 @@
        android:layout_marginTop="20dp"
        android:text="@string/receiver_email_receive_activity"
        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ImageView
+        android:id="@+id/errImgEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_error" />
 
     <EditText
         android:id="@+id/receiverEmail"
@@ -49,6 +55,12 @@
         android:text="@string/mobile"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <ImageView
+        android:id="@+id/errImgMob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_error" />
+
     <EditText
         android:id="@+id/receiveMobile"
         android:layout_width="wrap_content"
@@ -63,6 +75,11 @@
         <requestFocus />
     </EditText>
 
+    <ImageView
+        android:id="@+id/errImgSecCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_error" />
     
     <TextView
         android:id="@+id/textView2"
@@ -96,5 +113,7 @@
         android:text="@string/receive"
         android:textColor="@color/white"
         android:textSize="24dip" />
+     
+  
 
 </LinearLayout>
