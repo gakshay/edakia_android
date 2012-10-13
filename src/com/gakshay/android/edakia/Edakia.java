@@ -9,7 +9,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
@@ -28,8 +31,6 @@ public class Edakia extends Activity {
 			if("true".equalsIgnoreCase(showCostDialog))
 				prepareCostDialogBox();	
 		}	
-
-
 	}
 
 	public void optionClickHandler(View view) {
@@ -91,17 +92,19 @@ public class Edakia extends Activity {
 		//set the message on d	ialog.
 		Intent intent = getIntent();
 		Bundle bundleData = intent.getExtras();
-		String tranctTitle;
+		String tranctMsg;
 		if("received".equalsIgnoreCase((String) bundleData.get("transactionType")))
-			tranctTitle = "Received Successfully";
+		    tranctMsg = getString(R.string.costDialogReceiveMsg);
 		else 
-			tranctTitle = "Sent Successfully";
-
-		String tranctMsg = (String) bundleData.get("transactionMsg");
-		String dialogMessage = tranctTitle + "\n\n" + tranctMsg;
+			tranctMsg = getString(R.string.costDialogSentMsg);
+		
+		altDialog.setTitle(getString(R.string.costDialogTitle));
+		String cost = (String) bundleData.get("transactionCost");
+		String dialogMessage = tranctMsg + "\n\n" + getString(R.string.costDialogCostMsg) + cost;
 		altDialog.setMessage(dialogMessage); // here add your message
 		altDialog.setCancelable(false);
-		altDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+		altDialog.setIcon(R.drawable.ic_launcher);
+		altDialog.setNeutralButton(getString(R.string.costDialogNeturalBtn), new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -112,10 +115,5 @@ public class Edakia extends Activity {
 			}
 		});
 		altDialog.show();
-	}
-	
-	
-	
-	private void tempTestMethod(){
 	}
 }

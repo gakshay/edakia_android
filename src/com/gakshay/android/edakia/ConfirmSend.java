@@ -65,9 +65,11 @@ public class ConfirmSend extends BaseActivity {
 
 	private void prepareConfirmSendDialogBox(){
 		AlertDialog.Builder adb = new AlertDialog.Builder(this);
-		adb.setTitle("Please Confirm to Send");
+		adb.setTitle(getString(R.string.confirmSendDialogTitle));
+		adb.setMessage(getString(R.string.confirmSendDialogMsg));
 		adb.setCancelable(false);
-		adb.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+		adb.setIcon(R.drawable.ic_launcher);
+		adb.setPositiveButton(getString(R.string.confirmSendDialogPositiveBtn), new DialogInterface.OnClickListener()
 		{
 			public void onClick(DialogInterface dialog, int id)
 			{
@@ -76,7 +78,7 @@ public class ConfirmSend extends BaseActivity {
 		});
 
 
-		adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+		adb.setNegativeButton(getString(R.string.confirmSendDialogNegativeBtn), new DialogInterface.OnClickListener()
 		{
 			public void onClick(DialogInterface dialog, int id)
 			{
@@ -103,7 +105,6 @@ public class ConfirmSend extends BaseActivity {
 		  dialog.getWindow().setAttributes(params); */
 		wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
 		window.setAttributes(wlp);
-		adb.setIcon(R.drawable.ic_launcher_send); 
 		dialog.show();
 	}
 
@@ -201,8 +202,7 @@ public class ConfirmSend extends BaseActivity {
 
 	private void sendFileToUser(boolean showProcessDialog) {
 		if(showProcessDialog)
-			progressDialog = ProgressDialog.show(this, "", 
-					"Sending Your file \n................" );
+			progressDialog = ProgressDialog.show(this, "",getString(R.string.sendDocPrgDlg) );
 		new Thread() {
 			public void run() {
 				InputStream in = null;
@@ -237,7 +237,7 @@ public class ConfirmSend extends BaseActivity {
 				Toast.makeText(ConfirmSend.this, "Your document has been sent.Try other transaction.", Toast.LENGTH_LONG).show();
 				homeIntent.putExtra("showCostDialogBox", "true");
 				homeIntent.putExtra("transactionType", "sent");
-				homeIntent.putExtra("transactionMsg", "Total Cost : Rs " + ActivitiesHelper.fetchValuesFromReponse(sendResponse).get("cost"));
+				homeIntent.putExtra("transactionCost", ActivitiesHelper.fetchValuesFromReponse(sendResponse).get("cost"));
 
 			}
 			Intent returnData = new Intent();

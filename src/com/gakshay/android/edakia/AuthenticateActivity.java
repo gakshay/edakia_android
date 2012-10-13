@@ -121,8 +121,7 @@ public class AuthenticateActivity extends BaseActivity {
 
 	private void authenticateUser(final String authURL,final String mobile,final String password, boolean showProcessDialog) {
 		if(showProcessDialog)
-			progressDialog = ProgressDialog.show(this, "", 
-					"Authenticating Your identity \n................" );
+			progressDialog = ProgressDialog.show(this, "", getString(R.string.authUserPrgDlg));
 		new Thread() {
 			public void run() {
 				InputStream in = null;

@@ -49,4 +49,25 @@
     <string name="receiver_email_receive_activity">Email Address (ई-मेल)</string>
     <string name="ORText">OR (या)</string>
 
+    <!-- Transaction details related to be shown for cost dialog -->
+    <string name="costDialogTitle">Transaction Details</string>
+    <string name="costDialogSentMsg">Your eDak has been sent successfully.</string>
+    <string name="costDialogReceiveMsg">Your eDak has been received successfully.</string>
+    <string name="costDialogCostMsg">Total cost of transaction : </string>
+    <string name="costDialogNeturalBtn">OK</string>
+
+       <!-- Transaction details related to be shown for confirm send dialog -->
+    <string name="confirmSendDialogTitle">Confirmation for Transaction</string>
+    <string name="confirmSendDialogMsg">Should we go ahead sending your eDak?</string>
+    <string name="confirmSendDialogPositiveBtn">Send</string>
+    <string name="confirmSendDialogNegativeBtn">Cancel</string>
+    
+    <!-- Details to be shown for all progress dialogs. -->
+    <string name="receiveDocPrgDlg">Processing Your request \n  ................</string>
+    <string name="sendDocPrgDlg">Sending Your file \n................</string>
+    <string name="authUserPrgDlg">Authenticating Your identity \n................</string>
+    
+    
+    
+
 </resources>

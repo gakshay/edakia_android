@@ -1,22 +1,16 @@
 package com.gakshay.android.edakia;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.FileObserver;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -39,7 +33,7 @@ public class ReceiveActivity extends BaseActivity {
 	private EditText receiverEmailAddress;
 	private String docTransCost;
 	private static final int PRINT_ACTIVITY = 1;
-	private String localEdakiaDocStorage = Environment.getExternalStorageDirectory() + "/EdakiaDocs/ReceiveDocs/";
+	private String localEdakiaDocStorage = Environment.getExternalStorageDirectory().getAbsolutePath() + "/EdakiaDocs/ReceiveDocs/";
 	private String authURL = "http://staging.edakia.in/api/transactions/receive.xml";//"http://edakia.in/transactions/receive.xml";
 
 	@Override
@@ -90,13 +84,12 @@ public class ReceiveActivity extends BaseActivity {
 		//http://staging.edakia.in/api/transactions/receive.xml?transaction[receiver_mobile]=<sender>&transaction[receiver_email]=<email>&transaction[document_secret]=<secret_code>&serial_number=<serial_number>
 		edakiaURL = authURL + "?transaction[receiver_mobile]=" + mobile.getText() + "&transaction[document_secret]="+secretCode.getText()
 				+ "&transaction[receiver_email]="+emailAddress.getText().toString() 
-				+ "&serial_number=" + "sdfdsfdsf324sdfsdfds324324";	
+				+ "&serial_number=" +getSerialNumber();	
 		return edakiaURL;
 	}
 
 	private void readAndDownloadDocument(final String reqURL) {
-		progressDialog = ProgressDialog.show(this, "", 
-				"Processing Your request \n  ................" );
+		progressDialog = ProgressDialog.show(this, "", getString(R.string.receiveDocPrgDlg) );
 
 		new Thread() {
 			public void run() {
@@ -114,7 +107,9 @@ public class ReceiveActivity extends BaseActivity {
 		}.start();
 	}
 
-	private void prepareThisUserDocumentFolder(){
+	private boolean prepareThisUserDocumentFolder(){
+		boolean hasPrepared=false;
+		
 		try {
 			File edakiaDocsHome = new File(localEdakiaDocStorage);
 			if(edakiaDocsHome.exists() && edakiaDocsHome.isDirectory()){
@@ -122,10 +117,12 @@ public class ReceiveActivity extends BaseActivity {
 			}else{
 				edakiaDocsHome.mkdirs();
 			}
+			hasPrepared = true;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return hasPrepared;
 	}
 
 	private Handler messageHandlerForXPath = new Handler() {
@@ -141,7 +138,9 @@ public class ReceiveActivity extends BaseActivity {
 					documentPath = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("document_url");
 					docTransCost = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("cost");
 					documentName = (documentPath.split("/"))[documentPath.split("/").length-1];
-					prepareThisUserDocumentFolder();
+					if(!prepareThisUserDocumentFolder()){
+						throw new Exception("Error while preparing directories for user.");
+					}
 					//Fetch document.
 					boolean isFileCreated;
 					if(documentPath.contains(".png") || documentPath.contains(".jpeg") || documentPath.contains(".jpg") || documentPath.contains(".gif")){
@@ -279,7 +278,7 @@ public class ReceiveActivity extends BaseActivity {
 				Toast.makeText(this, "Please recieve your document.", Toast.LENGTH_LONG).show();
 				homeIntent.putExtra("showCostDialogBox", "true");
 				homeIntent.putExtra("transactionType", "received");
-				homeIntent.putExtra("transactionMsg", "Total Cost : Rs " + docTransCost);
+				homeIntent.putExtra("transactionCost", docTransCost);
 				startActivity(homeIntent);
 				finish();
 			}else{
