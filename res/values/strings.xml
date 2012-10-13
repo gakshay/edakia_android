@@ -29,7 +29,7 @@
     <string name="EmptyString"></string>
     <string name="title_activity_authenticate">eDakia - Authenticate</string>
     <string name="authenticate_activity_mobile">Enter Your Mobile Number \n आपका मोबाइल नंबर</string>
-    <string name="authenticate_activity_password">Enter Your Password \n आपका पिन कोड</string>
+    <string name="authenticate_activity_password">Enter Your Passcode \n आपका पास कोड</string>
     <string name="authenticate_activity_authenticate_button">Login \n साइन</string>
     <string name="title_activity_send">eDakia - Send File</string>
     <string name="receiver_mobile_send_activity">Receiver Mobile \n पाने वाले का मोबाइल</string>
