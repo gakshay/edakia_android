@@ -14,6 +14,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.apache.commons.codec.binary.Base64;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
@@ -57,6 +59,43 @@ public class NetworkOperations {
 		}
 		return in;
 	}	
+	
+	public static String authorizeToEdakiaServer(String urlStr,String name, String password) {
+		String response = null;
+		try {
+
+			String authString = name + ":" + password;
+
+			byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
+			String authStringEnc = new String(authEncBytes);
+			URL url = new URL(urlStr);
+			URLConnection urlConnection = url.openConnection();
+			urlConnection.setRequestProperty("Authorization", "Basic " + authStringEnc);
+			InputStream is = urlConnection.getInputStream();
+			InputStreamReader isr = new InputStreamReader(is);
+
+			int numCharsRead;
+			char[] charArray = new char[1024];
+			StringBuffer sb = new StringBuffer();
+			while ((numCharsRead = isr.read(charArray)) > 0) {
+				sb.append(charArray, 0, numCharsRead);
+			}
+			response = sb.toString();
+			is.close();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			response = "Exception";
+		} catch (IOException e) {
+			e.printStackTrace();
+			response = "Exception";
+		}catch (Exception ex){
+			ex.printStackTrace();
+			response = "Exception";
+		}
+		return response;
+
+	}
+
 
 
 	public static String readXMLResponseFromEdakia(String reqURL){

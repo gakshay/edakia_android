@@ -3,11 +3,15 @@
  */
 package com.gakshay.android.util;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
+
+import android.util.Log;
 
 /**
  * @author Amitsharma
@@ -39,6 +43,26 @@ public class ActivitiesHelper {
 			anExcep.printStackTrace();
 		}
 		return responseValues;
+	}
+	
+	public static void deleteContentOfFile(File file)
+			throws IOException{
+
+		if(file.isDirectory() && file.list() != null && file.list().length != 0){
+			//list all the directory contents
+			String files[] = file.list();
+			for (String temp : files) {
+				//construct the file structure
+				File fileDelete = new File(file, temp);
+				if(fileDelete.isDirectory())				//recursive delete
+					deleteContentOfFile(fileDelete);
+				else{
+					fileDelete.delete();
+				}
+			}
+		}else{
+			Log.d("File is already empty",file.getAbsolutePath());
+		}
 	}
 
 }

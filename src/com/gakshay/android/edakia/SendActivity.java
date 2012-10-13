@@ -3,6 +3,7 @@ package com.gakshay.android.edakia;
 import java.io.File;
 import java.io.IOException;
 
+import com.gakshay.android.util.ActivitiesHelper;
 import com.gakshay.android.validation.Validator;
 
 import android.app.Activity;
@@ -32,7 +33,7 @@ public class SendActivity extends BaseActivity {
 	private static final int CONFIRM_SEND_STATUS = 2;
 	private static final int SCANNED_FILE_SELECTED_STATUS = 3;
 	private static final int ACTIVITY_CHOOSE_FILE = 4;
-	private FileObserver aFileobsFileObserver;
+	private FileObserver fileObserver;
 	private String scannedFile;
 	private String userId;
 	private String fileObserverPath = "/mnt/storage/CanonEPP/scan_pdf";
@@ -73,7 +74,7 @@ public class SendActivity extends BaseActivity {
 			sendIntent.setType(mimeType);
 			startActivityForResult(sendIntent,CONFIRM_SEND_STATUS);
 		}else if (requestCode == CONFIRM_SEND_STATUS && resultCode == RESULT_OK){
-			if("killParentActivity".equalsIgnoreCase(data.getStringExtra("whichAction"))){
+			if(data != null && "killParentActivity".equalsIgnoreCase(data.getStringExtra("whichAction"))){
 				finish();
 			}
 		} else if (requestCode  == ACTIVITY_CHOOSE_FILE && resultCode == RESULT_OK){
@@ -130,9 +131,6 @@ public class SendActivity extends BaseActivity {
 				chooseFile.setType("file/*");
 				intent = Intent.createChooser(chooseFile, "Choose a file");
 				startActivityForResult(intent, ACTIVITY_CHOOSE_FILE);
-
-				/*Intent fileSelectActivity = new Intent(this,FileSelectionActivity.class);  
-				startActivityForResult(fileSelectActivity,FILE_SELECTED_STATUS);*/
 			}else if (selectedSendButton.getTag().toString().equalsIgnoreCase("EdakiaAccount")) {
 				Toast.makeText(this, "Development in progress.....", Toast.LENGTH_LONG).show();
 
@@ -146,55 +144,25 @@ public class SendActivity extends BaseActivity {
 	}
 
 	private void prepareThisUserDocumentFolder(){
-		Toast.makeText(this, "Processing Your Request", Toast.LENGTH_SHORT).show();
 		try {
-			deleteContentOfFile(new File(fileObserverPath+"/scan_pdf"));//delete existing any pdf files.
-			deleteContentOfFile(new File(fileObserverPath+"/scan_image"));//delete existing any scan files.
+			ActivitiesHelper.deleteContentOfFile(new File(fileObserverPath));//delete existing any pdf files.
+			//ActivitiesHelper.deleteContentOfFile(new File(fileObserverPath+"/scan_image"));//delete existing any scan files.
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
-	private void deleteContentOfFile(File file)
-			throws IOException{
-
-		if(file.isDirectory() && file.list() != null && file.list().length != 0){
-			//list all the directory contents
-			String files[] = file.list();
-			for (String temp : files) {
-				//construct the file structure
-				File fileDelete = new File(file, temp);
-				if(fileDelete.isDirectory())				//recursive delete
-					deleteContentOfFile(fileDelete);
-				else{
-					fileDelete.delete();
-				}
-			}
-		}else{
-			Log.d("File is already empty",file.getAbsolutePath());
-		}
-	}
-
-
-
 	private void scanFileLookup(){
-		///mnt/storage/CanonEPP/scan_pdf
-		Log.d("FileObserver", "Inside scan file lookup");
-		aFileobsFileObserver = new FileObserver(fileObserverPath+"/", FileObserver.MOVED_TO) {
+		fileObserver = new FileObserver(fileObserverPath+"/", FileObserver.MOVED_TO) {
 			@Override
 			public void onEvent(int event, String observedFile) {
 				try {
 					Log.d("FileObserver", "event "+ event);
-					Log.d("FileObserver", "Directory is being observed");
 					if(event == FileObserver.MOVED_TO){
-						Log.d("FileObserver", "File created has been observed.");
 
-						aFileobsFileObserver.stopWatching();
-						Log.d("FileObserver", "File created stop observing.");
+						fileObserver.stopWatching();
 
 						stopService(getIntent());
-						Log.d("FileObserver", "File created stop service.");
 
 						//scannedFile = scanfile.listFiles()[0].getAbsolutePath();
 						scannedFile =  fileObserverPath+"/"+observedFile;
@@ -211,7 +179,6 @@ public class SendActivity extends BaseActivity {
 						sendIntent.setType(mimeType);
 						Thread.sleep(3000);
 						startActivityForResult(sendIntent,CONFIRM_SEND_STATUS);
-						//finish();
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -221,7 +188,7 @@ public class SendActivity extends BaseActivity {
 			}
 		};
 
-		aFileobsFileObserver.startWatching();
+		fileObserver.startWatching();
 		startService(getIntent());
 	}
 

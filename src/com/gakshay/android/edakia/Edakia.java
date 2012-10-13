@@ -113,4 +113,9 @@ public class Edakia extends Activity {
 		});
 		altDialog.show();
 	}
+	
+	
+	
+	private void tempTestMethod(){
+	}
 }
