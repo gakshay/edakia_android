@@ -15,11 +15,7 @@
         android:text="@string/EmptyString"
         android:textColor="@color/red" />
 
-    <ImageView
-        android:id="@+id/errImgMob"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_error" />
+    
 
     <TextView
         android:id="@+id/textView1"
@@ -30,7 +26,14 @@
         android:text="@string/authenticate_activity_mobile"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <EditText
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dip"
+        android:orientation="horizontal" >
+        
+        <EditText
         android:id="@+id/YourMobile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,14 +47,16 @@
         android:selectAllOnFocus="true" >
 
         <requestFocus />
-    </EditText>
+	    </EditText>
+	    
+	    <ImageView
+	        android:id="@+id/errImgMob"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/ic_error" />
+    </LinearLayout>
 
-    <ImageView
-        android:id="@+id/errImgPwd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_error" />
-
+    
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
@@ -61,15 +66,28 @@
         android:text="@string/authenticate_activity_password"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <EditText
-        android:id="@+id/YourPassword"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ems="10"
-        android:inputType="numberPassword|numberSigned"
-        android:maxLength="6" />
-
+        android:layout_height="wrap_content" 
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dip"
+        android:layout_gravity="center" >
+	    <EditText
+	        android:id="@+id/YourPassword"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:ems="10"
+	        android:inputType="numberPassword|numberSigned"
+	        android:maxLength="6" />
+	    
+	    <ImageView
+	        android:id="@+id/errImgPwd"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/ic_error" />
+	</LinearLayout>
+	
     <Button
         android:id="@+id/receiveNextButton"
         android:layout_width="wrap_content"
