@@ -50,6 +50,10 @@ public class Edakia extends Activity {
 			intent = Intent.createChooser(chooseFile, "Choose a file");
 			startActivityForResult(intent, ACTIVITY_CHOOSE_FILE);
 			break;	
+		case R.id.ChngPwdBtn:
+			Intent chngPwd = new Intent(Edakia.this, ChangePassword.class);
+			Edakia.this.startActivity(chngPwd);
+			break;
 		default:
 			break;
 		}

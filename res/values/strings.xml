@@ -28,6 +28,7 @@
     <string name="option_print_button">onPrintClick</string>
     <string name="EmptyString"></string>
     <string name="title_activity_authenticate">eDakia - Authenticate</string>
+    <string name="title_activity_change_password">eDakia - Change Password</string>
     <string name="authenticate_activity_mobile">Enter Your Mobile Number \n आपका मोबाइल नंबर</string>
     <string name="authenticate_activity_password">Enter Your Passcode \n आपका पास कोड</string>
     <string name="authenticate_activity_authenticate_button">Login \n साइन</string>
@@ -56,18 +57,23 @@
     <string name="costDialogCostMsg">Cost: Rs </string>
     <string name="costDialogNeturalBtn">OK</string>
 
-       <!-- Transaction details related to be shown for confirm send dialog -->
+    <!-- Transaction details related to be shown for confirm send dialog -->
     <string name="confirmSendDialogTitle">eDak Send Confirmation</string>
     <string name="confirmSendDialogMsg">\n Press Send Button \n ई-डाक भेजने के लिए SEND दबाये \n</string>
     <string name="confirmSendDialogPositiveBtn">Send \n भेजे</string>
     <string name="confirmSendDialogNegativeBtn">Cancel \n रद्द </string>
-    
+
     <!-- Details to be shown for all progress dialogs. -->
     <string name="receiveDocPrgDlg">eDak Receiving. Wait &#8230; \n इंतज़ार करे &#8230;</string>
     <string name="sendDocPrgDlg">eDak Sending. Wait &#8230; \n ई-डाक भेज रहे| इंतज़ार करे &#8230;</string>
     <string name="authUserPrgDlg">Wait Logging &#8230; \n इंतज़ार करे &#8230;</string>
-    
-    
-    
 
+    <!-- Details to be shown on change password activity -->
+    <string name="chngPwdTxtMsg">Change your password</string>
+    <string name="chngPwdMobileLabel">Enter your Mobile</string>
+    <string name="chngPwdOldPwdLabel">Enter your old password</string>
+    <string name="chngPwdNewPwdLabel">Enter new password</string>
+    <string name="chngPwdNewPwdAgnLabel">Enter new password again.</string>
+    <string name="chngPwdBtnTxt">Change</string>
+    
 </resources>
