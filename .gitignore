@@ -1,2 +1,2 @@
 bin/*
-/AndroidManifest.xml
+gen/com/gakshay/android/edakia/R.java
