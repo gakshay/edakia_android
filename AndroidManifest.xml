@@ -20,9 +20,9 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".Edakia"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_main"
-            android:screenOrientation="portrait" 
-            android:configChanges="orientation|keyboardHidden" >
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,15 +31,15 @@
         </activity>
         <activity
             android:name=".ReceiveActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_receive"
-            android:screenOrientation="portrait" 
-            android:configChanges="orientation|keyboardHidden" >
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".PrintActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_print"
-            android:screenOrientation="portrait" 
-            android:configChanges="orientation|keyboardHidden" >
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -64,9 +64,9 @@
         </activity>
         <activity
             android:name=".AuthenticateActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_send"
-            android:screenOrientation="portrait" 
-            android:configChanges="orientation|keyboardHidden" >
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -91,45 +91,54 @@
         </activity>
         <activity
             android:name=".SendActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_send"
-            android:screenOrientation="portrait" 
-            android:configChanges="orientation|keyboardHidden" >
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".FileChooser"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/select_file_send_activity"
-            android:screenOrientation="portrait" 
-            android:configChanges="orientation|keyboardHidden" >
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ConfirmSend"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_confirm_send"
-            android:theme="@style/Theme.Transparent"
-            android:screenOrientation="portrait" 
-            android:configChanges="orientation|keyboardHidden" >
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent" >
         </activity>
         <activity
             android:name=".PopUpActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:excludeFromRecents="true"
             android:finishOnCloseSystemDialogs="true"
             android:label="@string/title_activity_pop_up"
             android:noHistory="true"
-            android:theme="@style/Theme.Transparent"
-            android:screenOrientation="portrait" 
-            android:configChanges="orientation|keyboardHidden" >
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent" >
         </activity>
         <activity
             android:name=".FileSelectionActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_file_selection"
-            android:theme="@style/Theme.Transparent"
-            android:screenOrientation="portrait" 
-            android:configChanges="orientation|keyboardHidden" >
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent" >
         </activity>
         <activity
             android:name=".BaseActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_base"
-            android:screenOrientation="portrait" 
-            android:configChanges="orientation|keyboardHidden" >
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ChangePassword"
+            android:label="@string/title_activity_change_password" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
