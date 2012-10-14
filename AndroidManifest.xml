@@ -133,13 +133,11 @@
         </activity>
         <activity
             android:name=".ChangePassword"
-            android:label="@string/title_activity_change_password" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_change_password"
+            android:screenOrientation="portrait">
         </activity>
+        
     </application>
 
 </manifest>
