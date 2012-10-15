@@ -64,8 +64,9 @@ public class AuthenticateActivity extends BaseActivity {
 		if((password.getText().toString() == null || "".equalsIgnoreCase(password.getText().toString()))
 				&& (mobile.getText().toString() == null || "".equalsIgnoreCase(mobile.getText().toString()))){
 
-			Toast.makeText(this, "Please provide both inputs,mobile number and secret number.", Toast.LENGTH_LONG).show();
-
+//			Toast.makeText(this, "Please provide both inputs,mobile number and secret number.", Toast.LENGTH_LONG).show();
+			text.setText(getString(R.string.empty_mobile_passcode));
+			text.setVisibility(TextView.VISIBLE);
 			errImgMob.setImageResource(R.drawable.ic_error);
 			errImgPwd.setImageResource(R.drawable.ic_error);
 			
@@ -89,53 +90,53 @@ public class AuthenticateActivity extends BaseActivity {
 		}else if(valStatusMob == 0){
 			errImgMob.setImageResource(R.drawable.ic_success);
 			if(valStatusPwd == 5){
-				Toast.makeText(this, "Missed your password.", Toast.LENGTH_LONG).show();
-				text.setText("Provide your password.");
+				//Toast.makeText(this, "Missed your password.", Toast.LENGTH_LONG).show();
+				text.setText(getString(R.string.empty_passcode));
 				password.findFocus();
 				errImgPwd.setImageResource(R.drawable.ic_error);
 			}else {
-				Toast.makeText(this, "Incorrect password.", Toast.LENGTH_LONG).show();
-				text.setText("Please correct password.");
+				//Toast.makeText(this, "Incorrect password.", Toast.LENGTH_LONG).show();
+				text.setText(getString(R.string.invalid_passcode));
 				password.findFocus();
 				errImgPwd.setImageResource(R.drawable.ic_error);
 			}
 		}else if(valStatusPwd == 0){
 			errImgPwd.setImageResource(R.drawable.ic_success);
 			if(valStatusMob == 1){
-				Toast.makeText(this, "Missed your mobile number.", Toast.LENGTH_LONG).show();
-				text.setText("Provide your mobile.");
+				//Toast.makeText(this, "Missed your mobile number.", Toast.LENGTH_LONG).show();
+				text.setText(getString(R.string.empty_mobile));
 				mobile.findFocus();
 				errImgMob.setImageResource(R.drawable.ic_error);
 			}else {
-				Toast.makeText(this, "Incorrect mobile number.", Toast.LENGTH_LONG).show();
-				text.setText("Please correct mobile number.");
+				//Toast.makeText(this, "Incorrect mobile number.", Toast.LENGTH_LONG).show();
+				text.setText(getString(R.string.invalid_mobile));
 				mobile.findFocus();
 				errImgMob.setImageResource(R.drawable.ic_error);
 			}
 		}else if(valStatusMob == 1 && valStatusPwd == 5){
-			Toast.makeText(this, "Provide your mobile number & password.", Toast.LENGTH_LONG).show();
-			text.setText("Provide your mobile Number & password.");
+			//Toast.makeText(this, "Provide your mobile number & password.", Toast.LENGTH_LONG).show();
+			text.setText(getString(R.string.empty_mobile_passcode));
 			mobile.findFocus();
 			errImgMob.setImageResource(R.drawable.ic_error);
 			errImgPwd.setImageResource(R.drawable.ic_error);
 
 		}else if(valStatusMob == 1 && valStatusPwd == 6){
-			Toast.makeText(this, "Missed Your mobile number and Incorrect password.", Toast.LENGTH_LONG).show();
-			text.setText("Please provide your mobile number and correct password.");
+			//Toast.makeText(this, "Missed Your mobile number and Incorrect password.", Toast.LENGTH_LONG).show();
+			text.setText(getString(R.string.invalid_mobile_passcode));
 			mobile.findFocus();
 			errImgPwd.setImageResource(R.drawable.ic_error);
 			errImgMob.setImageResource(R.drawable.ic_error);
 
 		}else if(valStatusMob == 2 && valStatusPwd == 5){
-			Toast.makeText(this, "Incorrect Mobile Number and missed password.", Toast.LENGTH_LONG).show();
-			text.setText("Please correct your number and provide your password.");
+			//Toast.makeText(this, "Incorrect Mobile Number and missed password.", Toast.LENGTH_LONG).show();
+			text.setText(getString(R.string.invalid_mobile_passcode));
 			mobile.findFocus();
 			errImgPwd.setImageResource(R.drawable.ic_error);
 			errImgMob.setImageResource(R.drawable.ic_error);
 
 		}else if(valStatusMob == 2 && valStatusPwd == 6){
-			Toast.makeText(this, "Incorrect Mobile Number and password.", Toast.LENGTH_LONG).show();
-			text.setText("Please correct your number and password.");
+			//Toast.makeText(this, "Incorrect Mobile Number and password.", Toast.LENGTH_LONG).show();
+			text.setText(getString(R.string.invalid_mobile_passcode));
 			mobile.findFocus();
 			errImgPwd.setImageResource(R.drawable.ic_error);
 			errImgMob.setImageResource(R.drawable.ic_error);
@@ -158,7 +159,7 @@ public class AuthenticateActivity extends BaseActivity {
 			text.setText(null);
 
 			if(authResponse.contains("Exception")){
-				text.setText("Could not authenticate You !! \n Please make sure you entered correct details.");
+				text.setText(getString(R.string.login_failed));
 
 				((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 				((ImageView)findViewById(R.id.errImgPwd)).setVisibility(ImageView.INVISIBLE);
@@ -169,7 +170,8 @@ public class AuthenticateActivity extends BaseActivity {
 				errImgMob.setImageResource(R.drawable.ic_success);
 				ImageView errImgPwd = (ImageView)findViewById(R.id.errImgPwd);
 				errImgPwd.setImageResource(R.drawable.ic_success);
-				Toast.makeText(AuthenticateActivity.this, "Authenticated Successfullly.Go Ahead !!", Toast.LENGTH_SHORT).show();
+				text.setVisibility(TextView.INVISIBLE);
+				//Toast.makeText(AuthenticateActivity.this, "Authenticated Successfullly.Go Ahead !!", Toast.LENGTH_SHORT).show();
 				Intent sendIntent = new Intent(AuthenticateActivity.this, SendActivity.class);
 				sendIntent.putExtra("sendMobile", mobile.getText().toString());
 				sendIntent.putExtra("sendPassword", password.getText().toString());

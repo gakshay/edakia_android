@@ -14,6 +14,9 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="light_green">#CEF2E0</color>
+    <color name="status_stroke">#EED3D7</color>
+    <color name="status_background">#F2DEDE</color>
+    <color name="status_color">#B94A48</color>
 
     <string name="hello_world">Hello world!</string>
     <string name="postage">Mail Postage</string>
@@ -49,7 +52,16 @@
     <string name="title_activity_base">eDakia - Base</string>
     <string name="receiver_email_receive_activity">Email Address (ई-मेल)</string>
     <string name="ORText">OR (या)</string>
-
+    
+    <!-- Authentication Errors -->
+    <string name="empty_mobile_passcode">Please Enter Mobile and Password \n मोबाइल नंबर व पास कोड डाले </string>
+	<string name="empty_mobile">Please Enter Mobile Number \n मोबाइल नंबर डाले</string>
+	<string name="empty_passcode">Please Enter Passcode \n पास कोड डाले </string>
+	<string name="invalid_mobile">Invalid Mobile Number \n गलत मोबाइल नंबर </string>
+	<string name="invalid_passcode">Invalid Passcode \n गलत पास कोड</string>
+	<string name="invalid_mobile_passcode">Invalid Mobile and Passcode \n गलत मोबाइल व पास कोड </string>
+	<string name="login_failed">Login Failed! Incorrect Mobile or Password \n गलत मोबाइल या पास कोड </string>
+	
     <!-- Transaction details related to be shown for cost dialog -->
     <string name="costDialogTitle">Transaction Details</string>
     <string name="costDialogSentMsg">eDak Sent Successfully \n ई-डाक सफल \n\n</string>
