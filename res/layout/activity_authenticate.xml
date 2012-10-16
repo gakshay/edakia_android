@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
+    android:gravity="center"
     android:orientation="vertical"
     tools:ignore="ContentDescription" >
 
@@ -23,7 +24,6 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dip"
         android:gravity="center"
         android:text="@string/authenticate_activity_mobile"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="20dip"
+        android:layout_marginTop="10dip"
         android:orientation="horizontal" >
         
         <EditText
@@ -58,22 +59,23 @@
 	        android:src="@drawable/ic_error" />
     </LinearLayout>
 
-    
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:gravity="center"
         android:text="@string/authenticate_activity_password"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginLeft="20dip"
-        android:layout_gravity="center" >
+        android:layout_marginTop="10dip"
+        android:orientation="horizontal" >
+
 	    <EditText
 	        android:id="@+id/YourPassword"
 	        android:layout_width="wrap_content"
@@ -95,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/button"
         android:onClick="authenticate"
         android:padding="20dp"

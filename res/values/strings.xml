@@ -6,7 +6,7 @@
     <string name="title_activity_main">eDakia</string>
     <string name="option_send_button">Send Document \n ई-डाक भेजे </string>
     <string name="option_receive_button">Receive Document \n ई-डाक पाए</string>
-    <string name="option_print">Print \n कॉपी करे</string>
+    <string name="option_print">Print Document \n कॉपी करे</string>
 
     <color name="green">#d1f099</color>
     <color name="yellow">#f9f9dd</color>
@@ -22,7 +22,7 @@
     <string name="postage">Mail Postage</string>
     <string name="title_activity_receive">eDakia - Receive</string>
     <string name="personal_mobile">Your Mobile Number</string>
-    <string name="mobile">Mobile Number (मोबाइल नंबर)</string>
+    <string name="mobile">Your Mobile Number (आपका मोबाइल नंबर)</string>
     <string name="receiver_mobile">Receiver Mobile Number</string>
     <string name="secret_code">eDak Code (ई-डाक कोड)</string>
     <string name="receive">eDak Receive \n ई-डाक पाए</string>
@@ -32,12 +32,12 @@
     <string name="EmptyString"></string>
     <string name="title_activity_authenticate">eDakia - Authenticate</string>
     <string name="title_activity_change_password">eDakia - Change Password</string>
-    <string name="authenticate_activity_mobile">Enter Your Mobile Number \n आपका मोबाइल नंबर</string>
-    <string name="authenticate_activity_password">Enter Your Passcode \n आपका पास कोड</string>
+    <string name="authenticate_activity_mobile">Your Mobile Number \n आपका मोबाइल नंबर</string>
+    <string name="authenticate_activity_password">Your Passcode \n आपका पास कोड</string>
     <string name="authenticate_activity_authenticate_button">Login \n साइन</string>
     <string name="title_activity_send">eDakia - Send File</string>
-    <string name="receiver_mobile_send_activity">Receiver Mobile \n पाने वाले का मोबाइल</string>
-    <string name="receiver_email_send_activity">Receiver Email \n पाने वाले का ई-मेल</string>
+    <string name="receiver_mobile_send_activity">Receiver Mobile Number \n पाने वाले का मोबाइल नंबर</string>
+    <string name="receiver_email_send_activity">Receiver Email ID \n पाने वाले का ई-मेल</string>
     <string name="local_file_send_activity">Search a file</string>
     <string name="select_file_send_activity">Select a file to send</string>
     <string name="edakia_file_send_activity">Select a file from your Edakia account.</string>
@@ -56,20 +56,20 @@
     <string name="option_mobile_button"><u>Mobile (मोबाइल)</u> ?</string>
     
     <!-- Error messages -->
-    <string name="empty_mobile_passcode">Please Enter Mobile and Password \n मोबाइल नंबर व पास कोड डाले </string>
-	<string name="empty_mobile">Please Enter Mobile Number \n मोबाइल नंबर डाले</string>
-	<string name="empty_passcode">Please Enter Passcode \n पास कोड डाले </string>
+    <string name="empty_mobile_passcode">Enter Mobile and Password \n मोबाइल नंबर व पास कोड डाले </string>
+	<string name="empty_mobile">Enter Mobile Number \n मोबाइल नंबर डाले</string>
+	<string name="empty_passcode">Enter Passcode \n पास कोड डाले </string>
 	<string name="invalid_mobile">Invalid Mobile Number \n गलत मोबाइल नंबर </string>
 	<string name="invalid_passcode">Invalid Passcode \n गलत पास कोड</string>
-	<string name="invalid_mobile_passcode">Invalid Mobile and Passcode \n गलत मोबाइल व पास कोड </string>
-	<string name="login_failed">Login Failed! Incorrect Mobile or Password \n गलत मोबाइल या पास कोड </string>
+	<string name="invalid_mobile_passcode">Invalid Mobile Number and Passcode \n गलत मोबाइल नंबर व पास कोड </string>
+	<string name="login_failed">Login Failed! Incorrect Mobile Number or Password \n गलत मोबाइल नंबर या पास कोड </string>
 	<string name="login_error">Network Error! Try After Sometime</string>
 	
 	<string name="empty_receiver_email">Enter Receiver Email \n पाने वाले का ई-मेल डाले </string>
 	<string name="invalid_receiver_email">Invalid Receiver Email Address \n गलत ई-मेल </string>
 	<string name="empty_receiver_mobile">Enter Receiver Mobile Number \n पाने वाले का मोबाइल नंबर डाले </string>
 	<string name="invalid_receiver_mobile">Invalid Receiver Mobile Number \n गलत मोबाइल नंबर </string>
-	<string name="none_receiver_email_mobile">Please Enter Receiver Mobile or Email \n पाने वाले का मोबाइल या ई-मेल डाले</string>
+	<string name="none_receiver_email_mobile">Enter Receiver Mobile or Email \n पाने वाले का मोबाइल या ई-मेल डाले</string>
 	<string name="both_receiver_email_mobile">Provide Either Receiver Mobile OR Email \n पाने वाले का मोबाइल या ई-मेल डाले</string>
 	<string name="send_canceled">eDak Sending Canceled \n ई-डाक रद्द </string>
 	<string name="send_error">eDak Sending Failed \n ई-डाक विफल</string>
@@ -77,18 +77,18 @@
 	
 	<string name="empty_email">Enter Email Address \n पाने वाले का ई-मेल डाले </string>
 	<string name="invalid_email">Invalid Email Address \n गलत ई-मेल </string>
-	<string name="none_mobile_email">Please Enter Mobile OR Email \n मोबाइल या ई-मेल डाले </string>
-	<string name="both_mobile_email">Provide Either Mobile OR Email \n मोबाइल या ई-मेल डाले</string>
-	<string name="all_mobile_email_secret_code">Please Enter Mobile and eDak Code \n मोबाइल व ई-डाक कोड डाले</string>
+	<string name="none_mobile_email">Enter Mobile Number OR Email \n मोबाइल नंबर या ई-मेल डाले </string>
+	<string name="both_mobile_email">Enter Either Mobile Number OR Email \n मोबाइल नंबर या ई-मेल डाले</string>
+	<string name="all_mobile_email_secret_code">Enter Mobile Number and eDak Code \n मोबाइल नंबर व ई-डाक कोड डाले</string>
 	
-	<string name="empty_secret_code">Please Enter eDak Code \n डाक कोड डाले</string>
+	<string name="empty_secret_code">Enter eDak Code \n डाक कोड डाले</string>
 	<string name="invalid_secret_code">Invalid eDak Code \n गलत डाक कोड </string>
 	<string name="receive_failed">Sorry! eDak Not Found \n ई-डाक विफल</string>
 	<string name="receive_error">Error! Try After Sometime</string>
 	
     <!-- Transaction details related to be shown for cost dialog -->
     <string name="costDialogTitle">Transaction Details</string>
-    <string name="costDialogSentMsg">eDak Sent Successfully \n ई-डाक सफल \n\n</string>
+    <string name="costDialogSentMsg">eDak Sent Successfully \n ई-डाक सफल \nYou will receive an SMS shortly\n\n</string>
     <string name="costDialogReceiveMsg">eDak Received Successfully \n ई-डाक सफल \n\n</string>
     <string name="costDialogCostMsg">Cost: Rs </string>
     <string name="costDialogNeturalBtn">OK</string>
@@ -102,14 +102,14 @@
     <!-- Details to be shown for all progress dialogs. -->
     <string name="receiveDocPrgDlg">eDak Receiving. Wait &#8230; \n इंतज़ार करे &#8230;</string>
     <string name="sendDocPrgDlg">eDak Sending. Wait &#8230; \n ई-डाक भेज रहे| इंतज़ार करे &#8230;</string>
-    <string name="authUserPrgDlg">Wait Logging &#8230; \n इंतज़ार करे &#8230;</string>
+    <string name="authUserPrgDlg">Verifying. Wait &#8230; \n इंतज़ार करे &#8230;</string>
 
     <!-- Details to be shown on change password activity -->
     <string name="chngPwdTxtMsg">Change Passcode</string>
-    <string name="chngPwdMobileLabel">Enter your Mobile</string>
-    <string name="chngPwdOldPwdLabel">Enter your old password</string>
-    <string name="chngPwdNewPwdLabel">Enter new password</string>
-    <string name="chngPwdNewPwdAgnLabel">Enter new password again.</string>
-    <string name="chngPwdBtnTxt">Change</string>
+    <string name="chngPwdMobileLabel">Your Mobile Number</string>
+    <string name="chngPwdOldPwdLabel">Your Old Passcode</string>
+    <string name="chngPwdNewPwdLabel">Your New Passcode</string>
+    <string name="chngPwdNewPwdAgnLabel">Confirm New Password</string>
+    <string name="chngPwdBtnTxt">Update New Passcode</string>
     
 </resources>
