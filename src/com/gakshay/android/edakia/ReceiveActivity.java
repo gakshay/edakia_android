@@ -134,10 +134,13 @@ public class ReceiveActivity extends BaseActivity {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			String responseXPath = msg.getData().getString("response");
+			TextView text = (TextView) findViewById(R.id.Error);
+			text.setText(null);
+			text.setVisibility(TextView.INVISIBLE);
 			//Fetch value of document x path from returned XML string response.
 			if(responseXPath != null && !"".equalsIgnoreCase(responseXPath) && !responseXPath.contains("error")){
 				progressDialog.dismiss();	
-				progressDialog = ProgressDialog.show(ReceiveActivity.this, "","Downloading Your document \n  ................" );
+				progressDialog = ProgressDialog.show(ReceiveActivity.this, "", getString(R.string.receiveDocPrgDlg) );
 				try{
 					documentPath = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("document_url");
 					docTransCost = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("cost");
@@ -172,13 +175,15 @@ public class ReceiveActivity extends BaseActivity {
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-							Toast.makeText(ReceiveActivity.this, "Got some exception while trying to invoke printer share App !!  \n Going to Home Page" , Toast.LENGTH_LONG).show();
+							Toast.makeText(ReceiveActivity.this, "Exception in calling eDakia-Print" , Toast.LENGTH_LONG).show();
 							startActivity((new Intent(ReceiveActivity.this, Edakia.class)));
 						}
 						progressDialog.dismiss();
 					}else{
 						progressDialog.dismiss();
-						Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find your document due to some internal error. Please bear with us for some time to serve you again.", Toast.LENGTH_LONG).show();	
+					//	Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find your document due to some internal error. Please bear with us for some time to serve you again.", Toast.LENGTH_LONG).show();	
+						text.setText(getString(R.string.receive_error));
+						text.setVisibility(TextView.VISIBLE);
 						((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 						((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
 						((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
@@ -187,7 +192,9 @@ public class ReceiveActivity extends BaseActivity {
 				}catch(Exception anExcep){
 					progressDialog.dismiss();
 					anExcep.printStackTrace();
-					Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find your document due to some internal error. Please bear with us for some time to serve you again.", Toast.LENGTH_LONG).show();
+					//Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find your document due to some internal error. Please bear with us for some time to serve you again.", Toast.LENGTH_LONG).show();
+					text.setText(getString(R.string.receive_error));
+					text.setVisibility(TextView.VISIBLE);
 					((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 					((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
 					((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
@@ -196,7 +203,9 @@ public class ReceiveActivity extends BaseActivity {
 				progressDialog.cancel();
 				progressDialog.dismiss();
 				//could not find any document with this.
-				Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find document matching this secret code & mobile number. \n Please make sure you entered correct inputs.", Toast.LENGTH_LONG).show();
+				//Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find document matching this secret code & mobile number. \n Please make sure you entered correct inputs.", Toast.LENGTH_LONG).show();
+				text.setText(getString(R.string.receive_failed));
+				text.setVisibility(TextView.VISIBLE);
 				((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 				((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
 				((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
@@ -205,7 +214,9 @@ public class ReceiveActivity extends BaseActivity {
 				progressDialog.dismiss();
 				progressDialog.cancel();
 				//some other error.
-				Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find your document due to some internal error. Please bear with us for some time to serve you again.", Toast.LENGTH_LONG).show();
+				//Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find your document due to some internal error. Please bear with us for some time to serve you again.", Toast.LENGTH_LONG).show();
+				text.setText(getString(R.string.receive_error));
+				text.setVisibility(TextView.VISIBLE);
 				((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 				((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
 				((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
@@ -219,7 +230,8 @@ public class ReceiveActivity extends BaseActivity {
 
 		TextView text = (TextView) findViewById(R.id.Error);
 		text.setText(null);
-
+		text.setVisibility(TextView.INVISIBLE);
+		
 		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.VISIBLE);
 		((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.VISIBLE);
 		((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.VISIBLE);
@@ -229,7 +241,9 @@ public class ReceiveActivity extends BaseActivity {
 		if(receiverEmailAddress.getText().toString() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())
 				&& mobile.getText().toString() != null && !"".equalsIgnoreCase(mobile.getText().toString())){
 
-			Toast.makeText(this, "Please provide single input,either email address or mobile no.", Toast.LENGTH_LONG).show();
+			//Toast.makeText(this, "Please provide single input,either email address or mobile no.", Toast.LENGTH_LONG).show();
+			text.setText(getString(R.string.both_mobile_email));
+			text.setVisibility(TextView.VISIBLE);
 			return false;
 		}
 
@@ -237,16 +251,17 @@ public class ReceiveActivity extends BaseActivity {
 				&& (mobile.getText().toString() == null || "".equalsIgnoreCase(mobile.getText().toString()))){
 
 			if(secretCode.getText() == null || "".equalsIgnoreCase(secretCode.getText().toString()) || secretCode.getText().toString().length() == 0){
-				Toast.makeText(this, "Please provide inputs.", Toast.LENGTH_LONG).show();
-				text.setText("Please provide required inputs.");
-
+				//Toast.makeText(this, "Please provide inputs.", Toast.LENGTH_LONG).show();
+				text.setText(getString(R.string.all_mobile_email_secret_code));
+				text.setVisibility(TextView.VISIBLE);
 				((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_error);
 				((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_error);
 				((ImageView)findViewById(R.id.errImgSecCode)).setImageResource(R.drawable.ic_error);
 
 			}else{
-				Toast.makeText(this, "Please provide inputs,either email address or mobile no. with secret code.", Toast.LENGTH_LONG).show();
-				text.setText("Please provide inputs,either email address or mobile no. with secret code.");
+				//Toast.makeText(this, "Please provide inputs,either email address or mobile no. with secret code.", Toast.LENGTH_LONG).show();
+				text.setText(getString(R.string.both_mobile_email));
+				text.setVisibility(TextView.VISIBLE);
 				((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_error);
 				((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_error);
 
@@ -263,14 +278,16 @@ public class ReceiveActivity extends BaseActivity {
 			valStatusCode = Validator.validateMobileNumber(mobile.getText().toString()).ordinal();
 			switch(valStatusCode){
 			case 1:
-				Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
-				text.setText("You missed mobile number. Plz enter the same.");
+				//Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
+				text.setText(getString(R.string.empty_mobile));
+				text.setVisibility(TextView.VISIBLE);
 				((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_error);
 				mobile.findFocus();
 				return false;
 			case 2:
-				Toast.makeText(this, "Incorrect Mobile Number", Toast.LENGTH_LONG).show();
-				text.setText("You entered incorrect mobile number. Plz correct the same.");
+				//Toast.makeText(this, "Incorrect Mobile Number", Toast.LENGTH_LONG).show();
+				text.setText(getString(R.string.invalid_mobile));
+				text.setVisibility(TextView.VISIBLE);
 				mobile.findFocus();
 				((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_error);
 				return false;		
@@ -289,8 +306,9 @@ public class ReceiveActivity extends BaseActivity {
 			valStatusCode = Validator.validateEmailAddress(receiverEmailAddress.getText().toString()).ordinal();
 			switch (valStatusCode) {
 			case 7:
-				Toast.makeText(this, "Incorrect Email Address",Toast.LENGTH_LONG).show();
-				text.setText("You entered incorrect email address. Plz correct the same.");
+				//Toast.makeText(this, "Incorrect Email Address",Toast.LENGTH_LONG).show();
+				text.setText(getString(R.string.invalid_email));
+				text.setVisibility(TextView.VISIBLE);
 				receiverEmailAddress.findFocus();
 				((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_error);
 
@@ -306,14 +324,16 @@ public class ReceiveActivity extends BaseActivity {
 		valStatusCode = Validator.validateSecretNumber(secretCode.getText().toString()).ordinal();
 		switch(valStatusCode){
 		case 3:
-			Toast.makeText(this, "Enter Secret Number", Toast.LENGTH_LONG).show();
-			text.setText("You missed secret number. Plz enter the same.");
+			//Toast.makeText(this, "Enter Secret Number", Toast.LENGTH_LONG).show();
+			text.setText(getString(R.string.empty_secret_code));
+			text.setVisibility(TextView.VISIBLE);
 			secretCode.findFocus();
 			((ImageView)findViewById(R.id.errImgSecCode)).setImageResource(R.drawable.ic_error);
 			return false;
 		case 4:
-			Toast.makeText(this, "Incorrect Secret Code", Toast.LENGTH_LONG).show();
-			text.setText("You entered incorrect secret number. Plz correct the same");
+			//Toast.makeText(this, "Incorrect Secret Code", Toast.LENGTH_LONG).show();
+			text.setText(getString(R.string.invalid_secret_code));
+			text.setVisibility(TextView.VISIBLE);
 			secretCode.findFocus();
 			((ImageView)findViewById(R.id.errImgSecCode)).setImageResource(R.drawable.ic_error);
 
@@ -337,7 +357,7 @@ public class ReceiveActivity extends BaseActivity {
 			if(resultCode == RESULT_OK){
 				Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
 				homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				Toast.makeText(this, "Please recieve your document.", Toast.LENGTH_LONG).show();
+				//Toast.makeText(this, "Please receive your document.", Toast.LENGTH_LONG).show();
 				homeIntent.putExtra("showCostDialogBox", "true");
 				homeIntent.putExtra("transactionType", "received");
 				homeIntent.putExtra("transactionCost", docTransCost);
@@ -347,7 +367,10 @@ public class ReceiveActivity extends BaseActivity {
 				Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
 				homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				homeIntent.putExtra("showCostDialogBox", "false");
-				Toast.makeText(this, "Due to some temporary error, could not receive your document.", Toast.LENGTH_LONG).show();
+				//Toast.makeText(this, "Due to some temporary error, could not receive your document.", Toast.LENGTH_LONG).show();
+				TextView text = (TextView) findViewById(R.id.Error);
+				text.setText(getString(R.string.receive_error));
+				text.setVisibility(TextView.VISIBLE);
 				homeIntent.putExtra("showCostDialogBox", "false");
 				finish();
 			}
