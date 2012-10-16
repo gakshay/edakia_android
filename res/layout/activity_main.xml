@@ -6,6 +6,16 @@
     android:contentDescription="@string/app_name"
     android:orientation="vertical"
     android:visibility="visible" >
+
+    <Button
+        android:id="@+id/ChngPwdBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="@android:color/transparent"
+        android:onClick="optionClickHandler"
+        android:paddingRight="10dp"
+        android:text="@string/chngPwdTxtMsg" />
 
     <Button
         android:id="@+id/optionSend"
@@ -49,12 +59,5 @@
         android:text="@string/option_print"
         android:textColor="@color/white"
         android:textSize="24dip" />
-
-    <ImageButton
-        android:id="@+id/ChngPwdBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="optionClickHandler"
-        android:src="@drawable/ic_chngpwd" />
 
 </LinearLayout>

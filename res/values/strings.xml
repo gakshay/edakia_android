@@ -24,7 +24,7 @@
     <string name="personal_mobile">Your Mobile Number</string>
     <string name="mobile">Mobile Number (मोबाइल नंबर)</string>
     <string name="receiver_mobile">Receiver Mobile Number</string>
-    <string name="secret_code">Secret Code (डाक कोड)</string>
+    <string name="secret_code">eDak Code (ई-डाक कोड)</string>
     <string name="receive">eDak Receive \n ई-डाक पाए</string>
     <string name="print">Print \n छापिये</string>
     <string name="title_activity_print">eDakia - Print</string>
@@ -105,7 +105,7 @@
     <string name="authUserPrgDlg">Wait Logging &#8230; \n इंतज़ार करे &#8230;</string>
 
     <!-- Details to be shown on change password activity -->
-    <string name="chngPwdTxtMsg">Change your password</string>
+    <string name="chngPwdTxtMsg">Change Passcode</string>
     <string name="chngPwdMobileLabel">Enter your Mobile</string>
     <string name="chngPwdOldPwdLabel">Enter your old password</string>
     <string name="chngPwdNewPwdLabel">Enter new password</string>
