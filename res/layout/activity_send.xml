@@ -10,9 +10,14 @@
         android:id="@+id/Error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="@dimen/padding_medium"
+        android:background="@drawable/status"
+        android:gravity="center"
+        android:padding="@dimen/padding_medium"
         android:text="@string/EmptyString"
-        android:textColor="@color/red" />
+        android:textColor="@color/status_color"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/receiverEmailText"

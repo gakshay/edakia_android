@@ -83,7 +83,7 @@ public class SendActivity extends BaseActivity {
 		} else if (requestCode  == ACTIVITY_CHOOSE_FILE && resultCode == RESULT_OK){
 			Uri uri = data.getData();
 			scannedFile = uri.getPath();
-			Toast.makeText(this, "file selected to send :  " + scannedFile, Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "File :  " + scannedFile, Toast.LENGTH_LONG).show();
 			Intent sendIntent = new Intent(SendActivity.this, ConfirmSend.class);
 			sendIntent.putExtra("sendMobile", senderMobile);
 			sendIntent.putExtra("sendPassword", senderPassword);
@@ -205,7 +205,7 @@ public class SendActivity extends BaseActivity {
 		boolean isValid = false;
 		TextView text = (TextView) findViewById(R.id.Error);
 		text.setText(null);
-
+		text.setVisibility(TextView.INVISIBLE);
 		
 		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.VISIBLE);
 		((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.VISIBLE);
@@ -213,7 +213,9 @@ public class SendActivity extends BaseActivity {
 		if(receiverEmailAddress.getText().toString() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString())
 				&& receiverMobile.getText().toString() != null && !"".equalsIgnoreCase(receiverMobile.getText().toString())){
 
-			Toast.makeText(this, "Please provide single input,either email address or mobile no.", Toast.LENGTH_LONG).show();
+			//Toast.makeText(this, "Please provide single input,either email address or mobile no.", Toast.LENGTH_LONG).show();
+			text.setText(getString(R.string.both_receiver_email_mobile));
+			text.setVisibility(TextView.VISIBLE);
 			return false;
 		}
 
@@ -221,7 +223,9 @@ public class SendActivity extends BaseActivity {
 				&& (receiverMobile.getText().toString() == null || "".equalsIgnoreCase(receiverMobile.getText().toString()))){
 			((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_error);
 			((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_error);
-			Toast.makeText(this, "Please provide any input,either email address or mobile no.", Toast.LENGTH_LONG).show();
+			//Toast.makeText(this, "Please provide any input,either email address or mobile no.", Toast.LENGTH_LONG).show();
+			text.setText(getString(R.string.none_receiver_email_mobile));
+			text.setVisibility(TextView.VISIBLE);
 			return false;
 		}
 		int valStatusCode = -5;
@@ -234,14 +238,16 @@ public class SendActivity extends BaseActivity {
 			valStatusCode = Validator.validateMobileNumber(receiverMobile.getText().toString()).ordinal();
 			switch(valStatusCode){
 			case 1:
-				Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
-				text.setText("You missed mobile number. Plz enter the same.");
+				//Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
+				text.setText(getString(R.string.empty_receiver_mobile));
+				text.setVisibility(TextView.VISIBLE);
 				receiverMobile.findFocus();
 				((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_error);
 				return false;
 			case 2:
-				Toast.makeText(this, "Incorrect Mobile Number", Toast.LENGTH_LONG).show();
-				text.setText("You entered incorrect mobile number. Plz correct the same.");
+				//Toast.makeText(this, "Incorrect Mobile Number", Toast.LENGTH_LONG).show();
+				text.setText(getString(R.string.invalid_receiver_mobile));
+				text.setVisibility(TextView.VISIBLE);
 				receiverMobile.findFocus();
 				((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_error);
 				return false;	
@@ -260,8 +266,9 @@ public class SendActivity extends BaseActivity {
 				valStatusCode = Validator.validateEmailAddress(receiverEmailAddress.getText().toString()).ordinal();
 				switch (valStatusCode) {
 				case 7:
-					Toast.makeText(this, "Incorrect Email Address",Toast.LENGTH_LONG).show();
-					text.setText("You entered incorrect email address. Plz correct the same.");
+					//Toast.makeText(this, "Incorrect Email Address",Toast.LENGTH_LONG).show();
+					text.setText(getString(R.string.invalid_receiver_email));
+					text.setVisibility(TextView.VISIBLE);
 					receiverEmailAddress.findFocus();
 					((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_error);
 

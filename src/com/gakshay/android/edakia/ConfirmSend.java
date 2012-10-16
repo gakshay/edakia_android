@@ -110,13 +110,13 @@ public class ConfirmSend extends BaseActivity {
 
 
 	private void onDialogPressedCancel(){
-		Toast.makeText(this, "Try again !!", Toast.LENGTH_LONG).show();
+		//Toast.makeText(this, "Try again !!", Toast.LENGTH_LONG).show();
 		finish();
 	}
 
 
 	private void onDialogPressedOK(){
-		Toast.makeText(this, "Sending Your Document.Have Patience......", Toast.LENGTH_LONG).show();
+		//Toast.makeText(this, "Sending Your Document.Have Patience......", Toast.LENGTH_LONG).show();
 		doSendFile();//don't finish activity here, finish it after you send your file.
 	}
 
@@ -226,15 +226,19 @@ public class ConfirmSend extends BaseActivity {
 			progressDialog.dismiss();
 			//initialize error text value to null.
 			TextView text = (TextView) findViewById(R.id.Error);
-			//text.setText(null);
+			text.setText(null);
+			text.setVisibility(TextView.INVISIBLE);
+			
 			Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
 			homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
 			if(sendResponse != null && sendResponse.contains("Exception")){
-				Toast.makeText(ConfirmSend.this, "Could not send your document.\nPlz try again after some time.", Toast.LENGTH_LONG).show();
+				//Toast.makeText(ConfirmSend.this, "Could not send your document.\nPlz try again after some time.", Toast.LENGTH_LONG).show();
+				text.setText(getString(R.string.send_error));
+				text.setVisibility(TextView.VISIBLE);
 				homeIntent.putExtra("showCostDialogBox", "false");
 			}else{
-				Toast.makeText(ConfirmSend.this, "Your document has been sent.Try other transaction.", Toast.LENGTH_LONG).show();
+				//Toast.makeText(ConfirmSend.this, "Your document has been sent.Try other transaction.", Toast.LENGTH_LONG).show();
 				homeIntent.putExtra("showCostDialogBox", "true");
 				homeIntent.putExtra("transactionType", "sent");
 				homeIntent.putExtra("transactionCost", ActivitiesHelper.fetchValuesFromReponse(sendResponse).get("cost"));
