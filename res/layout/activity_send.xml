@@ -17,42 +17,61 @@
         android:padding="@dimen/padding_medium"
         android:text="@string/EmptyString"
         android:textColor="@color/status_color"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/receiverEmailText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="@string/receiver_email_send_activity"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:visibility="invisible" />
 
     <LinearLayout
+        android:id="@+id/optionalEmailLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dip"
-        android:layout_gravity="center" >
-
-	    <EditText
-	        android:id="@+id/receiverEmail"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:visibility="gone" >
+	    <TextView
+	        android:id="@+id/receiverEmailText"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="20dp"
+	        android:gravity="center"
+	        android:text="@string/receiver_email_send_activity"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	    <Button
+	        android:id="@+id/optionMobile"
+	        style="?android:attr/buttonStyleSmall"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_marginTop="10dp"
-	        android:ems="12"
-	        android:inputType="textEmailAddress">
-	    </EditText>
-	    
-	    <ImageView
-	        android:id="@+id/errImgEmail"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:src="@drawable/ic_error" />
-	</LinearLayout>
-
+	        android:layout_gravity="center"
+	        android:focusable="false"
+	        android:gravity="center"
+	        android:onClick="toggleMobile"
+	        android:minHeight="24dip"
+	        android:background="@android:color/transparent"
+	        android:text="@string/option_mobile_button" />
 	
-    <TextView
+	    <LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:layout_marginLeft="10dp"
+	        android:orientation="horizontal" >
+	
+		    <EditText
+		        android:id="@+id/receiverEmail"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="10dp"
+		        android:ems="12"
+		        android:inputType="textEmailAddress">
+		    </EditText>
+		    
+		    <ImageView
+		        android:id="@+id/errImgEmail"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/ic_error" />
+		</LinearLayout>
+	</LinearLayout>
+	
+  <!--   <TextView
         android:id="@+id/ChooseOption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,43 +79,62 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="@string/ORText" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="@string/receiver_mobile_send_activity"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <LinearLayout
+ -->
+	<LinearLayout
+        android:id="@+id/optionalMobileLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dip"
+        android:orientation="vertical"
         android:layout_gravity="center" >
-
-	    <EditText
-	        android:id="@+id/receiverMobile"
-	        android:layout_width="wrap_content"
+	    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="10dp"
-	        android:ems="10"
-	        android:inputType="number"
-	        android:maxLength="10"
-	        android:padding="@dimen/padding_small" >
-	
-	        <requestFocus />
-	    </EditText>
-	    
-	    <ImageView
-	        android:id="@+id/errImgMob"
+	        android:gravity="center"
+	        android:text="@string/receiver_mobile_send_activity"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	    <Button
+	        android:id="@+id/optionEmail"
+	        style="?android:attr/buttonStyleSmall"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:src="@drawable/ic_error" />
-
+	        android:layout_gravity="center"
+	        android:background="@android:color/transparent"
+	        android:gravity="center"
+	        android:minHeight="24dip"
+	        android:onClick="toggleEmail"
+	        android:text="@string/option_email_button" />
+	
+	    <LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:orientation="horizontal" >
+	
+		    <EditText
+		        android:id="@+id/receiverMobile"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="10dp"
+		        android:ems="10"
+		        android:inputType="number"
+		        android:maxLength="10"
+		        android:padding="@dimen/padding_small" >
+		
+		        <requestFocus />
+		    </EditText>
+		    
+		    <ImageView
+		        android:id="@+id/errImgMob"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/ic_error" />
+	
+		</LinearLayout>
 	</LinearLayout>
+	    
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

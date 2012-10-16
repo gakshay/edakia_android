@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.support.v4.app.NavUtils;
 
 public class BaseActivity extends Activity {
@@ -45,6 +46,20 @@ public class BaseActivity extends Activity {
 		}	
 
 		return serial;
+	}
+	
+	public void toggleEmail(View view){
+		LinearLayout mobile_layout = (LinearLayout)this.findViewById(R.id.optionalMobileLayout);
+		LinearLayout email_layout = (LinearLayout)this.findViewById(R.id.optionalEmailLayout);
+		mobile_layout.setVisibility(LinearLayout.GONE);
+		email_layout.setVisibility(LinearLayout.VISIBLE);
+	}
+	
+	public void toggleMobile(View view){
+		LinearLayout mobile_layout = (LinearLayout)this.findViewById(R.id.optionalMobileLayout);
+		LinearLayout email_layout = (LinearLayout)this.findViewById(R.id.optionalEmailLayout);
+		mobile_layout.setVisibility(LinearLayout.VISIBLE);
+		email_layout.setVisibility(LinearLayout.GONE);
 	}
 
 }

@@ -52,6 +52,8 @@
     <string name="title_activity_base">eDakia - Base</string>
     <string name="receiver_email_receive_activity">Email Address (ई-मेल)</string>
     <string name="ORText">OR (या)</string>
+    <string name="option_email_button"><u>E-Mail (ई-मेल)</u> ?</string>
+    <string name="option_mobile_button"><u>Mobile (मोबाइल)</u> ?</string>
     
     <!-- Error messages -->
     <string name="empty_mobile_passcode">Please Enter Mobile and Password \n मोबाइल नंबर व पास कोड डाले </string>
