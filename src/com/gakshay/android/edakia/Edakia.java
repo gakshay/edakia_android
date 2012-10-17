@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -93,7 +95,7 @@ public class Edakia extends Activity {
 
 	private void prepareCostDialogBox(){
 		AlertDialog.Builder altDialog= new AlertDialog.Builder(this);
-		//set the message on d	ialog.
+		//set the message on dialog.
 		Intent intent = getIntent();
 		Bundle bundleData = intent.getExtras();
 		String tranctMsg;
@@ -104,7 +106,7 @@ public class Edakia extends Activity {
 		
 		altDialog.setTitle(getString(R.string.costDialogTitle));
 		String cost = (String) bundleData.get("transactionCost");
-		String dialogMessage = tranctMsg + "\n\n" + getString(R.string.costDialogCostMsg) + cost;
+		String dialogMessage = tranctMsg + "\n\n" + getString(R.string.costDialogCostMsg) + " " + cost;
 		altDialog.setMessage(dialogMessage); // here add your message
 		altDialog.setCancelable(false);
 		altDialog.setIcon(R.drawable.ic_launcher);
