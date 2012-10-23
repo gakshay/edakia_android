@@ -3,6 +3,7 @@
  */
 package com.gakshay.android.util;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,9 +14,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 
 import org.apache.commons.codec.binary.Base64;
 
+import android.database.CursorJoiner.Result;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
@@ -59,7 +62,7 @@ public class NetworkOperations {
 		}
 		return in;
 	}	
-	
+
 	public static String authorizeToEdakiaServer(String urlStr,String name, String password) {
 		String response = null;
 		try {
@@ -148,7 +151,7 @@ public class NetworkOperations {
 		}
 		return isFileCreated;
 	}
-	
+
 	public static boolean readAndCreateImageDocumentFromEdakia(String reqURL,String absolutefilePath){
 		boolean isFileCreated = false;
 		InputStream in = null;
@@ -171,4 +174,57 @@ public class NetworkOperations {
 		}
 		return isFileCreated;
 	}
+
+
+	public static String  chngPwdReqToEdakia(String connURL,String connUsername, String connPassword,String newPassword,String oldPassword) {
+		String result = null;
+		try {
+
+			String authString = connUsername + ":" + connPassword;
+			byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
+			String authStringEnc = new String(authEncBytes);
+
+			URL url = new URL(connURL);
+			HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
+			urlConnection.setRequestMethod("POST");
+			urlConnection.setRequestProperty("Authorization", "Basic " + authStringEnc);
+			urlConnection.setDoOutput(true);
+			urlConnection.setDoInput(true);
+
+
+			// Encode according to application/x-www-form-urlencoded specification
+			String content =
+					"user[password]=" + URLEncoder.encode (oldPassword) +
+					"&user[password_confirmation]=" + URLEncoder.encode (newPassword);
+
+			urlConnection.setRequestProperty("Content-Type", "text/plain"); 
+			urlConnection.setRequestProperty("Content-Length",  "" + content.getBytes().length); 
+
+			// Write body
+			OutputStream output = urlConnection.getOutputStream(); 
+			output.write(content.getBytes());
+			output.flush();
+			output.close();
+
+			InputStream is = urlConnection.getInputStream();
+			InputStreamReader isr = new InputStreamReader(is);
+
+			int numCharsRead;
+			char[] charArray = new char[1024];
+			StringBuffer sb = new StringBuffer();
+			while ((numCharsRead = isr.read(charArray)) > 0) {
+				sb.append(charArray, 0, numCharsRead);
+			}
+			result = sb.toString();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+
+	}
+
+
 }

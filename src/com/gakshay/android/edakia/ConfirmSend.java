@@ -163,9 +163,10 @@ public class ConfirmSend extends BaseActivity {
 			entity.addPart("transaction[document_attributes][user_id]",new StringBody(userId));
 			entity.addPart("transaction[sender_mobile]",new StringBody(senderMobile));
 			entity.addPart("serial_number",new StringBody(getSerialNumber()));
-
-
+			
 			httppost.setEntity(entity);
+			httppost.setHeader("Accept", mimeType);
+			httppost.setHeader("Content-Type", mimeType);
 
 			HttpResponse httpResponse = httpclient.execute(httppost);
 			InputStream respStream = (InputStream)httpResponse.getEntity().getContent();
@@ -240,7 +241,7 @@ public class ConfirmSend extends BaseActivity {
 			}else{
 				//Toast.makeText(ConfirmSend.this, "Your document has been sent.Try other transaction.", Toast.LENGTH_LONG).show();
 				homeIntent.putExtra("showCostDialogBox", "true");
-				homeIntent.putExtra("transactionType", "sent");
+				homeIntent.putExtra("transactionType", "send");
 				homeIntent.putExtra("transactionCost", ActivitiesHelper.fetchValuesFromReponse(sendResponse).get("cost"));
 
 			}

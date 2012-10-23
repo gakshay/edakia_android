@@ -1,13 +1,19 @@
 package com.gakshay.android.edakia;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gakshay.android.util.ActivitiesHelper;
+import com.gakshay.android.util.NetworkOperations;
 import com.gakshay.android.validation.Validator;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -22,8 +28,7 @@ public class ChangePassword extends BaseActivity {
 	private EditText oldPwd;
 	private EditText newPwd;
 	private EditText newPwdAgain;
-
-	private String authURL = "http://staging.edakia.in/api/users.xml"; //"http://www.edakia.in/api/users.xml";
+	private String authURL = "http://staging.edakia.in/api/users/update_password.xml";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,8 +54,25 @@ public class ChangePassword extends BaseActivity {
 		newPwdAgain = ((EditText) findViewById(R.id.newPwdAgain));
 
 		if(validateInputData()){
-			//authenticateUser(authURL, mobile.getText().toString(), oldPwd.getText().toString(),true);
+			sendReqForChangePassword();
 		}
+	}
+	
+	private void sendReqForChangePassword(){
+			progressDialog = ProgressDialog.show(this, "", getString(R.string.chngPwdPrgDlg));
+		new Thread() {
+			public void run() {
+				InputStream in = null;
+				Message msg = Message.obtain();
+				try {
+					chngPwdResp = NetworkOperations.chngPwdReqToEdakia(authURL, mobile.getText().toString(), oldPwd.getText().toString(), newPwd.getText().toString(), oldPwd.getText().toString());
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				messageHandler.sendMessage(msg);					
+			}
+		}.start();
 	}
 
 	private boolean validateInputData(){
@@ -206,5 +228,34 @@ public class ChangePassword extends BaseActivity {
 		}
 		anErrText.setText(finalErrMsg);		
 	}
+	
+	private Handler messageHandler = new Handler() {
 
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			progressDialog.dismiss();
+			//initialize error text value to null.
+			TextView text = (TextView) findViewById(R.id.Error);
+			text.setText(null);
+
+			((ImageView)findViewById(R.id.errImgMobile)).setVisibility(ImageView.INVISIBLE);
+			((ImageView)findViewById(R.id.errImgOldPwd)).setVisibility(ImageView.INVISIBLE);
+			((ImageView)findViewById(R.id.errImgNewPwd)).setVisibility(ImageView.INVISIBLE);
+			((ImageView)findViewById(R.id.errImgNewPwdAgn)).setVisibility(ImageView.INVISIBLE);
+			
+			if(ActivitiesHelper.fetchValuesFromReponse(chngPwdResp).get("error") != null && ActivitiesHelper.fetchValuesFromReponse(chngPwdResp).get("error").contains("exceptions")){
+				text.setText(getString(R.string.chngPwd_failed));
+
+			}else{
+				Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
+				homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				//Toast.makeText(this, "Please receive your document.", Toast.LENGTH_LONG).show();
+				homeIntent.putExtra("showResultDialogBox", "true");
+				homeIntent.putExtra("transactionType", "chngPwd");
+				startActivity(homeIntent);
+				finish();
+			}
+
+		}
+	};
 }
