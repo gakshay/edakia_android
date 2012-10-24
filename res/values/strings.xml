@@ -31,7 +31,7 @@
     <string name="option_print_button">onPrintClick</string>
     <string name="EmptyString"></string>
     <string name="title_activity_authenticate">eDakia - Authenticate</string>
-    <string name="title_activity_change_password">eDakia - Change Password</string>
+    <string name="title_activity_change_password">eDakia - Change Passcode</string>
     <string name="authenticate_activity_mobile">Your Mobile Number \n आपका मोबाइल नंबर</string>
     <string name="authenticate_activity_password">Your Passcode \n आपका पास कोड</string>
     <string name="authenticate_activity_authenticate_button">Login \n साइन</string>
@@ -105,11 +105,11 @@
     <string name="authUserPrgDlg">Verifying. Wait &#8230; \n इंतज़ार करे &#8230;</string>
 
     <!-- Details to be shown on change password activity -->
-    <string name="chngPwdTxtMsg">Change Passcode</string>
+    <string name="chngPwdTxtMsg">My New Passcode</string>
     <string name="chngPwdMobileLabel">Your Mobile Number</string>
     <string name="chngPwdOldPwdLabel">Your Old Passcode</string>
     <string name="chngPwdNewPwdLabel">Your New Passcode</string>
-    <string name="chngPwdNewPwdAgnLabel">Confirm New Password</string>
-    <string name="chngPwdBtnTxt">Update New Passcode</string>
+    <string name="chngPwdNewPwdAgnLabel">Confirm New Passcode</string>
+    <string name="chngPwdBtnTxt">Save</string>
     
 </resources>
