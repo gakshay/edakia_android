@@ -90,7 +90,7 @@
     <string name="costDialogTitle">Transaction Details</string>
     <string name="costDialogSentMsg">eDak Sent Successfully \n ई-डाक सफल \nYou will receive an SMS shortly\n\n</string>
     <string name="costDialogReceiveMsg">eDak Received Successfully \n ई-डाक सफल \n\n</string>
-    <string name="costDialogCostMsg">Cost: Rs </string>
+    <string name="costDialogCostMsg">Cost: Rs  </string>
     <string name="costDialogNeturalBtn">OK</string>
 
     <!-- Transaction details related to be shown for confirm send dialog -->

@@ -9,8 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -27,11 +25,9 @@ public class Edakia extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		String showCostDialog = "false";
 		if(getIntent() != null && getIntent().getExtras() != null){
-			showCostDialog = (String)getIntent().getExtras().get("showCostDialogBox");
-			if("true".equalsIgnoreCase(showCostDialog))
-				prepareCostDialogBox();	
+			if("true".equalsIgnoreCase((String)getIntent().getExtras().get("showCostDialogBox")) || "true".equalsIgnoreCase((String)getIntent().getExtras().get("showResultDialogBox")))
+				prepareResultDialog();	
 		}	
 	}
 
@@ -93,24 +89,36 @@ public class Edakia extends Activity {
 		finish();
 	}
 
-	private void prepareCostDialogBox(){
+	private void prepareResultDialog(){
 		AlertDialog.Builder altDialog= new AlertDialog.Builder(this);
-		//set the message on dialog.
+		//set the message on d	ialog.
 		Intent intent = getIntent();
 		Bundle bundleData = intent.getExtras();
-		String tranctMsg;
-		if("received".equalsIgnoreCase((String) bundleData.get("transactionType")))
+		String tranctMsg = "",dialogMessage = "";
+		if("received".equalsIgnoreCase((String) bundleData.get("transactionType"))){
 		    tranctMsg = getString(R.string.costDialogReceiveMsg);
-		else 
-			tranctMsg = getString(R.string.costDialogSentMsg);
-		
 		altDialog.setTitle(getString(R.string.costDialogTitle));
 		String cost = (String) bundleData.get("transactionCost");
-		String dialogMessage = tranctMsg + "\n\n" + getString(R.string.costDialogCostMsg) + " " + cost;
+		dialogMessage = tranctMsg + "\n\n" + getString(R.string.costDialogCostMsg) + cost;
+
+		}else if("send".equalsIgnoreCase((String) bundleData.get("transactionType"))){
+			tranctMsg = getString(R.string.costDialogSentMsg);
+			altDialog.setTitle(getString(R.string.costDialogTitle));
+			String cost = (String) bundleData.get("transactionCost");
+			dialogMessage = tranctMsg + "\n\n" + getString(R.string.costDialogCostMsg) + cost;
+
+		}else{
+			dialogMessage = getString(R.string.chngPwdDialogMsg);
+			altDialog.setTitle(getString(R.string.chngPwdDialogTitle));
+			 
+		}
+			
+		
+		
 		altDialog.setMessage(dialogMessage); // here add your message
 		altDialog.setCancelable(false);
 		altDialog.setIcon(R.drawable.ic_launcher);
-		altDialog.setNeutralButton(getString(R.string.costDialogNeturalBtn), new DialogInterface.OnClickListener() {
+		altDialog.setNeutralButton(getString(R.string.resultDialogNeturalBtn), new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
