@@ -165,8 +165,8 @@ public class ConfirmSend extends BaseActivity {
 			entity.addPart("serial_number",new StringBody(getSerialNumber()));
 			
 			httppost.setEntity(entity);
-			httppost.setHeader("Accept", mimeType);
-			httppost.setHeader("Content-Type", mimeType);
+			/*httppost.setHeader("Accept", mimeType);
+			httppost.setHeader("Content-Type", mimeType);*/
 
 			HttpResponse httpResponse = httpclient.execute(httppost);
 			InputStream respStream = (InputStream)httpResponse.getEntity().getContent();
