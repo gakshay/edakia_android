@@ -168,7 +168,7 @@ public class ReceiveActivity extends BaseActivity {
 						try {
 							Intent i = new Intent(Intent.ACTION_VIEW);
 							i.setPackage("com.dynamixsoftware.printershare");
-							i.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory()+ "/" + documentName)), mimeType);
+							i.setDataAndType(Uri.fromFile(new File(localEdakiaDocStorage + documentName)), mimeType);
 							startActivityForResult(i,PRINT_ACTIVITY);
 
 
