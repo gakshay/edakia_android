@@ -35,7 +35,7 @@
 	       android:gravity="center"
 	       android:layout_marginTop="20dp"
 	       android:text="@string/receiver_email_receive_activity"
-	       android:textAppearance="?android:attr/textAppearanceLarge" />
+	       android:textSize="@dimen/veryLargeText" />
 	
 	   <Button
 	        android:id="@+id/optionMobile"
@@ -48,6 +48,7 @@
 	        android:onClick="toggleMobile"
 	        android:minHeight="24dip"
 	        android:background="@android:color/transparent"
+	        android:textSize="@dimen/mediumText"
 	        android:text="@string/option_mobile_button" />
 		<LinearLayout
 	        android:layout_width="wrap_content"
@@ -61,6 +62,7 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_marginTop="10dp"
+		        android:textSize="@dimen/mediumText"
 		        android:ems="12"
 		        android:inputType="textEmailAddress" />
 		    
@@ -91,9 +93,10 @@
 	        android:id="@+id/textView1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:gravity="center"
+	        android:layout_gravity="center"
 	        android:layout_marginTop="10dp"
 	        android:text="@string/mobile"
+	        android:textSize="@dimen/veryLargeText"
 	        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 	    <Button
@@ -106,6 +109,7 @@
 	        android:gravity="center"
 	        android:minHeight="24dip"
 	        android:onClick="toggleEmail"
+	        android:textSize="@dimen/mediumText"
 	        android:text="@string/option_email_button" />
 	
 	    <LinearLayout
@@ -123,6 +127,7 @@
 		        android:layout_marginTop="10dp"
 		        android:ems="10"
 		        android:inputType="number"
+		        android:textSize="@dimen/largeText"
 		        android:maxLength="10"
 		        android:padding="@dimen/padding_small" >
 		
@@ -139,12 +144,12 @@
     
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:gravity="center"
+        android:layout_gravity="center"
         android:text="@string/secret_code"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textSize="@dimen/veryLargeText"  />
     
 	<LinearLayout
         android:layout_width="wrap_content"
@@ -159,6 +164,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="10dp"
 	        android:ems="10"
+	        android:textSize="@dimen/largeText"
 	        android:inputType="number"
 	        android:maxLength="6" />
 	    
@@ -180,7 +186,7 @@
         android:padding="20dp"
         android:text="@string/receive"
         android:textColor="@color/white"
-        android:textSize="24dip" />
+        android:textSize="@dimen/veryLargeText" />
      
   
 

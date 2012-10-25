@@ -31,11 +31,12 @@
 
 	    <TextView
 	        android:id="@+id/receiverEmailText"
-	        android:layout_width="match_parent"
+	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="20dp"
 	        android:gravity="center"
 	        android:text="@string/receiver_email_send_activity"
+	        android:textSize="@dimen/veryLargeText"
 	        android:textAppearance="?android:attr/textAppearanceLarge" />
 	    <Button
 	        android:id="@+id/optionMobile"
@@ -47,6 +48,7 @@
 	        android:gravity="center"
 	        android:onClick="toggleMobile"
 	        android:minHeight="24dip"
+	        android:textSize="@dimen/mediumText"
 	        android:background="@android:color/transparent"
 	        android:text="@string/option_mobile_button" />
 	
@@ -64,6 +66,7 @@
 		        android:layout_height="wrap_content"
 		        android:layout_marginTop="10dp"
 		        android:ems="12"
+		        android:textSize="@dimen/mediumText"
 		        android:inputType="textEmailAddress">
 		    </EditText>
 		    
@@ -95,12 +98,13 @@
 
 	    <TextView
 	        android:id="@+id/textView1"
-	        android:layout_width="match_parent"
+	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="10dp"
 	        android:gravity="center"
 	        android:text="@string/receiver_mobile_send_activity"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	        android:textAppearance="?android:attr/textAppearanceLarge"
+	        android:textSize="@dimen/veryLargeText" />
 
 	    <Button
 	        android:id="@+id/optionEmail"
@@ -112,11 +116,13 @@
 	        android:gravity="center"
 	        android:minHeight="24dip"
 	        android:onClick="toggleEmail"
-	        android:text="@string/option_email_button" />
+	        android:text="@string/option_email_button"
+	        android:textSize="@dimen/mediumText" />
 	
 	    <LinearLayout
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
 	        android:layout_marginLeft="20dp"
 	        android:layout_marginTop="20dp"
 	        android:orientation="horizontal" >
@@ -128,7 +134,8 @@
 		        android:ems="10"
 		        android:inputType="number"
 		        android:maxLength="10"
-		        android:padding="@dimen/padding_small" >
+		        android:textSize="@dimen/largeText"
+		        android:padding="@dimen/padding_large" >
 		
 		        <requestFocus />
 		    </EditText>
@@ -154,7 +161,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:minWidth="100dip"
+            android:minWidth="200dip"
             android:background="@drawable/button"
             android:onClick="sendFile"
             android:padding="15dp"
@@ -162,14 +169,14 @@
             android:text="@string/send_button_search_activity"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="16dip" />
+            android:textSize="@dimen/veryLargeText" />
 
         <Button
             android:id="@+id/scanFileButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:minWidth="100dip"
+            android:minWidth="200dip"
             android:background="@drawable/button"
             android:onClick="sendFile"
             android:padding="15dp"
@@ -177,7 +184,7 @@
             android:text="@string/send_button_scan_activity"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="16dip" />
+            android:textSize="@dimen/veryLargeText" />
     </LinearLayout>
 
 </LinearLayout>
