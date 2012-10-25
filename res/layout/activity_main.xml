@@ -5,59 +5,81 @@
     android:background="@drawable/background"
     android:contentDescription="@string/app_name"
     android:orientation="vertical"
+    android:gravity="center"
     android:visibility="visible" >
-
-    <Button
-        android:id="@+id/ChngPwdBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:background="@android:color/transparent"
-        android:onClick="optionClickHandler"
-        android:paddingRight="10dp"
-        android:text="@string/chngPwdTxtMsg" />
+
+
+
+
+
+
+
+
+
+
+
+
 
     <Button
         android:id="@+id/optionSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:layout_gravity="center"
         android:background="@drawable/button"
         android:drawableLeft="@drawable/ic_launcher_send"
         android:focusableInTouchMode="true"
+        android:minWidth="300dip"
         android:onClick="optionClickHandler"
         android:padding="@dimen/padding_medium"
         android:text="@string/option_send_button"
         android:textColor="@color/white"
         android:textSize="24dip" />
 
+
     <Button
         android:id="@+id/optionReceive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:layout_gravity="center"
+        android:layout_marginTop="50dp"
         android:background="@drawable/button"
         android:drawableLeft="@drawable/ic_launcher_receive"
+        android:minWidth="300dip"
         android:onClick="optionClickHandler"
         android:padding="@dimen/padding_medium"
         android:text="@string/option_receive_button"
         android:textColor="@color/white"
         android:textSize="24dip" />
 
+
+
+
+
     <Button
         android:id="@+id/optionPrint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:layout_gravity="center"
+        android:layout_marginTop="50dp"
         android:background="@drawable/button"
         android:drawableLeft="@drawable/ic_launcher_print"
+        android:minWidth="300dip"
         android:onClick="optionClickHandler"
         android:padding="@dimen/padding_medium"
         android:text="@string/option_print"
         android:textColor="@color/white"
         android:textSize="24dip" />
+
+
+	<Button
+	    android:id="@+id/ChngPwdBtn"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:background="@android:color/transparent"
+	    android:gravity="center"
+	    android:onClick="optionClickHandler"
+	    android:paddingRight="10dp"
+	    android:text="@string/chngPwdTxtMsg" />
 
 </LinearLayout>

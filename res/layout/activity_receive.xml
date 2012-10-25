@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
+    android:gravity="center_vertical"
     android:orientation="vertical"
     tools:ignore="ContentDescription" >
 
@@ -13,11 +14,11 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/padding_medium"
         android:background="@drawable/status"
-        android:gravity="center"
+        android:gravity="top"
         android:padding="@dimen/padding_medium"
         android:text="@string/EmptyString"
         android:textColor="@color/status_color"
-        android:visibility="invisible" />
+        android:visibility="gone" />
     
     <LinearLayout
         android:id="@+id/optionalEmailLayout"
@@ -83,28 +84,28 @@
         android:id="@+id/optionalMobileLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center|center_vertical"
         android:orientation="vertical" >
 
 	    <TextView
 	        android:id="@+id/textView1"
-	        android:layout_width="match_parent"
+	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:gravity="center"
 	        android:layout_marginTop="10dp"
 	        android:text="@string/mobile"
 	        android:textAppearance="?android:attr/textAppearanceLarge" />
+
 	    <Button
 	        android:id="@+id/optionEmail"
 	        style="?android:attr/buttonStyleSmall"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center"
-	        android:focusable="false"
+	        android:background="@android:color/transparent"
 	        android:gravity="center"
 	        android:minHeight="24dip"
 	        android:onClick="toggleEmail"
-	        android:background="@android:color/transparent"
 	        android:text="@string/option_email_button" />
 	
 	    <LinearLayout
@@ -140,8 +141,8 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:gravity="center"
-        android:layout_marginTop="20dp"
         android:text="@string/secret_code"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
