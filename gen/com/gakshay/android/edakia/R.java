@@ -173,6 +173,34 @@ public final class R {
         public static final int empty_email=0x7f05003d;
         public static final int empty_mobile=0x7f05002c;
         /**  Error messages 
+
+    <string name="empty_mobile_passcode">Please Enter Mobile and Password \n मोबाइल नंबर व पास कोड डाले </string>
+    <string name="empty_mobile">Please Enter Mobile Number \n मोबाइल नंबर डाले</string>
+    <string name="empty_passcode">Please Enter Passcode \n पास कोड डाले </string>
+    <string name="invalid_mobile">Invalid Mobile Number \n गलत मोबाइल नंबर </string>
+    <string name="invalid_passcode">Invalid Passcode \n गलत पास कोड</string>
+    <string name="invalid_mobile_passcode">Invalid Mobile and Passcode \n गलत मोबाइल व पास कोड </string>
+    <string name="login_failed">Login Failed! Incorrect Mobile or Password \n गलत मोबाइल या पास कोड </string>
+    <string name="login_error">Network Error! Try After Sometime</string>
+    <string name="empty_receiver_email">Enter Receiver Email \n पाने वाले का ई-मेल डाले </string>
+    <string name="invalid_receiver_email">Invalid Receiver Email Address \n गलत ई-मेल </string>
+    <string name="empty_receiver_mobile">Enter Receiver Mobile Number \n पाने वाले का मोबाइल नंबर डाले </string>
+    <string name="invalid_receiver_mobile">Invalid Receiver Mobile Number \n गलत मोबाइल नंबर </string>
+    <string name="none_receiver_email_mobile">Please Enter Receiver Mobile or Email \n पाने वाले का मोबाइल या ई-मेल डाले</string>
+    <string name="both_receiver_email_mobile">Provide Either Receiver Mobile OR Email \n पाने वाले का मोबाइल या ई-मेल डाले</string>
+    <string name="send_canceled">eDak Sending Canceled \n ई-डाक रद्द </string>
+    <string name="send_error">eDak Sending Failed \n ई-डाक विफल</string>
+    <string name="send_success">eDak Successfully Sent \n ई-डाक सफल</string>
+    <string name="empty_email">Enter Email Address \n पाने वाले का ई-मेल डाले </string>
+    <string name="invalid_email">Invalid Email Address \n गलत ई-मेल </string>
+    <string name="none_mobile_email">Please Enter Mobile OR Email \n मोबाइल या ई-मेल डाले </string>
+    <string name="both_mobile_email">Provide Either Mobile OR Email \n मोबाइल या ई-मेल डाले</string>
+    <string name="all_mobile_email_secret_code">Please Enter Mobile and eDak Code \n मोबाइल व ई-डाक कोड डाले</string>
+    <string name="empty_secret_code">Please Enter eDak Code \n डाक कोड डाले</string>
+    <string name="invalid_secret_code">Invalid eDak Code \n गलत डाक कोड </string>
+    <string name="receive_failed">Sorry! eDak Not Found \n ई-डाक विफल</string>
+    <string name="receive_error">Error! Try After Sometime</string>
+    
          */
         public static final int empty_mobile_passcode=0x7f05002b;
         public static final int empty_passcode=0x7f05002d;
