@@ -22,9 +22,9 @@
     <string name="postage">Mail Postage</string>
     <string name="title_activity_receive">eDakia - Receive</string>
     <string name="personal_mobile">Your Mobile Number</string>
-    <string name="mobile">Your Mobile Number (आपका मोबाइल नंबर)</string>
+    <string name="mobile">Your Mobile Number \n आपका मोबाइल नंबर</string>
     <string name="receiver_mobile">Receiver Mobile Number</string>
-    <string name="secret_code">eDak Code (ई-डाक कोड)</string>
+    <string name="secret_code">eDak Code \n ई-डाक कोड </string>
     <string name="receive">eDak Receive \n ई-डाक पाए</string>
     <string name="print">Print \n छापिये</string>
     <string name="title_activity_print">eDakia - Print</string>
@@ -113,6 +113,10 @@
     <string name="chngPwdOldPwdLabel">Your Old Passcode</string>
     <string name="chngPwdNewPwdLabel">Your New Passcode</string>
     <string name="chngPwdNewPwdAgnLabel">Confirm New Passcode</string>
-    <string name="chngPwdBtnTxt">Save</string>
+    <string name="chngPwdBtnTxt">Save Passcode</string>
+    <dimen name="veryLargeText">42dp</dimen>
+    <dimen name="largeText">32dp</dimen>
+    <dimen name="mediumText">24dp</dimen>
+    <dimen name="smallText">20dp</dimen>
 
 </resources>

@@ -3,6 +3,7 @@ package com.gakshay.android.edakia;
 import java.lang.reflect.Method;
 
 import android.os.Bundle;
+import android.provider.Settings.Secure;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
@@ -36,7 +37,15 @@ public class BaseActivity extends Activity {
 	public String getSerialNumber(){
 		String serial = android.os.Build.SERIAL;
 
-		if(serial == null || "unknown".equalsIgnoreCase(serial)){
+		if(serial != null && !"".equalsIgnoreCase(serial) && !"unknown".equalsIgnoreCase(serial))
+			return serial;
+
+		serial = Secure.getString(this.getContentResolver(), Secure.ANDROID_ID);
+		if(serial != null && !"".equalsIgnoreCase(serial))
+			return serial;
+
+
+		if(serial == null || "unknown".equalsIgnoreCase(serial) || "".equalsIgnoreCase(serial)){
 			try {
 				Class<?> c = Class.forName("android.os.SystemProperties");
 				Method get = c.getMethod("get", String.class);
@@ -47,14 +56,14 @@ public class BaseActivity extends Activity {
 
 		return serial;
 	}
-	
+
 	public void toggleEmail(View view){
 		LinearLayout mobile_layout = (LinearLayout)this.findViewById(R.id.optionalMobileLayout);
 		LinearLayout email_layout = (LinearLayout)this.findViewById(R.id.optionalEmailLayout);
 		mobile_layout.setVisibility(LinearLayout.GONE);
 		email_layout.setVisibility(LinearLayout.VISIBLE);
 	}
-	
+
 	public void toggleMobile(View view){
 		LinearLayout mobile_layout = (LinearLayout)this.findViewById(R.id.optionalMobileLayout);
 		LinearLayout email_layout = (LinearLayout)this.findViewById(R.id.optionalEmailLayout);

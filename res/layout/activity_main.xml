@@ -9,17 +9,6 @@
     android:visibility="visible" >
 
 
-
-
-
-
-
-
-
-
-
-
-
     <Button
         android:id="@+id/optionSend"
         android:layout_width="wrap_content"
@@ -28,12 +17,12 @@
         android:background="@drawable/button"
         android:drawableLeft="@drawable/ic_launcher_send"
         android:focusableInTouchMode="true"
-        android:minWidth="300dip"
+        android:minWidth="500dip"
         android:onClick="optionClickHandler"
-        android:padding="@dimen/padding_medium"
+        android:padding="@dimen/padding_small"
         android:text="@string/option_send_button"
         android:textColor="@color/white"
-        android:textSize="24dip" />
+        android:textSize="@dimen/veryLargeText" />
 
 
     <Button
@@ -44,12 +33,12 @@
         android:layout_marginTop="50dp"
         android:background="@drawable/button"
         android:drawableLeft="@drawable/ic_launcher_receive"
-        android:minWidth="300dip"
+        android:minWidth="500dip"
         android:onClick="optionClickHandler"
-        android:padding="@dimen/padding_medium"
+        android:padding="@dimen/padding_small"
         android:text="@string/option_receive_button"
         android:textColor="@color/white"
-        android:textSize="24dip" />
+        android:textSize="@dimen/veryLargeText" />
 
 
 
@@ -63,12 +52,12 @@
         android:layout_marginTop="50dp"
         android:background="@drawable/button"
         android:drawableLeft="@drawable/ic_launcher_print"
-        android:minWidth="300dip"
+        android:minWidth="500dip"
         android:onClick="optionClickHandler"
-        android:padding="@dimen/padding_medium"
+        android:padding="@dimen/padding_small"
         android:text="@string/option_print"
         android:textColor="@color/white"
-        android:textSize="24dip" />
+        android:textSize="@dimen/veryLargeText" />
 
 
 	<Button
@@ -80,6 +69,7 @@
 	    android:gravity="center"
 	    android:onClick="optionClickHandler"
 	    android:paddingRight="10dp"
-	    android:text="@string/chngPwdTxtMsg" />
+	    android:text="@string/chngPwdTxtMsg"
+	    android:textSize="@dimen/mediumText" />
 
 </LinearLayout>
