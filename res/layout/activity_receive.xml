@@ -32,7 +32,7 @@
 	       android:id="@+id/receiverEmailText"
 	       android:layout_width="match_parent"
 	       android:layout_height="wrap_content"
-	       android:gravity="center"
+	       android:gravity="center|center_horizontal"
 	       android:layout_marginTop="20dp"
 	       android:text="@string/receiver_email_receive_activity"
 	       android:textSize="@dimen/veryLargeText" />
@@ -43,7 +43,6 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center"
-	        android:focusable="false"
 	        android:gravity="center"
 	        android:onClick="toggleMobile"
 	        android:minHeight="24dip"
@@ -64,6 +63,7 @@
 		        android:layout_marginTop="10dp"
 		        android:textSize="@dimen/mediumText"
 		        android:ems="12"
+		        android:gravity="center|center_horizontal"
 		        android:inputType="textEmailAddress" />
 		    
 		     <ImageView
@@ -95,9 +95,10 @@
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center"
 	        android:layout_marginTop="10dp"
+	        android:gravity="center|center_horizontal"
 	        android:text="@string/mobile"
-	        android:textSize="@dimen/veryLargeText"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	        android:textAppearance="?android:attr/textAppearanceLarge"
+	        android:textSize="@dimen/veryLargeText" />
 
 	    <Button
 	        android:id="@+id/optionEmail"
@@ -119,17 +120,17 @@
 	        android:layout_marginLeft="10dp"
 	        android:layout_gravity="center" >
 	    
-	
 		    <EditText
 		        android:id="@+id/receiveMobile"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_marginTop="10dp"
 		        android:ems="10"
+		        android:gravity="center|center_horizontal"
 		        android:inputType="number"
-		        android:textSize="@dimen/largeText"
 		        android:maxLength="10"
-		        android:padding="@dimen/padding_small" >
+		        android:padding="@dimen/padding_small"
+		        android:textSize="@dimen/largeText" >
 		
 		        <requestFocus />
 		    </EditText>
@@ -146,10 +147,11 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:gravity="center|center_horizontal"
         android:text="@string/secret_code"
-        android:textSize="@dimen/veryLargeText"  />
+        android:textSize="@dimen/veryLargeText" />
     
 	<LinearLayout
         android:layout_width="wrap_content"
@@ -164,9 +166,10 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginTop="10dp"
 	        android:ems="10"
-	        android:textSize="@dimen/largeText"
+	        android:gravity="center|center_horizontal"
 	        android:inputType="number"
-	        android:maxLength="6" />
+	        android:maxLength="6"
+	        android:textSize="@dimen/largeText" />
 	    
 	     <ImageView
 	        android:id="@+id/errImgSecCode"

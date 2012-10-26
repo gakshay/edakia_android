@@ -42,7 +42,7 @@
     <string name="select_file_send_activity">Select a file to send</string>
     <string name="edakia_file_send_activity">Select a file from your Edakia account.</string>
     <string name="recently_scanned_file_send_activity">Scan and send the file.</string>
-    <string name="send_button_scan_activity">Copy \n कॉपी</string>
+    <string name="send_button_scan_activity">Next \n आगे</string>
     <string name="send_button_search_activity">Search \n खोजे</string>
     <string name="title_activity_confirm_send">eDakia - Confirm Your Scan</string>
     <string name="title_activity_pop_up">eDakia - Confirm Your Scan</string>
@@ -50,7 +50,7 @@
     <string name="title_activity_file_selection">Select a File to Send</string>
     <string name="homeButton">Cancel Mail</string>
     <string name="title_activity_base">eDakia - Base</string>
-    <string name="receiver_email_receive_activity">Email Address (ई-मेल)</string>
+    <string name="receiver_email_receive_activity">Your Email Address \n आपका ई-मेल </string>
     <string name="ORText">OR (या)</string>
     <string name="option_email_button"><u>E-Mail (ई-मेल)</u> ?</string>
     <string name="option_mobile_button"><u>Mobile (मोबाइल)</u> ?</string>

@@ -33,18 +33,19 @@
 	        android:id="@+id/receiverEmailText"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_marginTop="20dp"
-	        android:gravity="center"
+	        android:layout_gravity="center"
+	        android:layout_marginTop="10dp"
+	        android:gravity="center|center_horizontal"
 	        android:text="@string/receiver_email_send_activity"
-	        android:textSize="@dimen/veryLargeText"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	        android:textAppearance="?android:attr/textAppearanceLarge"
+	        android:textSize="@dimen/veryLargeText" />
+
 	    <Button
 	        android:id="@+id/optionMobile"
 	        style="?android:attr/buttonStyleSmall"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center"
-	        android:focusable="false"
 	        android:gravity="center"
 	        android:onClick="toggleMobile"
 	        android:minHeight="24dip"
@@ -66,6 +67,7 @@
 		        android:layout_height="wrap_content"
 		        android:layout_marginTop="10dp"
 		        android:ems="12"
+		        android:gravity="center|center_horizontal"
 		        android:textSize="@dimen/mediumText"
 		        android:inputType="textEmailAddress">
 		    </EditText>
@@ -100,8 +102,9 @@
 	        android:id="@+id/textView1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
 	        android:layout_marginTop="10dp"
-	        android:gravity="center"
+	        android:gravity="center|center_horizontal"
 	        android:text="@string/receiver_mobile_send_activity"
 	        android:textAppearance="?android:attr/textAppearanceLarge"
 	        android:textSize="@dimen/veryLargeText" />
@@ -132,10 +135,11 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:ems="10"
+		        android:gravity="center|center_horizontal"
 		        android:inputType="number"
 		        android:maxLength="10"
-		        android:textSize="@dimen/largeText"
-		        android:padding="@dimen/padding_large" >
+		        android:padding="@dimen/padding_large"
+		        android:textSize="@dimen/largeText" >
 		
 		        <requestFocus />
 		    </EditText>
@@ -154,29 +158,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="50dp"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/searchFileButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:minWidth="200dip"
-            android:background="@drawable/button"
-            android:onClick="sendFile"
-            android:padding="15dp"
-            android:tag="searchFile"
-            android:text="@string/send_button_search_activity"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/veryLargeText" />
-
+        android:orientation="vertical" >
+	    
         <Button
             android:id="@+id/scanFileButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:minWidth="200dip"
+            android:minWidth="250dip"
             android:background="@drawable/button"
             android:onClick="sendFile"
             android:padding="15dp"
@@ -185,6 +173,22 @@
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="@dimen/veryLargeText" />
+
+        <Button
+            android:id="@+id/searchFileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="250dip"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/button"
+            android:onClick="sendFile"
+            android:padding="15dp"
+            android:tag="searchFile"
+            android:text="@string/send_button_search_activity"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/veryLargeText" />
+        
     </LinearLayout>
 
 </LinearLayout>
