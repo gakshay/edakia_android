@@ -47,7 +47,7 @@ public class ConfirmSend extends BaseActivity {
 	private String userId;
 	private String serialNumber;
 	private String receiverEmailAddress;
-	private String sendURL =  this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("sendURL","http://defaultURL");
+	private String sendURL;
 
 
 	@Override
@@ -55,6 +55,7 @@ public class ConfirmSend extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_confirm_send);
 		prepareConfirmSendDialogBox();
+		sendURL = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("sendURL","http://defaultURL");
 	}
 
 	@Override

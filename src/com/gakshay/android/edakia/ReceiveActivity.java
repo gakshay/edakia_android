@@ -34,8 +34,8 @@ public class ReceiveActivity extends BaseActivity {
 	private EditText receiverEmailAddress;
 	private String docTransCost;
 	private static final int PRINT_ACTIVITY = 1;
-	private String localEdakiaDocStorage = Environment.getExternalStorageDirectory().getAbsolutePath() + this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("localEdakiaDocStorage","/mnt/sdcard/");
-	private String receiveURL = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("receiveURL","http://defaultURL");
+	private String localEdakiaDocStorage; 
+	private String receiveURL ;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,8 @@ public class ReceiveActivity extends BaseActivity {
 		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
+		localEdakiaDocStorage = Environment.getExternalStorageDirectory().getAbsolutePath() + getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("localEdakiaDocStorage","/mnt/sdcard/");
+	     receiveURL =  this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("receiveURL","http://defaultURL");
 	}
 
 	@Override

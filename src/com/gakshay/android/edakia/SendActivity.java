@@ -37,7 +37,7 @@ public class SendActivity extends BaseActivity {
 	private FileObserver fileObserver;
 	private String scannedFile;
 	private String userId;
-	private String fileObserverPath = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("fileObserverPath","/mnt/storage/");
+	private String fileObserverPath ;
 	private Button selectedSendButton; 
 
 
@@ -48,6 +48,7 @@ public class SendActivity extends BaseActivity {
 		setContentView(R.layout.activity_send);
 		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
+		fileObserverPath = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("fileObserverPath","/mnt/storage/");
 	}
 
 	@Override

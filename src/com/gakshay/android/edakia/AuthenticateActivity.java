@@ -24,7 +24,7 @@ public class AuthenticateActivity extends BaseActivity {
 	private EditText mobile;
 	private EditText password;
 	private String userId;
-	private String authURL = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("authURL","http://defaultURL");
+	private String authURL;
 
 
 	@Override
@@ -33,6 +33,7 @@ public class AuthenticateActivity extends BaseActivity {
 		setContentView(R.layout.activity_authenticate);
 		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgPwd)).setVisibility(ImageView.INVISIBLE);
+		authURL = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("authURL","http://defaultURL");
 	}
 
 	@Override

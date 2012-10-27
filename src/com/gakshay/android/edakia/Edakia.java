@@ -140,7 +140,7 @@ public class Edakia extends Activity {
 	
 	private void preparedSharedPref(){
 		// Read from the /assets directory
-		SharedPreferences eDakiaSharedPref = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE);
+		SharedPreferences eDakiaSharedPref = getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE);
 		if(eDakiaSharedPref.getBoolean("isFirstBoot", true)){
 			try {
 				Resources resources = this.getResources();
@@ -148,7 +148,6 @@ public class Edakia extends Activity {
 				InputStream inputStream = assetManager.open("eDakia.properties");
 				Properties properties = new Properties();
 				properties.load(inputStream);
-				System.out.println("properties: " + properties);
 
 				SharedPreferences.Editor prefsEditor = eDakiaSharedPref.edit();
 				for(String aKey : properties.stringPropertyNames()){
