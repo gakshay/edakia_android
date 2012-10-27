@@ -37,7 +37,7 @@ public class SendActivity extends BaseActivity {
 	private FileObserver fileObserver;
 	private String scannedFile;
 	private String userId;
-	private String fileObserverPath = "/mnt/storage/CanonEPP/scan_pdf";
+	private String fileObserverPath = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("fileObserverPath","/mnt/storage/");
 	private Button selectedSendButton; 
 
 
@@ -124,7 +124,7 @@ public class SendActivity extends BaseActivity {
 				//scan the document using app.
 				try {
 					intent = new Intent();
-					intent.setComponent(ComponentName.unflattenFromString("jp.co.canon.bsd.android.aepp.activity/jp.co.canon.bsd.android.aepp.activity.ScannerMainActivity"));
+					intent.setComponent(ComponentName.unflattenFromString(getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("cannonScanActivity","/default/activity")));
 					intent.setAction(Intent.ACTION_VIEW);
 					startActivityForResult(intent, SCANNED_FILE_SELECTED_STATUS);
 				} catch (Exception e1) {

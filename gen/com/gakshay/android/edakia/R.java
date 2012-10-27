@@ -101,8 +101,8 @@ public final class R {
         public static final int receiverEmail=0x7f09001b;
         public static final int receiverEmailText=0x7f090019;
         public static final int receiverMobile=0x7f090022;
-        public static final int scanFileButton=0x7f090024;
-        public static final int searchFileButton=0x7f090023;
+        public static final int scanFileButton=0x7f090023;
+        public static final int searchFileButton=0x7f090024;
         public static final int secretCode=0x7f090020;
         public static final int textView1=0x7f090001;
         public static final int textView2=0x7f090004;

@@ -34,8 +34,8 @@ public class ReceiveActivity extends BaseActivity {
 	private EditText receiverEmailAddress;
 	private String docTransCost;
 	private static final int PRINT_ACTIVITY = 1;
-	private String localEdakiaDocStorage = Environment.getExternalStorageDirectory().getAbsolutePath() + "/EdakiaDocs/ReceiveDocs/";
-	private String authURL = "http://staging.edakia.in/api/transactions/receive.xml";//"http://edakia.in/transactions/receive.xml";
+	private String localEdakiaDocStorage = Environment.getExternalStorageDirectory().getAbsolutePath() + this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("localEdakiaDocStorage","/mnt/sdcard/");
+	private String receiveURL = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("receiveURL","http://defaultURL");
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -86,7 +86,7 @@ public class ReceiveActivity extends BaseActivity {
 		String edakiaURL = null;
 		//sample URL 
 		//http://staging.edakia.in/api/transactions/receive.xml?transaction[receiver_mobile]=<sender>&transaction[receiver_email]=<email>&transaction[document_secret]=<secret_code>&serial_number=<serial_number>
-		edakiaURL = authURL + "?transaction[receiver_mobile]=" + mobile.getText() + "&transaction[document_secret]="+secretCode.getText()
+		edakiaURL = receiveURL + "?transaction[receiver_mobile]=" + mobile.getText() + "&transaction[document_secret]="+secretCode.getText()
 				+ "&transaction[receiver_email]="+emailAddress.getText().toString() 
 				+ "&serial_number=" +getSerialNumber();	
 		return edakiaURL;
@@ -167,7 +167,7 @@ public class ReceiveActivity extends BaseActivity {
 
 						try {
 							Intent i = new Intent(Intent.ACTION_VIEW);
-							i.setPackage("com.dynamixsoftware.printershare");
+							i.setPackage(getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("printerShareActivity","com.dynamixsoftware.printershare"));
 							i.setDataAndType(Uri.fromFile(new File(localEdakiaDocStorage + documentName)), mimeType);
 							startActivityForResult(i,PRINT_ACTIVITY);
 
