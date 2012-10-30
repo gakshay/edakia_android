@@ -7,6 +7,7 @@ import com.gakshay.android.util.ActivitiesHelper;
 import com.gakshay.android.validation.Validator;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
@@ -172,7 +173,7 @@ public class SendActivity extends BaseActivity {
 						fileObserver.stopWatching();
 
 						stopService(getIntent());
-
+						//finishActivity(SCANNED_FILE_SELECTED_STATUS);
 						//scannedFile = scanfile.listFiles()[0].getAbsolutePath();
 						scannedFile =  fileObserverPath+"/"+observedFile;
 						Log.d("file observed is ", scannedFile);

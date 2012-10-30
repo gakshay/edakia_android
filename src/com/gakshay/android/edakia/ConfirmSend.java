@@ -112,6 +112,9 @@ public class ConfirmSend extends BaseActivity {
 
 	private void onDialogPressedCancel(){
 		//Toast.makeText(this, "Try again !!", Toast.LENGTH_LONG).show();
+		Intent homeIntent = new Intent(getApplicationContext(), SendActivity.class);
+		homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(homeIntent);
 		finish();
 	}
 
