@@ -11,6 +11,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.FileObserver;
 import android.provider.ContactsContract.Directory;
 import android.util.Log;
@@ -48,7 +49,8 @@ public class SendActivity extends BaseActivity {
 		setContentView(R.layout.activity_send);
 		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
-		fileObserverPath = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("fileObserverPath","/mnt/storage/");
+		fileObserverPath = Environment.getExternalStorageDirectory().getAbsolutePath() +  
+				this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("fileObserverPath","/mnt/storage/");
 	}
 
 	@Override
