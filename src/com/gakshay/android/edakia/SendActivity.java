@@ -7,6 +7,7 @@ import com.gakshay.android.util.ActivitiesHelper;
 import com.gakshay.android.validation.Validator;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
@@ -37,7 +38,7 @@ public class SendActivity extends BaseActivity {
 	private FileObserver fileObserver;
 	private String scannedFile;
 	private String userId;
-	private String fileObserverPath = "/mnt/storage/CanonEPP/scan_pdf";
+	private String fileObserverPath ;
 	private Button selectedSendButton; 
 
 
@@ -48,6 +49,7 @@ public class SendActivity extends BaseActivity {
 		setContentView(R.layout.activity_send);
 		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
+		fileObserverPath = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("fileObserverPath","/mnt/storage/");
 	}
 
 	@Override
@@ -124,7 +126,7 @@ public class SendActivity extends BaseActivity {
 				//scan the document using app.
 				try {
 					intent = new Intent();
-					intent.setComponent(ComponentName.unflattenFromString("jp.co.canon.bsd.android.aepp.activity/jp.co.canon.bsd.android.aepp.activity.ScannerMainActivity"));
+					intent.setComponent(ComponentName.unflattenFromString(getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("cannonScanActivity","/default/activity")));
 					intent.setAction(Intent.ACTION_VIEW);
 					startActivityForResult(intent, SCANNED_FILE_SELECTED_STATUS);
 				} catch (Exception e1) {
@@ -171,7 +173,7 @@ public class SendActivity extends BaseActivity {
 						fileObserver.stopWatching();
 
 						stopService(getIntent());
-
+						//finishActivity(SCANNED_FILE_SELECTED_STATUS);
 						//scannedFile = scanfile.listFiles()[0].getAbsolutePath();
 						scannedFile =  fileObserverPath+"/"+observedFile;
 						Log.d("file observed is ", scannedFile);

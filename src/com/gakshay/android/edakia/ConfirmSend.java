@@ -47,7 +47,7 @@ public class ConfirmSend extends BaseActivity {
 	private String userId;
 	private String serialNumber;
 	private String receiverEmailAddress;
-	private String authURL =  "http://staging.edakia.in/api/transactions.xml";//"http://www.edakia.in/transactions.xml";
+	private String sendURL;
 
 
 	@Override
@@ -55,6 +55,7 @@ public class ConfirmSend extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_confirm_send);
 		prepareConfirmSendDialogBox();
+		sendURL = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("sendURL","http://defaultURL");
 	}
 
 	@Override
@@ -111,6 +112,9 @@ public class ConfirmSend extends BaseActivity {
 
 	private void onDialogPressedCancel(){
 		//Toast.makeText(this, "Try again !!", Toast.LENGTH_LONG).show();
+		Intent homeIntent = new Intent(getApplicationContext(), SendActivity.class);
+		homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(homeIntent);
 		finish();
 	}
 
@@ -146,7 +150,7 @@ public class ConfirmSend extends BaseActivity {
 		try {
 			// Add your data
 			httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(authURL);
+			HttpPost httppost = new HttpPost(sendURL);
 			String authString = senderMobile + ":" + senderPassword;
 			byte[] authEncBytes = android.util.Base64.encode(authString.getBytes(), NO_WRAP);
 			String authStringEnc = new String(authEncBytes);
@@ -209,7 +213,7 @@ public class ConfirmSend extends BaseActivity {
 				InputStream in = null;
 				Message msg = Message.obtain();
 				try {
-					sendResponse = sendToEdakiaServer(authURL, senderMobile, senderPassword,receiverMobile,file,userId,serialNumber,receiverEmailAddress);
+					sendResponse = sendToEdakiaServer(sendURL, senderMobile, senderPassword,receiverMobile,file,userId,serialNumber,receiverEmailAddress);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}

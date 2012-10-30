@@ -28,7 +28,7 @@ public class ChangePassword extends BaseActivity {
 	private EditText oldPwd;
 	private EditText newPwd;
 	private EditText newPwdAgain;
-	private String authURL = "http://staging.edakia.in/api/users/update_password.xml";
+	private String chngPwd = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("chngPwdURL","http://defaultURL");;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class ChangePassword extends BaseActivity {
 				InputStream in = null;
 				Message msg = Message.obtain();
 				try {
-					chngPwdResp = NetworkOperations.chngPwdReqToEdakia(authURL, mobile.getText().toString(), oldPwd.getText().toString(), newPwd.getText().toString(), oldPwd.getText().toString());
+					chngPwdResp = NetworkOperations.chngPwdReqToEdakia(chngPwd, mobile.getText().toString(), oldPwd.getText().toString(), newPwd.getText().toString(), oldPwd.getText().toString());
 					
 				} catch (Exception e1) {
 					e1.printStackTrace();

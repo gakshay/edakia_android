@@ -2,11 +2,16 @@ package com.gakshay.android.edakia;
 
 
 import java.io.File;
+import java.io.InputStream;
+import java.util.Properties;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -25,6 +30,7 @@ public class Edakia extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		preparedSharedPref();
 		if(getIntent() != null && getIntent().getExtras() != null){
 			if("true".equalsIgnoreCase((String)getIntent().getExtras().get("showCostDialogBox")) || "true".equalsIgnoreCase((String)getIntent().getExtras().get("showResultDialogBox")))
 				prepareResultDialog();	
@@ -129,5 +135,29 @@ public class Edakia extends Activity {
 			}
 		});
 		altDialog.show();
+	}
+	
+	
+	private void preparedSharedPref(){
+		// Read from the /assets directory
+		SharedPreferences eDakiaSharedPref = getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE);
+		if(eDakiaSharedPref.getBoolean("isFirstBoot", true)){
+			try {
+				Resources resources = this.getResources();
+				AssetManager assetManager = resources.getAssets();
+				InputStream inputStream = assetManager.open("eDakia.properties");
+				Properties properties = new Properties();
+				properties.load(inputStream);
+
+				SharedPreferences.Editor prefsEditor = eDakiaSharedPref.edit();
+				for(String aKey : properties.stringPropertyNames()){
+					prefsEditor.putString(aKey, properties.getProperty(aKey));
+				}
+				prefsEditor.putBoolean("isFirstBoot", false);
+				prefsEditor.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
