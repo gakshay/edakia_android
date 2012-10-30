@@ -49,9 +49,10 @@
 	        android:gravity="center"
 	        android:onClick="toggleMobile"
 	        android:minHeight="24dip"
-	        android:textSize="@dimen/mediumText"
 	        android:background="@android:color/transparent"
-	        android:text="@string/option_mobile_button" />
+	        android:text="@string/option_mobile_button" 
+	        android:textColor="@color/status_color"
+	        android:textSize="@dimen/smallText" />
 	
 	    <LinearLayout
 	        android:layout_width="wrap_content"
@@ -120,7 +121,8 @@
 	        android:minHeight="24dip"
 	        android:onClick="toggleEmail"
 	        android:text="@string/option_email_button"
-	        android:textSize="@dimen/mediumText" />
+	        android:textColor="@color/status_color"
+	        android:textSize="@dimen/smallText" />
 	
 	    <LinearLayout
 	        android:layout_width="wrap_content"
@@ -158,37 +160,70 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="50dp"
+        android:orientation="horizontal" >
+	    
+        <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="vertical" >
 	    
-        <Button
-            android:id="@+id/scanFileButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="250dip"
-            android:background="@drawable/button"
-            android:onClick="sendFile"
-            android:padding="15dp"
-            android:tag="scanFile"
-            android:text="@string/send_button_scan_activity"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/veryLargeText" />
+	        <Button
+	            android:id="@+id/searchFileButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginRight="50dp"
+	            android:minWidth="250dip"
+	            android:onClick="sendFile"
+	            android:padding="15dp"
+	            android:tag="searchFile"
+	            android:text="@string/send_button_search_activity"
+	            android:textAllCaps="true"
+	            android:textSize="@dimen/veryLargeText" />
+	        
+	        <TextView
+	        android:id="@+id/textView2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="10dip"
+	        android:text="@string/search_hint"
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+        
+        <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical" >
+        
+	        <Button
+	            android:id="@+id/scanFileButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:minWidth="250dip"
+	            android:background="@drawable/button"
+	            android:onClick="sendFile"
+	            android:padding="15dp"
+	            android:tag="scanFile"
+	            android:text="@string/send_button_scan_activity"
+	            android:textAllCaps="true"
+	            android:textColor="@color/white"
+	            android:textSize="@dimen/veryLargeText" />
+	        <TextView
+		        android:id="@+id/textView3"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:layout_marginTop="10dip"
+		        android:text="@string/scan_hint"
+		        android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+        
 
-        <Button
-            android:id="@+id/searchFileButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="250dip"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/button"
-            android:onClick="sendFile"
-            android:padding="15dp"
-            android:tag="searchFile"
-            android:text="@string/send_button_search_activity"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/veryLargeText" />
+        
         
     </LinearLayout>
+
+    
 
 </LinearLayout>

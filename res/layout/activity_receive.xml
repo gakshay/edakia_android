@@ -47,7 +47,8 @@
 	        android:onClick="toggleMobile"
 	        android:minHeight="24dip"
 	        android:background="@android:color/transparent"
-	        android:textSize="@dimen/mediumText"
+	        android:textColor="@color/status_color"
+	        android:textSize="@dimen/smallText"
 	        android:text="@string/option_mobile_button" />
 		<LinearLayout
 	        android:layout_width="wrap_content"
@@ -110,8 +111,9 @@
 	        android:gravity="center"
 	        android:minHeight="24dip"
 	        android:onClick="toggleEmail"
-	        android:textSize="@dimen/mediumText"
-	        android:text="@string/option_email_button" />
+	        android:text="@string/option_email_button"
+	        android:textColor="@color/status_color"
+	        android:textSize="@dimen/smallText" />
 	
 	    <LinearLayout
 	        android:layout_width="wrap_content"
