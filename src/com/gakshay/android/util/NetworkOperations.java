@@ -194,8 +194,8 @@ public class NetworkOperations {
 
 			// Encode according to application/x-www-form-urlencoded specification
 			String content =
-					"user[password]=" + URLEncoder.encode (newPassword) +
-					"&user[password_confirmation]=" + URLEncoder.encode (newPassword);
+					"user[password]=" + URLEncoder.encode(newPassword, "UTF-8") +
+					"&user[password_confirmation]=" + URLEncoder.encode(newPassword, "UTF-8");
 
 			urlConnection.setRequestProperty("Content-Type", "text/plain"); 
 			urlConnection.setRequestProperty("Content-Length",  "" + content.getBytes().length); 
