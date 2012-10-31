@@ -111,7 +111,8 @@ public class Edakia extends Activity {
 			tranctMsg = getString(R.string.costDialogSentMsg);
 			altDialog.setTitle(getString(R.string.costDialogTitle));
 			String cost = (String) bundleData.get("transactionCost");
-			dialogMessage = tranctMsg + "\n\n" + getString(R.string.costDialogCostMsg) + cost;
+			String userBalance = (String)bundleData.get("userBalance");
+			dialogMessage = tranctMsg + "\n\n" + getString(R.string.costDialogCostMsg) + " " + cost + "\n" + getString(R.string.costDialogBalanceMsg) + " "+userBalance;
 
 		}else{
 			dialogMessage = getString(R.string.chngPwdDialogMsg);
@@ -119,7 +120,7 @@ public class Edakia extends Activity {
 			 
 		}
 			
-		
+	
 		
 		altDialog.setMessage(dialogMessage); // here add your message
 		altDialog.setCancelable(false);
@@ -134,7 +135,18 @@ public class Edakia extends Activity {
 				dialog.dismiss();
 			}
 		});
-		altDialog.show();
+		
+		AlertDialog resultDialog = altDialog.create();
+		resultDialog.onWindowFocusChanged(false);
+		resultDialog.setCancelable(false);
+		Window window = resultDialog.getWindow();
+		WindowManager.LayoutParams wlp = window.getAttributes();
+
+		wlp.gravity = Gravity.CENTER;
+		wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+		window.setAttributes(wlp);
+		
+		resultDialog.show();
 	}
 	
 	

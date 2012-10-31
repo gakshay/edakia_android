@@ -28,7 +28,7 @@ public class ChangePassword extends BaseActivity {
 	private EditText oldPwd;
 	private EditText newPwd;
 	private EditText newPwdAgain;
-	private String chngPwd = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("chngPwdURL","http://defaultURL");;
+	private String chngPwdURL;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,7 @@ public class ChangePassword extends BaseActivity {
 		((ImageView)findViewById(R.id.errImgOldPwd)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgNewPwd)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgNewPwdAgn)).setVisibility(ImageView.INVISIBLE);
+		chngPwdURL = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("chngPwdURL","http://defaultURL");
 	}
 
 	@Override
@@ -65,7 +66,7 @@ public class ChangePassword extends BaseActivity {
 				InputStream in = null;
 				Message msg = Message.obtain();
 				try {
-					chngPwdResp = NetworkOperations.chngPwdReqToEdakia(chngPwd, mobile.getText().toString(), oldPwd.getText().toString(), newPwd.getText().toString(), oldPwd.getText().toString());
+					chngPwdResp = NetworkOperations.chngPwdReqToEdakia(chngPwdURL, mobile.getText().toString(), oldPwd.getText().toString(), newPwd.getText().toString(), oldPwd.getText().toString());
 					
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -243,7 +244,7 @@ public class ChangePassword extends BaseActivity {
 			((ImageView)findViewById(R.id.errImgNewPwd)).setVisibility(ImageView.INVISIBLE);
 			((ImageView)findViewById(R.id.errImgNewPwdAgn)).setVisibility(ImageView.INVISIBLE);
 			
-			if(ActivitiesHelper.fetchValuesFromReponse(chngPwdResp).get("error") != null && ActivitiesHelper.fetchValuesFromReponse(chngPwdResp).get("error").contains("exceptions")){
+			if(ActivitiesHelper.fetchValuesFromReponse(chngPwdResp).get("errors") != null){
 				text.setText(getString(R.string.chngPwd_failed));
 
 			}else{

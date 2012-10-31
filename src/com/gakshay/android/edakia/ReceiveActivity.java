@@ -33,6 +33,7 @@ public class ReceiveActivity extends BaseActivity {
 	private EditText secretCode;
 	private EditText receiverEmailAddress;
 	private String docTransCost;
+	private String userBalance;
 	private static final int PRINT_ACTIVITY = 1;
 	private String localEdakiaDocStorage; 
 	private String receiveURL ;
@@ -146,6 +147,7 @@ public class ReceiveActivity extends BaseActivity {
 				try{
 					documentPath = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("document_url");
 					docTransCost = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("cost");
+					userBalance = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("balance");
 					documentName = (documentPath.split("/"))[documentPath.split("/").length-1];
 					if(!prepareThisUserDocumentFolder()){
 						throw new Exception("Error while preparing directories for user.");
@@ -363,6 +365,8 @@ public class ReceiveActivity extends BaseActivity {
 				homeIntent.putExtra("showCostDialogBox", "true");
 				homeIntent.putExtra("transactionType", "received");
 				homeIntent.putExtra("transactionCost", docTransCost);
+				homeIntent.putExtra("userBalance", userBalance);
+
 				startActivity(homeIntent);
 				finish();
 			}else{
