@@ -105,6 +105,7 @@ public class Edakia extends Activity {
 	
 	private void prepareTempResultDialog(){
 		AlertDialog.Builder altDialog= new AlertDialog.Builder(this);
+
 		//set the message on d	ialog.
 		Intent intent = getIntent();
 		Bundle bundleData = intent.getExtras();
@@ -142,9 +143,6 @@ public class Edakia extends Activity {
 		Window window = resultDialog.getWindow();
 		WindowManager.LayoutParams wlp = window.getAttributes();
 		wlp.gravity = Gravity.CENTER;
-		wlp.horizontalMargin = Gravity.CENTER;
-		wlp.verticalMargin = Gravity.CENTER;
-		
 		wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
 		window.setAttributes(wlp);
 		
