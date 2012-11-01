@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -34,6 +35,9 @@ public class ChangePassword extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_change_password);
+		StrictMode.ThreadPolicy policy = new StrictMode.
+				ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
 		((ImageView)findViewById(R.id.errImgMobile)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgOldPwd)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgNewPwd)).setVisibility(ImageView.INVISIBLE);
@@ -66,7 +70,7 @@ public class ChangePassword extends BaseActivity {
 				InputStream in = null;
 				Message msg = Message.obtain();
 				try {
-					chngPwdResp = NetworkOperations.chngPwdReqToEdakia(chngPwdURL, mobile.getText().toString(), oldPwd.getText().toString(), newPwd.getText().toString(), oldPwd.getText().toString());
+					chngPwdResp = NetworkOperations.changePassword(chngPwdURL, mobile.getText().toString(), oldPwd.getText().toString(), newPwd.getText().toString());
 					
 				} catch (Exception e1) {
 					e1.printStackTrace();

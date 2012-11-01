@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#8F1A3B" >
+
+    <ImageView
+        android:id="@+id/ImageView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="14dp" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ImageView01"
+        android:layout_centerHorizontal="true"
+        android:shadowColor="@color/light_green"
+        android:text="SUCCESS !!"
+        android:textColor="@color/black"
+        android:textSize="@dimen/smallText"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/TextView02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ImageView01"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:shadowColor="@color/light_green"
+        android:text="Cost for this transaction: 10/-"
+        android:textColor="@color/black"
+        android:textSize="@dimen/smallText"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/TextView03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextView02"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:shadowColor="@color/light_green"
+        android:text="Your Account Balance: 5/-"
+        android:textColor="@color/black"
+        android:textSize="@dimen/smallText"
+        android:textStyle="bold" />
+    
+    
+     <TextView
+        android:id="@+id/TextView03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextView02"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:shadowColor="@color/light_green"
+        android:text="Akshay likes pink color"
+        android:textColor="@color/black"
+        android:textSize="@dimen/smallText"
+        android:textStyle="bold" />
+     
+
+    <Button
+        android:id="@+id/Button01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextView03"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp"
+        android:text="OK"
+        android:textColor="@color/black" />
+
+</RelativeLayout>

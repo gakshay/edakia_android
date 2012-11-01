@@ -17,17 +17,31 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.database.CursorJoiner.Result;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.util.Log;
+import android.webkit.MimeTypeMap;
 
 /**
  * @author Amitsharma
  *
  */
 public class NetworkOperations {
+
+	private static final int NO_WRAP = 2;
 
 	private static InputStream connectToEdakiaServer(String reqURL){
 		InputStream in = null;
@@ -225,6 +239,120 @@ public class NetworkOperations {
 		return result;
 
 	}
+
+
+	public static String sendToEdakiaServer(String urlStr,String senderMobile, String senderPassword,String receiverMobile,String file,String userId,String serialNumber,String receiverEmailAdd) {
+		String response = null;
+		HttpClient httpclient = null;
+		try {
+			// Add your data
+			httpclient = new DefaultHttpClient();
+			HttpPost httppost = new HttpPost(urlStr);
+			String authString = senderMobile + ":" + senderPassword;
+			byte[] authEncBytes = android.util.Base64.encode(authString.getBytes(), NO_WRAP);
+			String authStringEnc = new String(authEncBytes);
+
+			httppost.setHeader("Authorization", "Basic " + authStringEnc);
+
+			MultipartEntity entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+			//Identify MIME type of the document
+
+			String mimeType = (MimeTypeMap.getSingleton()).getMimeTypeFromExtension((MimeTypeMap.getFileExtensionFromUrl(file)));
+			entity.addPart("transaction[document_attributes][doc]",new FileBody(new File(file) , mimeType));
+			entity.addPart("transaction[receiver_mobile]",new StringBody(receiverMobile));
+			entity.addPart("transaction[receiver_email]",new StringBody(receiverEmailAdd));
+			entity.addPart("transaction[document_attributes][user_id]",new StringBody(userId));
+			entity.addPart("transaction[sender_mobile]",new StringBody(senderMobile));
+			entity.addPart("serial_number",new StringBody(serialNumber));
+
+			httppost.setEntity(entity);
+			/*httppost.setHeader("Accept", mimeType);
+			httppost.setHeader("Content-Type", mimeType);*/
+
+			HttpResponse httpResponse = httpclient.execute(httppost);
+			InputStream respStream = (InputStream)httpResponse.getEntity().getContent();
+			InputStreamReader isr = new InputStreamReader(respStream);
+
+			int numCharsRead;
+			char[] charArray = new char[2048];
+			StringBuffer sb = new StringBuffer();
+			while ((numCharsRead = isr.read(charArray)) > 0) {
+				sb.append(charArray, 0, numCharsRead);
+			}
+			response = sb.toString();
+
+			HttpEntity resEntity = httpResponse.getEntity();
+			Log.d("Response from server while uploading file : ",httpResponse.getStatusLine().toString());
+			Log.d("", response);
+			resEntity.consumeContent();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			response="Exception";
+		} catch (IOException e) {
+			e.printStackTrace();
+			response="Exception";
+		}finally{
+			httpclient.getConnectionManager().shutdown();
+
+		}
+		return response;
+
+	}
+
+
+	public static String changePassword(String urlStr,String senderMobile, String senderPassword,String newPassword) {
+		String response = null;
+		HttpClient httpclient = null;
+		try {
+			// Add your data
+			httpclient = new DefaultHttpClient();
+			HttpPost httppost = new HttpPost(urlStr);
+			String authString = senderMobile + ":" + senderPassword;
+			byte[] authEncBytes = android.util.Base64.encode(authString.getBytes(), NO_WRAP);
+			String authStringEnc = new String(authEncBytes);
+
+			httppost.setHeader("Authorization", "Basic " + authStringEnc);
+
+			MultipartEntity entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+			//Identify MIME type of the document
+
+			entity.addPart("user[password]",new StringBody(newPassword));
+			entity.addPart("user[password_confirmation]",new StringBody(newPassword));
+
+			httppost.setEntity(entity);
+			
+			HttpResponse httpResponse = httpclient.execute(httppost);
+			InputStream respStream = (InputStream)httpResponse.getEntity().getContent();
+			InputStreamReader isr = new InputStreamReader(respStream);
+
+			int numCharsRead;
+			char[] charArray = new char[2048];
+			StringBuffer sb = new StringBuffer();
+			while ((numCharsRead = isr.read(charArray)) > 0) {
+				sb.append(charArray, 0, numCharsRead);
+			}
+			response = sb.toString();
+
+			HttpEntity resEntity = httpResponse.getEntity();
+			Log.d("Response from server changing password : ",httpResponse.getStatusLine().toString());
+			Log.d("", response);
+			resEntity.consumeContent();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			response="Exception";
+		} catch (IOException e) {
+			e.printStackTrace();
+			response="Exception";
+		}finally{
+			httpclient.getConnectionManager().shutdown();
+
+		}
+		return response;
+
+	}
+
 
 
 }

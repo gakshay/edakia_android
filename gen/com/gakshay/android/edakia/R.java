@@ -62,11 +62,16 @@ public final class R {
         public static final int status=0x7f02001c;
     }
     public static final class id {
+        public static final int Button01=0x7f090033;
         public static final int CancelTransaction=0x7f09002e;
         public static final int ChngPwdBtn=0x7f090014;
         public static final int Error=0x7f090000;
+        public static final int ImageView01=0x7f09002f;
         public static final int LinearLayout1=0x7f090028;
         public static final int MobileLabel=0x7f090008;
+        public static final int TextView01=0x7f090030;
+        public static final int TextView02=0x7f090031;
+        public static final int TextView03=0x7f090032;
         public static final int YourMobile=0x7f090002;
         public static final int YourPassword=0x7f090005;
         public static final int bottomlayout=0x7f09002d;
@@ -83,9 +88,9 @@ public final class R {
         public static final int fileName=0x7f090027;
         public static final int imageview01=0x7f09002c;
         public static final int linearLayout1=0x7f090029;
-        public static final int menu_settings=0x7f090030;
+        public static final int menu_settings=0x7f090035;
         public static final int mobile=0x7f090009;
-        public static final int navTop=0x7f09002f;
+        public static final int navTop=0x7f090034;
         public static final int newPasswordLabel=0x7f09000e;
         public static final int newPwd=0x7f09000f;
         public static final int newPwdAgain=0x7f090012;
@@ -125,6 +130,7 @@ public final class R {
         public static final int file_view=0x7f030009;
         public static final int landing=0x7f03000a;
         public static final int print_activity=0x7f03000b;
+        public static final int result_dialog=0x7f03000c;
     }
     public static final class menu {
         public static final int activity_authenticate=0x7f080000;
@@ -249,9 +255,10 @@ public final class R {
     }
     public static final class style {
         public static final int AppTheme=0x7f070000;
+        public static final int Theme_Dialog=0x7f070002;
         public static final int Theme_Transparent=0x7f070001;
-        public static final int TransparentExpandableListView=0x7f070004;
-        public static final int TransparentListView=0x7f070003;
-        public static final int app_theme=0x7f070002;
+        public static final int TransparentExpandableListView=0x7f070005;
+        public static final int TransparentListView=0x7f070004;
+        public static final int app_theme=0x7f070003;
     }
 }
