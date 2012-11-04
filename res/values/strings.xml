@@ -55,6 +55,8 @@
     <string name="option_email_button">Or E-Mail (अथवा ई-मेल)</string>
     <string name="option_mobile_button">Or Mobile (अथवा मोबाइल)</string>
 
+        <string name="title_activity_file_download">eDakia - File Downloading</string>
+    
     <!-- Error messages -->
     <string name="empty_mobile_passcode">Enter Mobile and Password \n मोबाइल नंबर व पास कोड डाले </string>
     <string name="empty_mobile">Enter Mobile Number \n मोबाइल नंबर डाले</string>
@@ -85,18 +87,25 @@
     <string name="receive_error">Error! Try After Sometime</string>
     <string name="search_hint">To select file from pendrive/memory card</string>
     <string name="scan_hint">To Scan paper</string>
+    <string name="resultDialogTitle">RESULT</string>
 
     <!-- Transaction details related to be shown for cost dialog -->
-    <string name="costDialogTitle">Transaction Details</string>
     <string name="costDialogSentMsg">eDak Sent Successfully \n ई-डाक सफल \n\n</string>
     <string name="costDialogReceiveMsg">eDak Received Successfully \n ई-डाक सफल \n\n</string>
-    <string name="costDialogCostMsg">Cost: Rs </string>
+    <string name="costDialogCostMsg">Transaction Cost: Rs </string>
     <string name="costDialogBalanceMsg">Your Balance: Rs </string>
+    <string name="costDialogAmount">Amount to be paid: Rs </string>
     <string name="resultDialogNeturalBtn">OK</string>
+
+    <!-- transaction details to be shown dialog on printershare screen. -->
+    <string name="costDialogPrinterShareMsg">Transaction Charges : Rs </string>
+
+    <!-- Transaction details related to be shown for error dialog -->
+    <string name="errorDialogMsg">Unable to process your request right now. Sorry for Incovenience</string>
 
     <!-- Transaction details related to be shown forchange password dialog -->
     <string name="chngPwdDialogTitle">Change Passcode</string>
-    <string name="chngPwdDialogMsg">Passcode Updated Successfully \n</string>
+    <string name="chngPwdDialogMsg">Passcode Updated Successfully</string>
 
     <!-- Transaction details related to be shown for confirm send dialog -->
     <string name="confirmSendDialogTitle">eDak Send Confirmation</string>
@@ -105,6 +114,10 @@
     <string name="confirmSendDialogNegativeBtn">Cancel \n रद्द </string>
 
     <!-- Details to be shown for all progress dialogs. -->
+    <string name="receiveDocPrgDlgTitle">In Progress</string>
+    <string name="sendDocPrgDlgTitle">In Progress</string>
+    <string name="authUserPrgDlgTitle">In Progress</string>
+    <string name="chngPwdPrgDlgTitle">In Progress</string>
     <string name="receiveDocPrgDlg">eDak Receiving. Wait &#8230; \n इंतज़ार करे &#8230;</string>
     <string name="sendDocPrgDlg">eDak Sending. Wait &#8230; \n ई-डाक भेज रहे| इंतज़ार करे &#8230;</string>
     <string name="authUserPrgDlg">Verifying. Wait &#8230; \n इंतज़ार करे &#8230;</string>
@@ -112,7 +125,7 @@
 
     <!-- Details to be shown on change password activity -->
     <string name="chngPwdTxtMsg">Change Passcode</string>
-    <string name="chngPwdMobileLabel">Your Mobile Number</string>
+    <string name="chngPwdMobileLabel">Your Mobile Number\n(Don\'t place 0 OR +91)</string>
     <string name="chngPwdOldPwdLabel">Your Old Passcode</string>
     <string name="chngPwdNewPwdLabel">Your New Passcode</string>
     <string name="chngPwdNewPwdAgnLabel">Confirm New Passcode</string>
@@ -122,5 +135,6 @@
     <dimen name="largeText">32dp</dimen>
     <dimen name="mediumText">24dp</dimen>
     <dimen name="smallText">20dp</dimen>
+
 
 </resources>

@@ -153,7 +153,6 @@ public class AuthenticateActivity extends BaseActivity {
 
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-			progressDialog.dismiss();
 			//initialize error text value to null.
 			TextView text = (TextView) findViewById(R.id.Error);
 			text.setText(null);
@@ -179,13 +178,14 @@ public class AuthenticateActivity extends BaseActivity {
 				startActivity(sendIntent);
 				finish();
 			}
+			progressDialog.dismiss();
 
 		}
 	};
 
 	private void authenticateUser(final String authURL,final String mobile,final String password, boolean showProcessDialog) {
 		if(showProcessDialog)
-			progressDialog = ProgressDialog.show(this, "", getString(R.string.authUserPrgDlg));
+			progressDialog = ProgressDialog.show(this, getString(R.string.authUserPrgDlgTitle), getString(R.string.authUserPrgDlg),true, false);
 		new Thread() {
 			public void run() {
 				InputStream in = null;

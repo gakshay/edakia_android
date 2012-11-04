@@ -250,11 +250,9 @@ public class ChangePassword extends BaseActivity {
 			
 			if(ActivitiesHelper.fetchValuesFromReponse(chngPwdResp).get("errors") != null){
 				text.setText(getString(R.string.chngPwd_failed));
-
 			}else{
 				Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
 				homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				//Toast.makeText(this, "Please receive your document.", Toast.LENGTH_LONG).show();
 				homeIntent.putExtra("showResultDialogBox", "true");
 				homeIntent.putExtra("transactionType", "chngPwd");
 				startActivity(homeIntent);

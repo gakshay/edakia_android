@@ -2,36 +2,83 @@
 
     <style name="AppTheme" parent="android:Theme.Light" />
 
+    <style name="Theme.Dialog" parent="@android:style/Theme.Holo.Dialog">
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:colorBackground">@android:color/darker_gray</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
     <style name="Theme.Transparent" parent="android:Theme">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowBackground">@android:color/black</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:alpha">1</item>
+        <item name="android:background">@android:color/black</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Theme.CustomAlertDialogTheme" parent="@style/Theme.Transparent">
+        <item name="android:bottomBright">@color/white</item>
+        <item name="android:bottomDark">@color/white</item>
+        <item name="android:bottomMedium">@color/white</item>
+        <item name="android:centerBright">@color/white</item>
+        <item name="android:centerDark">@color/white</item>
+        <item name="android:centerMedium">@color/white</item>
+        <item name="android:fullBright">@color/green</item>
+        <item name="android:fullDark">@color/green</item>
+        <item name="android:topBright">@color/red</item>
+        <item name="android:topDark">@color/red</item>
+    </style>
+
+    <style name="Theme.CustomDialogTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:bottomBright">@color/white</item>
+        <item name="android:bottomDark">@color/white</item>
+        <item name="android:bottomMedium">@color/white</item>
+        <item name="android:centerBright">@color/white</item>
+        <item name="android:centerDark">@color/white</item>
+        <item name="android:centerMedium">@color/white</item>
+        <item name="android:fullBright">@color/green</item>
+        <item name="android:fullDark">@color/green</item>
+        <item name="android:topBright">@color/red</item>
+        <item name="android:topDark">@color/red</item>
+        <item name="android:windowTitleBackgroundStyle">@style/Theme.TitleTheme</item>
+    </style>
+
+    <style name="Theme.TitleTheme" parent="android:Theme">
+        <item name="android:background">@color/green</item>
+    </style>
+     <style name="Theme.customButtonTheme" parent="android:Widget.Button">
+        <item name="android:background">@drawable/button</item>
     </style>
     
-     <style name="Theme.Dialog" parent="android:Theme">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:backgroundDimEnabled">false</item>
+
+    <style name="Theme.customDialogTitleTheme" parent="@style/Theme.CustomDialogTheme">
+        <item name="android:windowTitleBackgroundStyle">@style/Theme.TitleTheme</item>
+        <item name="android:buttonStyle">@style/Theme.customButtonTheme</item>
     </style>
-    
+
     <style name="app_theme" parent="android:Theme">
         <item name="android:windowBackground">@drawable/background</item>
         <item name="android:listViewStyle">@style/TransparentListView</item>
         <item name="android:expandableListViewStyle">@style/TransparentExpandableListView</item>
     </style>
 
-	 <style name="TransparentListView" parent="@android:style/Widget.ListView">
-	  <item name="android:cacheColorHint">@android:color/transparent</item>
-	 </style>
+    <style name="TransparentListView" parent="@android:style/Widget.ListView">
+        <item name="android:cacheColorHint">@android:color/transparent</item>
+    </style>
 
-	 <style name="TransparentExpandableListView" parent="@android:style/Widget.ExpandableListView">
-	  <item name="android:cacheColorHint">@android:color/transparent</item>
-	 </style>
+    <style name="TransparentExpandableListView" parent="@android:style/Widget.ExpandableListView">
+        <item name="android:cacheColorHint">@android:color/transparent</item>
+    </style>
 
 </resources>

@@ -25,19 +25,19 @@
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.HOME" />
- 				<category android:name="android.intent.category.DEFAULT" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <receiver android:name="com.gakshay.android.edakia.EdakiaReceiver">  
-		    <intent-filter>  
-		        <action android:name="android.intent.action.BOOT_COMPLETED" />  
-		    </intent-filter>  
-		</receiver>
 
-        
+        <receiver android:name="com.gakshay.android.edakia.EdakiaReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".ReceiveActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -144,9 +144,20 @@
             android:name=".ChangePassword"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_change_password"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
-        
+        <activity
+            android:name=".FileDownloadAsyncActivity"
+             android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_activity_file_download"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

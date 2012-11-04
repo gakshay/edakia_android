@@ -51,7 +51,7 @@ public class ConfirmSend extends BaseActivity {
 	}
 
 	private void prepareConfirmSendDialogBox(){
-		AlertDialog.Builder adb = new AlertDialog.Builder(this);
+		AlertDialog.Builder adb = new AlertDialog.Builder(this,R.style.Theme_CustomAlertDialogTheme);
 		adb.setTitle(getString(R.string.confirmSendDialogTitle));
 		adb.setMessage(getString(R.string.confirmSendDialogMsg));
 		adb.setCancelable(false);
@@ -81,15 +81,6 @@ public class ConfirmSend extends BaseActivity {
 		WindowManager.LayoutParams wlp = window.getAttributes();
 
 		wlp.gravity = Gravity.CENTER;
-		/*wlp.width = 1000;
-			wlp.height = 1000;
-			WindowManager.LayoutParams params = window.getAttributes();  
-		       params.x = -100;  
-		       params.height = 70;  
-		       params.width = 1000;  
-		       params.y = -50;  
-
-		  dialog.getWindow().setAttributes(params); */
 		wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
 		window.setAttributes(wlp);
 		dialog.show();
@@ -129,7 +120,7 @@ public class ConfirmSend extends BaseActivity {
 
 	private void sendFileToUser(boolean showProcessDialog) {
 		if(showProcessDialog)
-			progressDialog = ProgressDialog.show(this, "",getString(R.string.sendDocPrgDlg) );
+			progressDialog = ProgressDialog.show(this, getString(R.string.sendDocPrgDlgTitle),getString(R.string.sendDocPrgDlg),true,false );
 		new Thread() {
 			public void run() {
 				InputStream in = null;
@@ -151,24 +142,19 @@ public class ConfirmSend extends BaseActivity {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			progressDialog.dismiss();
-			//initialize error text value to null.
-			//TextView text = (TextView) findViewById(R.id.Error);
-			//text.setText(null);
-			//text.setVisibility(TextView.INVISIBLE);
-			
+
 			Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
 			homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			homeIntent.putExtra("showResultDialogBox", "true");
 
 			if(sendResponse != null && sendResponse.contains("Exception")){
-				//Toast.makeText(ConfirmSend.this, "Could not send your document.\nPlz try again after some time.", Toast.LENGTH_LONG).show();
-				//text.setText(getString(R.string.send_error));
-				//text.setVisibility(TextView.VISIBLE);
-				homeIntent.putExtra("showCostDialogBox", "false");
+				homeIntent.putExtra("isError", "true");
 			}else{
-				//Toast.makeText(ConfirmSend.this, "Your document has been sent.Try other transaction.", Toast.LENGTH_LONG).show();
-				homeIntent.putExtra("showCostDialogBox", "true");
+				homeIntent.putExtra("isError", "false");
 				homeIntent.putExtra("transactionType", "send");
-				homeIntent.putExtra("transactionCost", ActivitiesHelper.fetchValuesFromReponse(sendResponse).get("cost"));
+				homeIntent.putExtra("userBalance", ActivitiesHelper.fetchValuesFromReponse(sendResponse).get("balance"));
+				homeIntent.putExtra("paidAmount", ActivitiesHelper.fetchValuesFromReponse(sendResponse).get("cost"));
+				homeIntent.putExtra("transactionCost", ActivitiesHelper.fetchValuesFromReponse(sendResponse).get("trnsCost"));
 
 			}
 			Intent returnData = new Intent();

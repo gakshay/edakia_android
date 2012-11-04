@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gakshay.android.util.ActivitiesHelper;
+import com.gakshay.android.util.CustomDialog;
 import com.gakshay.android.util.NetworkOperations;
 import com.gakshay.android.validation.Validator;
 
@@ -35,6 +36,7 @@ public class ReceiveActivity extends BaseActivity {
 	private String docTransCost;
 	private String userBalance;
 	private static final int PRINT_ACTIVITY = 1;
+	private static final int FILE_DOWNLOAD_ACTIVITY = 2;
 	private String localEdakiaDocStorage; 
 	private String receiveURL ;
 
@@ -96,7 +98,7 @@ public class ReceiveActivity extends BaseActivity {
 	}
 
 	private void readAndDownloadDocument(final String reqURL) {
-		progressDialog = ProgressDialog.show(this, "", getString(R.string.receiveDocPrgDlg) );
+		progressDialog = ProgressDialog.show(this, getString(R.string.receiveDocPrgDlgTitle), getString(R.string.receiveDocPrgDlg),true,false );
 
 		new Thread() {
 			public void run() {
@@ -114,6 +116,10 @@ public class ReceiveActivity extends BaseActivity {
 		}.start();
 	}
 
+	private boolean checkFileExists(String filePath){
+		File isFile = new File(filePath);
+		return isFile.exists();
+	}
 	private boolean prepareThisUserDocumentFolder(){
 		boolean hasPrepared=false;
 
@@ -142,8 +148,6 @@ public class ReceiveActivity extends BaseActivity {
 			text.setVisibility(TextView.INVISIBLE);
 			//Fetch value of document x path from returned XML string response.
 			if(responseXPath != null && !"".equalsIgnoreCase(responseXPath) && !responseXPath.contains("error")){
-				progressDialog.dismiss();	
-				progressDialog = ProgressDialog.show(ReceiveActivity.this, "", getString(R.string.receiveDocPrgDlg) );
 				try{
 					documentPath = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("document_url");
 					docTransCost = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("cost");
@@ -158,40 +162,20 @@ public class ReceiveActivity extends BaseActivity {
 					((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_success);
 					((ImageView)findViewById(R.id.errImgSecCode)).setImageResource(R.drawable.ic_success);
 
-					//Fetch document.
-					boolean isFileCreated;
-					if(documentPath.contains(".png") || documentPath.contains(".jpeg") || documentPath.contains(".jpg") || documentPath.contains(".gif")){
+					
+					Intent fileDownloadIntent = new Intent(ReceiveActivity.this, FileDownloadAsyncActivity.class);
+					fileDownloadIntent.putExtra("downloadURL", documentPath);
+					fileDownloadIntent.putExtra("filePath", localEdakiaDocStorage + documentName);
+					
+					startActivityForResult(fileDownloadIntent,FILE_DOWNLOAD_ACTIVITY);
+					
+					/*if(documentPath.contains(".png") || documentPath.contains(".jpeg") || documentPath.contains(".jpg") || documentPath.contains(".gif")){
 						//downloadImage(documentPath, true);
 						isFileCreated = NetworkOperations.readAndCreateImageDocumentFromEdakia(documentPath, localEdakiaDocStorage + documentName);
 					}else {
 						isFileCreated = NetworkOperations.readAndCreateAnyDocumentFromEdakia(documentPath, localEdakiaDocStorage + documentName);
-					}
-					if(isFileCreated){
-						String mimeType = (MimeTypeMap.getSingleton()).getMimeTypeFromExtension((MimeTypeMap.getFileExtensionFromUrl(documentPath)));
-
-						try {
-							Intent i = new Intent(Intent.ACTION_VIEW);
-							i.setPackage(getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("printerShareActivity","com.dynamixsoftware.printershare"));
-							i.setDataAndType(Uri.fromFile(new File(localEdakiaDocStorage + documentName)), mimeType);
-							startActivityForResult(i,PRINT_ACTIVITY);
-
-
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-							Toast.makeText(ReceiveActivity.this, "Exception in calling eDakia-Print" , Toast.LENGTH_LONG).show();
-							startActivity((new Intent(ReceiveActivity.this, Edakia.class)));
-						}
-						progressDialog.dismiss();
-					}else{
-						progressDialog.dismiss();
-					//	Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find your document due to some internal error. Please bear with us for some time to serve you again.", Toast.LENGTH_LONG).show();	
-						text.setText(getString(R.string.receive_error));
-						text.setVisibility(TextView.VISIBLE);
-						((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
-						((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
-						((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
-					}
+					}*/
+				
 
 				}catch(Exception anExcep){
 					progressDialog.dismiss();
@@ -203,6 +187,7 @@ public class ReceiveActivity extends BaseActivity {
 					((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
 					((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
 				}
+				progressDialog.dismiss();
 			}else if(responseXPath.contains("error") && responseXPath.contains("Document not found")){
 				progressDialog.cancel();
 				progressDialog.dismiss();
@@ -358,30 +343,55 @@ public class ReceiveActivity extends BaseActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		if(requestCode == PRINT_ACTIVITY){
+			Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
+			homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			homeIntent.putExtra("showResultDialogBox", "true");
 			if(resultCode == RESULT_OK){
-				Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
-				homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				//Toast.makeText(this, "Please receive your document.", Toast.LENGTH_LONG).show();
-				homeIntent.putExtra("showCostDialogBox", "true");
 				homeIntent.putExtra("transactionType", "received");
-				homeIntent.putExtra("transactionCost", docTransCost);
+				homeIntent.putExtra("paidAmount", docTransCost);
 				homeIntent.putExtra("userBalance", userBalance);
-
-				startActivity(homeIntent);
-				finish();
+				homeIntent.putExtra("transactionCost", "");
+				homeIntent.putExtra("isError", "false");
 			}else{
-				Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
-				homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				homeIntent.putExtra("showCostDialogBox", "false");
-				//Toast.makeText(this, "Due to some temporary error, could not receive your document.", Toast.LENGTH_LONG).show();
-				TextView text = (TextView) findViewById(R.id.Error);
-				text.setText(getString(R.string.receive_error));
-				text.setVisibility(TextView.VISIBLE);
-				homeIntent.putExtra("showCostDialogBox", "false");
-				finish();
+				homeIntent.putExtra("isError", "true");
 			}
+			startActivity(homeIntent);
+			finish();
 
+		}else if(requestCode == FILE_DOWNLOAD_ACTIVITY){
+			if(resultCode == RESULT_OK){
+				if(checkFileExists(localEdakiaDocStorage+documentName)){
+					String mimeType = (MimeTypeMap.getSingleton()).getMimeTypeFromExtension((MimeTypeMap.getFileExtensionFromUrl(documentPath)));
+
+					try {
+						Intent i = new Intent(Intent.ACTION_VIEW);
+						i.setPackage(getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("printerShareActivity","com.dynamixsoftware.printershare"));
+						i.setDataAndType(Uri.fromFile(new File(localEdakiaDocStorage + documentName)), mimeType);
+						startActivityForResult(i,PRINT_ACTIVITY);
+						
+						//Show cost dialog for transaction charges.
+						(CustomDialog.resultCostDialog(ReceiveActivity.this,R.style.Theme_customDialogTitleTheme, R.layout.custom_title, R.layout.result_dialog_cost, R.id.TrnsButton,
+								R.id.TrnsResult,getString(R.string.costDialogPrinterShareMsg) + docTransCost)).show();
+						
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						Toast.makeText(ReceiveActivity.this, "Exception in calling eDakia-Print" , Toast.LENGTH_LONG).show();
+						startActivity((new Intent(ReceiveActivity.this, Edakia.class)));
+					}
+				}else{
+					TextView text = (TextView) findViewById(R.id.Error);
+					text.setText(getString(R.string.receive_error));
+					text.setVisibility(TextView.VISIBLE);
+					((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
+					((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
+					((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
+				}
+			}else{
+				
+			}
 		}
+		
 	}
 
 }

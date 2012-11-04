@@ -144,7 +144,6 @@ public class SendActivity extends BaseActivity {
 				startActivityForResult(intent, ACTIVITY_CHOOSE_FILE);
 			}else if (selectedSendButton.getTag().toString().equalsIgnoreCase("EdakiaAccount")) {
 				Toast.makeText(this, "Development in progress.....", Toast.LENGTH_LONG).show();
-
 			}else {
 				Toast.makeText(this, "You Clicked on wrong option.", Toast.LENGTH_LONG).show();
 
