@@ -100,7 +100,7 @@ public class Edakia extends Activity {
 		Intent intent = getIntent();
 		Bundle bundleData = intent.getExtras();
 		String resultMessage;
-		if(!(Boolean)bundleData.get("isError")){
+		if(!"true".equalsIgnoreCase((String)bundleData.get("isError"))){
 			String amountToBePaid,userBalance,trnsCost;
 			trnsCost = getString(R.string.costDialogAmount) +  (String) bundleData.get("transactionCost");
 			userBalance = getString(R.string.costDialogBalanceMsg) +  (String)bundleData.get("userBalance");
@@ -121,7 +121,7 @@ public class Edakia extends Activity {
 
 			}
 		}else {// show generic error message.
-			resultMessage = getString(R.string.chngPwdDialogMsg);
+			resultMessage = getString(R.string.errorDialogMsg);
 			(CustomDialog.resultChngPwdDialog(this,R.style.Theme_customDialogTitleTheme, R.layout.custom_title, R.layout.result_dialog_chng_pwd, R.id.TrnsButton,
 					R.id.TrnsResult,resultMessage)).show();
 		}

@@ -10,6 +10,7 @@ import java.net.URLConnection;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -107,6 +108,8 @@ public class FileDownloadAsyncActivity extends Activity {
 		@Override
 		protected void onPostExecute(String unused) {
 			dismissDialog(DIALOG_DOWNLOAD_PROGRESS);
+			setResult(RESULT_OK);
+			finish();
 		}
 	}
 }
