@@ -248,16 +248,16 @@ public class ChangePassword extends BaseActivity {
 			((ImageView)findViewById(R.id.errImgNewPwd)).setVisibility(ImageView.INVISIBLE);
 			((ImageView)findViewById(R.id.errImgNewPwdAgn)).setVisibility(ImageView.INVISIBLE);
 			
-			if(ActivitiesHelper.fetchValuesFromReponse(chngPwdResp).get("errors") != null){
+			if(ActivitiesHelper.fetchValuesFromReponse(chngPwdResp).get("errors") != null)
 				text.setText(getString(R.string.chngPwd_failed));
-			}else{
-				Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
-				homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				homeIntent.putExtra("showResultDialogBox", "true");
-				homeIntent.putExtra("transactionType", "chngPwd");
-				startActivity(homeIntent);
-				finish();
-			}
+			
+			Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
+			homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			homeIntent.putExtra("showResultDialogBox", "true");
+			homeIntent.putExtra("transactionType", "chngPwd");
+			homeIntent.putExtra("isError", "false");
+			startActivity(homeIntent);
+			finish();
 
 		}
 	};

@@ -4,19 +4,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/TrnsResult"
+    <ImageView
+        android:id="@+id/layoutImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_large"
-        android:textColor="@color/white"
-        android:textSize="12dp" />
+        android:src="@drawable/ic_success" />
 
-  
-       <Button
-           android:id="@+id/TrnsButton"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="@string/resultDialogNeturalBtn" />
+    <TextView
+        android:id="@+id/TrnsResult"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_large"
+        android:layout_weight="0.13"
+        android:textColor="@color/white"
+        android:textSize="24dp" />
+
+    <Button
+        android:id="@+id/TrnsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/TrnsResult"
+        android:layout_below="@+id/TrnsResult"
+        android:layout_marginTop="18dp"
+        android:text="@string/resultDialogNeturalBtn" />
 
 </LinearLayout>

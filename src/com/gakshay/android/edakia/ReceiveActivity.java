@@ -188,7 +188,7 @@ public class ReceiveActivity extends BaseActivity {
 					((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
 				}
 				progressDialog.dismiss();
-			}else if(responseXPath.contains("error") && responseXPath.contains("Document not found")){
+			}else if(responseXPath != null && responseXPath.contains("error") && responseXPath.contains("Document not found")){
 				progressDialog.cancel();
 				progressDialog.dismiss();
 				//could not find any document with this.
@@ -369,9 +369,9 @@ public class ReceiveActivity extends BaseActivity {
 						i.setDataAndType(Uri.fromFile(new File(localEdakiaDocStorage + documentName)), mimeType);
 						startActivityForResult(i,PRINT_ACTIVITY);
 						
-						/*//Show cost dialog for transaction charges.
+						//Show cost dialog for transaction charges.
 						(CustomDialog.resultCostDialog(ReceiveActivity.this,R.style.Theme_customDialogTitleTheme, R.layout.custom_title, R.layout.result_dialog_cost, R.id.TrnsButton,
-								R.id.TrnsResult,getString(R.string.costDialogPrinterShareMsg) + docTransCost)).show();*/
+								R.id.TrnsResult,getString(R.string.costDialogPrinterShareMsg) + docTransCost)).show();
 						
 					} catch (Exception e) {
 						// TODO Auto-generated catch block

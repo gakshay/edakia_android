@@ -122,8 +122,8 @@ public class Edakia extends Activity {
 			}
 		}else {// show generic error message.
 			resultMessage = getString(R.string.errorDialogMsg);
-			(CustomDialog.resultChngPwdDialog(this,R.style.Theme_customDialogTitleTheme, R.layout.custom_title, R.layout.result_dialog_chng_pwd, R.id.TrnsButton,
-					R.id.TrnsResult,resultMessage)).show();
+			(CustomDialog.resultChngPwdDialog(this,R.style.Theme_customDialogTitleTheme, R.layout.custom_title, R.layout.result_dialog_error, R.id.errDialogButton,
+					R.id.layoutText,resultMessage)).show();
 		}
 
 	}

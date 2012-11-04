@@ -10,6 +10,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:colorForeground">#f0f0</item>
         <item name="android:colorBackground">@android:color/darker_gray</item>
         <item name="android:windowNoTitle">true</item>
     </style>
@@ -55,10 +56,10 @@
     </style>
 
     <style name="Theme.TitleTheme" parent="android:Theme">
-        <item name="android:background">@color/green</item>
+        <item name="android:background">@color/grey</item>
     </style>
      <style name="Theme.customButtonTheme" parent="android:Widget.Button">
-        <item name="android:background">@drawable/button</item>
+        <item name="android:background">@color/blue</item>
     </style>
     
 
