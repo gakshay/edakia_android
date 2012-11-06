@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
@@ -13,8 +14,12 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.webkit.MimeTypeMap;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
+
 
 import com.gakshay.android.util.CustomDialog;
 
@@ -28,6 +33,7 @@ public class Edakia extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		preparedSharedPref();
+		//prepareSimpleDialog();
 		if(getIntent() != null && getIntent().getExtras() != null){
 			if("true".equalsIgnoreCase((String)getIntent().getExtras().get("showResultDialogBox"))){
 				prepareResultDialog();	
@@ -86,6 +92,37 @@ public class Edakia extends Activity {
 
 		}
 	}
+	
+	private void prepareSimpleDialog(){
+		final Dialog dialog = new Dialog(this,R.style.Theme_customDialogTitleTheme);
+		//dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		//dialog.requestWindowFeature(Window.PROGRESS_START);
+		dialog.requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+		dialog.setContentView(R.layout.result_dialog_error);
+        dialog.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
+		
+		//dialog.setTitle("This is simple Title of simple dialog");
+
+		//dialog.setTitle("This is my custom dialog box");
+		dialog.setCancelable(true);
+		
+		//set up image view
+		ImageView img = (ImageView) dialog.findViewById(R.id.layoutImage);
+		img.setImageResource(R.drawable.ic_error);
+
+		//set up button
+		Button button = (Button) dialog.findViewById(R.id.errDialogButton);
+
+		button.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();   
+				//finish();
+			}
+		});
+		//now that the dialog is set up, it's time to show it    
+		dialog.show();
+	}
 
 	@Override
 	public void onBackPressed() {
@@ -99,7 +136,7 @@ public class Edakia extends Activity {
 		//set the message on dialog.
 		Intent intent = getIntent();
 		Bundle bundleData = intent.getExtras();
-		String resultMessage;
+		String resultMessage = (String)bundleData.get("errorMessageText");
 		if(!"true".equalsIgnoreCase((String)bundleData.get("isError"))){
 			String amountToBePaid,userBalance,trnsCost;
 			trnsCost = getString(R.string.costDialogAmount) +  (String) bundleData.get("transactionCost");
@@ -121,6 +158,7 @@ public class Edakia extends Activity {
 
 			}
 		}else {// show generic error message.
+			if(resultMessage == null || "".equalsIgnoreCase(resultMessage))
 			resultMessage = getString(R.string.errorDialogMsg);
 			(CustomDialog.resultChngPwdDialog(this,R.style.Theme_customDialogTitleTheme, R.layout.custom_title, R.layout.result_dialog_error, R.id.errDialogButton,
 					R.id.layoutText,resultMessage)).show();

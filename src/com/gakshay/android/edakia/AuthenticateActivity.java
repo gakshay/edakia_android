@@ -23,7 +23,6 @@ public class AuthenticateActivity extends BaseActivity {
 	private String authResponse;
 	private EditText mobile;
 	private EditText password;
-	private String userId;
 	private String authURL;
 
 
@@ -47,9 +46,18 @@ public class AuthenticateActivity extends BaseActivity {
 		mobile = ((EditText) findViewById(R.id.YourMobile));
 		password = ((EditText) findViewById(R.id.YourPassword));
 		if(validateInputData()){
-			authenticateUser(authURL, mobile.getText().toString(), password.getText().toString(),true);
+			authenticateUser(prepareEdakiaURL(), mobile.getText().toString(), password.getText().toString(),true);
 		}
 	}
+
+	private String prepareEdakiaURL(){
+		String edakiaURL = null;
+		//sample URL 
+		//http:mobile:passcode/staging.edakia.in/api/users.xml?serial_number=<serialNumber>
+		edakiaURL = authURL + "?serial_number=" + getSerialNumber();
+		return edakiaURL;
+	}
+
 
 
 	private boolean validateInputData(){
@@ -64,12 +72,12 @@ public class AuthenticateActivity extends BaseActivity {
 		if((password.getText().toString() == null || "".equalsIgnoreCase(password.getText().toString()))
 				&& (mobile.getText().toString() == null || "".equalsIgnoreCase(mobile.getText().toString()))){
 
-//			Toast.makeText(this, "Please provide both inputs,mobile number and secret number.", Toast.LENGTH_LONG).show();
+			//			Toast.makeText(this, "Please provide both inputs,mobile number and secret number.", Toast.LENGTH_LONG).show();
 			text.setText(getString(R.string.empty_mobile_passcode));
 			text.setVisibility(TextView.VISIBLE);
 			errImgMob.setImageResource(R.drawable.ic_error);
 			errImgPwd.setImageResource(R.drawable.ic_error);
-			
+
 			errImgMob.setVisibility(ImageView.VISIBLE);
 			errImgPwd.setVisibility(ImageView.VISIBLE);
 			return false;
@@ -142,7 +150,7 @@ public class AuthenticateActivity extends BaseActivity {
 			errImgMob.setImageResource(R.drawable.ic_error);
 
 		}
-		
+
 		errImgMob.setVisibility(ImageView.VISIBLE);
 		errImgPwd.setVisibility(ImageView.VISIBLE);
 
@@ -157,13 +165,22 @@ public class AuthenticateActivity extends BaseActivity {
 			TextView text = (TextView) findViewById(R.id.Error);
 			text.setText(null);
 
-			if(authResponse.contains("Exception")){
+			if("Exception".equalsIgnoreCase(authResponse) || authResponse.contains("error")){
 				text.setText(getString(R.string.login_failed));
 
 				((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 				((ImageView)findViewById(R.id.errImgPwd)).setVisibility(ImageView.INVISIBLE);
 
 				password.setText(null);//refresh password text
+				
+				Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
+				homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				homeIntent.putExtra("showResultDialogBox", "true");
+				homeIntent.putExtra("isError", "true");
+				homeIntent.putExtra("errorMessageText", (ActivitiesHelper.fetchValuesFromReponse(authResponse)).get("error"));
+
+				startActivity(homeIntent);
+				finish();
 			}else{
 				ImageView errImgMob = (ImageView)findViewById(R.id.errImgMob);
 				errImgMob.setImageResource(R.drawable.ic_success);
@@ -174,7 +191,7 @@ public class AuthenticateActivity extends BaseActivity {
 				Intent sendIntent = new Intent(AuthenticateActivity.this, SendActivity.class);
 				sendIntent.putExtra("sendMobile", mobile.getText().toString());
 				sendIntent.putExtra("sendPassword", password.getText().toString());
-				sendIntent.putExtra("userId", userId);
+				sendIntent.putExtra("userId", (ActivitiesHelper.fetchValuesFromReponse(authResponse)).get("id"));
 				startActivity(sendIntent);
 				finish();
 			}
@@ -183,7 +200,7 @@ public class AuthenticateActivity extends BaseActivity {
 		}
 	};
 
-	private void authenticateUser(final String authURL,final String mobile,final String password, boolean showProcessDialog) {
+	private void authenticateUser(final String authorizationURL,final String mobile,final String password, boolean showProcessDialog) {
 		if(showProcessDialog)
 			progressDialog = ProgressDialog.show(this, getString(R.string.authUserPrgDlgTitle), getString(R.string.authUserPrgDlg),true, false);
 		new Thread() {
@@ -191,9 +208,7 @@ public class AuthenticateActivity extends BaseActivity {
 				InputStream in = null;
 				Message msg = Message.obtain();
 				try {
-					authResponse = NetworkOperations.authorizeToEdakiaServer(authURL, mobile, password);
-					if(authResponse != null && !"Exception".equalsIgnoreCase(authResponse))
-						userId = (ActivitiesHelper.fetchValuesFromReponse(authResponse)).get("id");
+					authResponse = NetworkOperations.authorizeToEdakiaServer(authorizationURL, mobile, password);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
