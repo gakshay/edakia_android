@@ -51,7 +51,7 @@ public class ReceiveActivity extends BaseActivity {
 		((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
 		localEdakiaDocStorage = Environment.getExternalStorageDirectory().getAbsolutePath() + getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("localEdakiaDocStorage","/mnt/sdcard/");
-	     receiveURL =  this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("receiveURL","http://defaultURL");
+		receiveURL =  this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("receiveURL","http://defaultURL");
 	}
 
 	@Override
@@ -157,25 +157,25 @@ public class ReceiveActivity extends BaseActivity {
 						throw new Exception("Error while preparing directories for user.");
 					}
 					//set success images :
-					
+
 					((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_success);
 					((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_success);
 					((ImageView)findViewById(R.id.errImgSecCode)).setImageResource(R.drawable.ic_success);
 
-					
+
 					Intent fileDownloadIntent = new Intent(ReceiveActivity.this, FileDownloadAsyncActivity.class);
 					fileDownloadIntent.putExtra("downloadURL", documentPath);
 					fileDownloadIntent.putExtra("filePath", localEdakiaDocStorage + documentName);
-					
+
 					startActivityForResult(fileDownloadIntent,FILE_DOWNLOAD_ACTIVITY);
-					
+
 					/*if(documentPath.contains(".png") || documentPath.contains(".jpeg") || documentPath.contains(".jpg") || documentPath.contains(".gif")){
 						//downloadImage(documentPath, true);
 						isFileCreated = NetworkOperations.readAndCreateImageDocumentFromEdakia(documentPath, localEdakiaDocStorage + documentName);
 					}else {
 						isFileCreated = NetworkOperations.readAndCreateAnyDocumentFromEdakia(documentPath, localEdakiaDocStorage + documentName);
 					}*/
-				
+
 
 				}catch(Exception anExcep){
 					progressDialog.dismiss();
@@ -188,7 +188,7 @@ public class ReceiveActivity extends BaseActivity {
 					((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
 				}
 				progressDialog.dismiss();
-			}else if(responseXPath != null && responseXPath.contains("error") && responseXPath.contains("Document not found")){
+			}else if(responseXPath != null && responseXPath.contains("error") && responseXPath.contains("not found")){
 				progressDialog.cancel();
 				progressDialog.dismiss();
 				//could not find any document with this.
@@ -220,7 +220,7 @@ public class ReceiveActivity extends BaseActivity {
 		TextView text = (TextView) findViewById(R.id.Error);
 		text.setText(null);
 		text.setVisibility(TextView.INVISIBLE);
-		
+
 		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.VISIBLE);
 		((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.VISIBLE);
 		((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.VISIBLE);
@@ -368,11 +368,11 @@ public class ReceiveActivity extends BaseActivity {
 						i.setPackage(getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("printerShareActivity","com.dynamixsoftware.printershare"));
 						i.setDataAndType(Uri.fromFile(new File(localEdakiaDocStorage + documentName)), mimeType);
 						startActivityForResult(i,PRINT_ACTIVITY);
-						
+						Thread.sleep(3000);
 						//Show cost dialog for transaction charges.
 						(CustomDialog.resultCostDialog(ReceiveActivity.this,R.style.Theme_customDialogTitleTheme, R.layout.custom_title, R.layout.result_dialog_cost, R.id.TrnsButton,
 								R.id.TrnsResult,getString(R.string.costDialogPrinterShareMsg) + docTransCost)).show();
-						
+
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -388,10 +388,17 @@ public class ReceiveActivity extends BaseActivity {
 					((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
 				}
 			}else{
-				
+				Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
+				homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				homeIntent.putExtra("showResultDialogBox", "true");
+				homeIntent.putExtra("transactionType", "received");
+				homeIntent.putExtra("isError", "true");
+
+				startActivity(homeIntent);
+				finish();
 			}
 		}
-		
+
 	}
 
 }

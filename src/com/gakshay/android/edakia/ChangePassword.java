@@ -64,7 +64,7 @@ public class ChangePassword extends BaseActivity {
 	}
 	
 	private void sendReqForChangePassword(){
-			progressDialog = ProgressDialog.show(this, "", getString(R.string.chngPwdPrgDlg));
+			progressDialog = ProgressDialog.show(this, getString(R.string.chngPwdPrgDlgTitle), getString(R.string.chngPwdPrgDlg), true, false);
 		new Thread() {
 			public void run() {
 				InputStream in = null;
@@ -248,16 +248,32 @@ public class ChangePassword extends BaseActivity {
 			((ImageView)findViewById(R.id.errImgNewPwd)).setVisibility(ImageView.INVISIBLE);
 			((ImageView)findViewById(R.id.errImgNewPwdAgn)).setVisibility(ImageView.INVISIBLE);
 			
-			if(ActivitiesHelper.fetchValuesFromReponse(chngPwdResp).get("errors") != null)
-				text.setText(getString(R.string.chngPwd_failed));
+			oldPwd.setText(null);
+			newPwd.setText(null);
+			newPwdAgain.setText(null);
 			
 			Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
 			homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			homeIntent.putExtra("showResultDialogBox", "true");
 			homeIntent.putExtra("transactionType", "chngPwd");
-			homeIntent.putExtra("isError", "false");
+
+			
+			if("Exception".equalsIgnoreCase(chngPwdResp)){
+				text.setText(getString(R.string.errorDialogMsg));
+
+				homeIntent.putExtra("isError", "true");
+				homeIntent.putExtra("errorMessageText", getString(R.string.errorDialogMsg));
+
+			}else if(chngPwdResp != null && chngPwdResp.contains("error")){
+				homeIntent.putExtra("isError", "true");
+				homeIntent.putExtra("errorMessageText", ActivitiesHelper.fetchValuesFromReponse(chngPwdResp).get("error"));
+			}else{
+				homeIntent.putExtra("isError", "false");
+			}
+			
 			startActivity(homeIntent);
 			finish();
+			
 
 		}
 	};

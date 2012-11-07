@@ -125,7 +125,7 @@
     <string name="sendDocPrgDlg">eDak Sending. Wait &#8230; \n ई-डाक भेज रहे| इंतज़ार करे &#8230;</string>
     <string name="authUserPrgDlg">Verifying. Wait &#8230; \n इंतज़ार करे &#8230;</string>
     <string name="chngPwdPrgDlg">Updating Passcode. Wait &#8230; \n इंतज़ार करे &#8230;</string>
-
+    
     <!-- Details to be shown on change password activity -->
     <string name="chngPwdTxtMsg">Change Passcode</string>
     <string name="chngPwdMobileLabel">Your Mobile Number\n(Don\'t place 0 OR +91)</string>

@@ -178,7 +178,6 @@ public class AuthenticateActivity extends BaseActivity {
 				homeIntent.putExtra("showResultDialogBox", "true");
 				homeIntent.putExtra("isError", "true");
 				homeIntent.putExtra("errorMessageText", (ActivitiesHelper.fetchValuesFromReponse(authResponse)).get("error"));
-
 				startActivity(homeIntent);
 				finish();
 			}else{

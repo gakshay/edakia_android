@@ -89,6 +89,7 @@ public class ConfirmSend extends BaseActivity {
 
 	private void onDialogPressedCancel(){
 		//Toast.makeText(this, "Try again !!", Toast.LENGTH_LONG).show();
+		setResult(RESULT_OK);
 		finish();
 	}
 
@@ -147,7 +148,7 @@ public class ConfirmSend extends BaseActivity {
 			homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			homeIntent.putExtra("showResultDialogBox", "true");
 
-			if(sendResponse != null && sendResponse.contains("Exception")){
+			if(sendResponse != null && ("Exception".equalsIgnoreCase(sendResponse) || sendResponse.contains("Exception"))){
 				homeIntent.putExtra("isError", "true");
 			}else{
 				homeIntent.putExtra("isError", "false");
