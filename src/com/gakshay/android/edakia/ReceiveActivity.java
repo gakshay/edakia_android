@@ -204,7 +204,8 @@ public class ReceiveActivity extends BaseActivity {
 				progressDialog.cancel();
 				//some other error.
 				//Toast.makeText(ReceiveActivity.this, "Sorry !! We could not find your document due to some internal error. Please bear with us for some time to serve you again.", Toast.LENGTH_LONG).show();
-				text.setText(getString(R.string.receive_error));
+				//	text.setText(getString(R.string.receive_error));
+				text.setText((ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("error"));
 				text.setVisibility(TextView.VISIBLE);
 				((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 				((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
