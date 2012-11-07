@@ -12,7 +12,9 @@ public final class R {
     }
     public static final class color {
         public static final int black=0x7f060003;
+        public static final int blue=0x7f06000a;
         public static final int green=0x7f060000;
+        public static final int grey=0x7f060009;
         public static final int light_green=0x7f060005;
         public static final int red=0x7f060002;
         public static final int status_background=0x7f060007;
@@ -73,11 +75,11 @@ public final class R {
         public static final int TextView02=0x7f090033;
         public static final int TextView03=0x7f090034;
         public static final int TitleImage=0x7f090026;
-        public static final int TrnsAmount=0x7f090039;
-        public static final int TrnsBalance=0x7f09003a;
-        public static final int TrnsButton=0x7f090037;
-        public static final int TrnsCost=0x7f090038;
-        public static final int TrnsResult=0x7f090036;
+        public static final int TrnsAmount=0x7f09003a;
+        public static final int TrnsBalance=0x7f09003b;
+        public static final int TrnsButton=0x7f090038;
+        public static final int TrnsCost=0x7f090039;
+        public static final int TrnsResult=0x7f090037;
         public static final int TtileText=0x7f090027;
         public static final int YourMobile=0x7f090002;
         public static final int YourPassword=0x7f090005;
@@ -95,7 +97,7 @@ public final class R {
         public static final int errImgSecCode=0x7f090021;
         public static final int fileName=0x7f090029;
         public static final int imageview01=0x7f09002e;
-        public static final int layoutImage=0x7f09003b;
+        public static final int layoutImage=0x7f090036;
         public static final int layoutText=0x7f09003c;
         public static final int linearLayout1=0x7f09002b;
         public static final int menu_settings=0x7f09003f;
@@ -164,76 +166,76 @@ public final class R {
     public static final class string {
         public static final int EmptyString=0x7f050012;
         public static final int ORText=0x7f050028;
-        public static final int all_mobile_email_secret_code=0x7f050042;
+        public static final int all_mobile_email_secret_code=0x7f050043;
         public static final int app_name=0x7f050000;
-        public static final int authUserPrgDlg=0x7f05005e;
-        public static final int authUserPrgDlgTitle=0x7f05005a;
+        public static final int authUserPrgDlg=0x7f05005f;
+        public static final int authUserPrgDlgTitle=0x7f05005b;
         public static final int authenticate_activity_authenticate_button=0x7f050017;
         public static final int authenticate_activity_mobile=0x7f050015;
         public static final int authenticate_activity_password=0x7f050016;
-        public static final int both_mobile_email=0x7f050041;
-        public static final int both_receiver_email_mobile=0x7f05003a;
-        public static final int chngPwdBtnTxt=0x7f050065;
-        public static final int chngPwdDialogMsg=0x7f050053;
+        public static final int both_mobile_email=0x7f050042;
+        public static final int both_receiver_email_mobile=0x7f05003b;
+        public static final int chngPwdBtnTxt=0x7f050066;
+        public static final int chngPwdDialogMsg=0x7f050054;
         /**  Transaction details related to be shown forchange password dialog 
          */
-        public static final int chngPwdDialogTitle=0x7f050052;
-        public static final int chngPwdMobileLabel=0x7f050061;
-        public static final int chngPwdNewPwdAgnLabel=0x7f050064;
-        public static final int chngPwdNewPwdLabel=0x7f050063;
-        public static final int chngPwdOldPwdLabel=0x7f050062;
-        public static final int chngPwdPrgDlg=0x7f05005f;
-        public static final int chngPwdPrgDlgTitle=0x7f05005b;
+        public static final int chngPwdDialogTitle=0x7f050053;
+        public static final int chngPwdMobileLabel=0x7f050062;
+        public static final int chngPwdNewPwdAgnLabel=0x7f050065;
+        public static final int chngPwdNewPwdLabel=0x7f050064;
+        public static final int chngPwdOldPwdLabel=0x7f050063;
+        public static final int chngPwdPrgDlg=0x7f050060;
+        public static final int chngPwdPrgDlgTitle=0x7f05005c;
         /**  Details to be shown on change password activity 
          */
-        public static final int chngPwdTxtMsg=0x7f050060;
-        public static final int chngPwd_failed=0x7f050033;
-        public static final int confirmSendDialogMsg=0x7f050055;
-        public static final int confirmSendDialogNegativeBtn=0x7f050057;
-        public static final int confirmSendDialogPositiveBtn=0x7f050056;
+        public static final int chngPwdTxtMsg=0x7f050061;
+        public static final int chngPwd_failed=0x7f050034;
+        public static final int confirmSendDialogMsg=0x7f050056;
+        public static final int confirmSendDialogNegativeBtn=0x7f050058;
+        public static final int confirmSendDialogPositiveBtn=0x7f050057;
         /**  Transaction details related to be shown for confirm send dialog 
          */
-        public static final int confirmSendDialogTitle=0x7f050054;
-        public static final int costDialogAmount=0x7f05004e;
-        public static final int costDialogBalanceMsg=0x7f05004d;
-        public static final int costDialogCostMsg=0x7f05004c;
+        public static final int confirmSendDialogTitle=0x7f050055;
+        public static final int costDialogAmount=0x7f05004f;
+        public static final int costDialogBalanceMsg=0x7f05004e;
+        public static final int costDialogCostMsg=0x7f05004d;
         /**  transaction details to be shown dialog on printershare screen. 
          */
-        public static final int costDialogPrinterShareMsg=0x7f050050;
-        public static final int costDialogReceiveMsg=0x7f05004b;
+        public static final int costDialogPrinterShareMsg=0x7f050051;
+        public static final int costDialogReceiveMsg=0x7f05004c;
         /**  Transaction details related to be shown for cost dialog 
          */
-        public static final int costDialogSentMsg=0x7f05004a;
+        public static final int costDialogSentMsg=0x7f05004b;
         public static final int edakia_file_send_activity=0x7f05001d;
-        public static final int empty_email=0x7f05003e;
-        public static final int empty_mobile=0x7f05002d;
+        public static final int empty_email=0x7f05003f;
+        public static final int empty_mobile=0x7f05002e;
         /**  Error messages 
          */
-        public static final int empty_mobile_passcode=0x7f05002c;
-        public static final int empty_passcode=0x7f05002e;
-        public static final int empty_receiver_email=0x7f050035;
-        public static final int empty_receiver_mobile=0x7f050037;
-        public static final int empty_secret_code=0x7f050043;
+        public static final int empty_mobile_passcode=0x7f05002d;
+        public static final int empty_passcode=0x7f05002f;
+        public static final int empty_receiver_email=0x7f050036;
+        public static final int empty_receiver_mobile=0x7f050038;
+        public static final int empty_secret_code=0x7f050044;
         /**  Transaction details related to be shown for error dialog 
          */
-        public static final int errorDialogMsg=0x7f050051;
+        public static final int errorDialogMsg=0x7f050052;
         public static final int hello_edakia=0x7f050001;
         public static final int hello_world=0x7f050007;
         public static final int homeButton=0x7f050025;
-        public static final int invalid_email=0x7f05003f;
-        public static final int invalid_mobile=0x7f05002f;
-        public static final int invalid_mobile_passcode=0x7f050031;
-        public static final int invalid_passcode=0x7f050030;
-        public static final int invalid_receiver_email=0x7f050036;
-        public static final int invalid_receiver_mobile=0x7f050038;
-        public static final int invalid_secret_code=0x7f050044;
+        public static final int invalid_email=0x7f050040;
+        public static final int invalid_mobile=0x7f050030;
+        public static final int invalid_mobile_passcode=0x7f050032;
+        public static final int invalid_passcode=0x7f050031;
+        public static final int invalid_receiver_email=0x7f050037;
+        public static final int invalid_receiver_mobile=0x7f050039;
+        public static final int invalid_secret_code=0x7f050045;
         public static final int local_file_send_activity=0x7f05001b;
-        public static final int login_error=0x7f050034;
-        public static final int login_failed=0x7f050032;
+        public static final int login_error=0x7f050035;
+        public static final int login_failed=0x7f050033;
         public static final int menu_settings=0x7f050002;
         public static final int mobile=0x7f05000b;
-        public static final int none_mobile_email=0x7f050040;
-        public static final int none_receiver_email_mobile=0x7f050039;
+        public static final int none_mobile_email=0x7f050041;
+        public static final int none_receiver_email_mobile=0x7f05003a;
         public static final int option_email_button=0x7f050029;
         public static final int option_mobile_button=0x7f05002a;
         public static final int option_print=0x7f050006;
@@ -242,32 +244,33 @@ public final class R {
         public static final int option_send_button=0x7f050004;
         public static final int personal_mobile=0x7f05000a;
         public static final int postage=0x7f050008;
+        public static final int preceeding_zero=0x7f05002c;
         public static final int print=0x7f05000f;
         public static final int receive=0x7f05000e;
-        public static final int receiveDocPrgDlg=0x7f05005c;
+        public static final int receiveDocPrgDlg=0x7f05005d;
         /**  Details to be shown for all progress dialogs. 
          */
-        public static final int receiveDocPrgDlgTitle=0x7f050058;
-        public static final int receive_error=0x7f050046;
-        public static final int receive_failed=0x7f050045;
+        public static final int receiveDocPrgDlgTitle=0x7f050059;
+        public static final int receive_error=0x7f050047;
+        public static final int receive_failed=0x7f050046;
         public static final int receiver_email_receive_activity=0x7f050027;
         public static final int receiver_email_send_activity=0x7f05001a;
         public static final int receiver_mobile=0x7f05000c;
         public static final int receiver_mobile_send_activity=0x7f050019;
         public static final int recently_scanned_file_send_activity=0x7f05001e;
-        public static final int resultDialogNeturalBtn=0x7f05004f;
-        public static final int resultDialogTitle=0x7f050049;
-        public static final int scan_hint=0x7f050048;
-        public static final int search_hint=0x7f050047;
+        public static final int resultDialogNeturalBtn=0x7f050050;
+        public static final int resultDialogTitle=0x7f05004a;
+        public static final int scan_hint=0x7f050049;
+        public static final int search_hint=0x7f050048;
         public static final int secret_code=0x7f05000d;
         public static final int select_file_send_activity=0x7f05001c;
-        public static final int sendDocPrgDlg=0x7f05005d;
-        public static final int sendDocPrgDlgTitle=0x7f050059;
+        public static final int sendDocPrgDlg=0x7f05005e;
+        public static final int sendDocPrgDlgTitle=0x7f05005a;
         public static final int send_button_scan_activity=0x7f05001f;
         public static final int send_button_search_activity=0x7f050020;
-        public static final int send_canceled=0x7f05003b;
-        public static final int send_error=0x7f05003c;
-        public static final int send_success=0x7f05003d;
+        public static final int send_canceled=0x7f05003c;
+        public static final int send_error=0x7f05003d;
+        public static final int send_success=0x7f05003e;
         public static final int title_activity_authenticate=0x7f050013;
         public static final int title_activity_base=0x7f050026;
         public static final int title_activity_browser_pictures=0x7f050023;

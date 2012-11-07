@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         android:background="@drawable/button"
         android:drawableLeft="@drawable/ic_receive_mail"
         android:minWidth="350dip"
@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/button"
         android:drawableLeft="@drawable/ic_print_mail"
         android:minWidth="350dip"
@@ -54,18 +54,18 @@
         android:padding="@dimen/padding_small"
         android:text="@string/option_print"
         android:textColor="@color/white"
-        android:textSize="@dimen/veryLargeText" />
+        android:textSize="@dimen/veryLargeText"
+        android:visibility="gone" />
 
 	<Button
 	    android:id="@+id/ChngPwdBtn"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_gravity="center"
-	    android:layout_margin="20dip"
+	    android:layout_margin="10dip"
 	    android:background="@android:color/transparent"
 	    android:gravity="center"
 	    android:onClick="optionClickHandler"
-	    android:paddingRight="10dp"
 	    android:text="@string/chngPwdTxtMsg"
 	    android:textColor="@color/status_color"
 	    android:textSize="@dimen/mediumText" />
