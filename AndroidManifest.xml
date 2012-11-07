@@ -22,7 +22,7 @@
             android:name=".Edakia"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_main"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,13 +42,13 @@
             android:name=".ReceiveActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_receive"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".PrintActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_print"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -75,7 +75,7 @@
             android:name=".AuthenticateActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_send"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -102,19 +102,19 @@
             android:name=".SendActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_send"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".FileChooser"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/select_file_send_activity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".ConfirmSend"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_confirm_send"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.Transparent" >
         </activity>
         <activity
@@ -124,33 +124,33 @@
             android:finishOnCloseSystemDialogs="true"
             android:label="@string/title_activity_pop_up"
             android:noHistory="true"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.Transparent" >
         </activity>
         <activity
             android:name=".FileSelectionActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_file_selection"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.Transparent" >
         </activity>
         <activity
             android:name=".BaseActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_base"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".ChangePassword"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_change_password"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".FileDownloadAsyncActivity"
              android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_file_download"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.Transparent" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

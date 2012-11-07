@@ -12,10 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/padding_medium"
+        android:layout_marginTop="@dimen/padding_small"
         android:background="@drawable/status"
         android:gravity="top"
-        android:padding="@dimen/padding_medium"
+        android:padding="@dimen/padding_small"
         android:text="@string/EmptyString"
         android:textColor="@color/status_color"
         android:visibility="gone" />
@@ -33,9 +33,9 @@
 	       android:layout_width="match_parent"
 	       android:layout_height="wrap_content"
 	       android:gravity="center|center_horizontal"
-	       android:layout_marginTop="20dp"
+	       android:layout_marginTop="10dp"
 	       android:text="@string/receiver_email_receive_activity"
-	       android:textSize="@dimen/veryLargeText" />
+	       android:textSize="@dimen/largeText" />
 	
 	   <Button
 	        android:id="@+id/optionMobile"
@@ -45,7 +45,7 @@
 	        android:layout_gravity="center"
 	        android:gravity="center"
 	        android:onClick="toggleMobile"
-	        android:minHeight="24dip"
+	        android:minHeight="20dip"
 	        android:background="@android:color/transparent"
 	        android:textColor="@color/status_color"
 	        android:textSize="@dimen/smallText"
@@ -64,7 +64,6 @@
 		        android:layout_marginTop="10dp"
 		        android:textSize="@dimen/mediumText"
 		        android:ems="12"
-		        android:gravity="center|center_horizontal"
 		        android:inputType="textEmailAddress" />
 		    
 		     <ImageView
@@ -99,7 +98,7 @@
 	        android:gravity="center|center_horizontal"
 	        android:text="@string/mobile"
 	        android:textAppearance="?android:attr/textAppearanceLarge"
-	        android:textSize="@dimen/veryLargeText" />
+	        android:textSize="@dimen/largeText" />
 
 	    <Button
 	        android:id="@+id/optionEmail"
@@ -109,7 +108,7 @@
 	        android:layout_gravity="center"
 	        android:background="@android:color/transparent"
 	        android:gravity="center"
-	        android:minHeight="24dip"
+	        android:minHeight="20dip"
 	        android:onClick="toggleEmail"
 	        android:text="@string/option_email_button"
 	        android:textColor="@color/status_color"
@@ -121,18 +120,18 @@
 	        android:orientation="horizontal"
 	        android:layout_marginLeft="10dp"
 	        android:layout_gravity="center" >
+
 	    
 		    <EditText
 		        android:id="@+id/receiveMobile"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:layout_marginTop="10dp"
+		        android:layout_marginTop="5dp"
 		        android:ems="10"
-		        android:gravity="center|center_horizontal"
 		        android:inputType="number"
 		        android:maxLength="10"
 		        android:padding="@dimen/padding_small"
-		        android:textSize="@dimen/largeText" >
+		        android:textSize="@dimen/mediumText" >
 		
 		        <requestFocus />
 		    </EditText>
@@ -150,10 +149,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="5dp"
         android:gravity="center|center_horizontal"
         android:text="@string/secret_code"
-        android:textSize="@dimen/veryLargeText" />
+        android:textSize="@dimen/largeText" />
     
 	<LinearLayout
         android:layout_width="wrap_content"
@@ -166,12 +165,11 @@
 	        android:id="@+id/secretCode"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_marginTop="10dp"
+	        android:layout_marginTop="5dp"
 	        android:ems="10"
-	        android:gravity="center|center_horizontal"
 	        android:inputType="number"
 	        android:maxLength="6"
-	        android:textSize="@dimen/largeText" />
+	        android:textSize="@dimen/mediumText" />
 	    
 	     <ImageView
 	        android:id="@+id/errImgSecCode"
@@ -184,14 +182,14 @@
         android:id="@+id/receiveNextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/button"
         android:layout_gravity="center"
         android:onClick="getDocument"
-        android:padding="20dp"
+        android:padding="@dimen/padding_small"
         android:text="@string/receive"
         android:textColor="@color/white"
-        android:textSize="@dimen/veryLargeText" />
+        android:textSize="@dimen/largeText" />
      
   
 

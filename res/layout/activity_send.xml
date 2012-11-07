@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical"
         android:visibility="gone" >
 
@@ -38,7 +38,7 @@
 	        android:gravity="center|center_horizontal"
 	        android:text="@string/receiver_email_send_activity"
 	        android:textAppearance="?android:attr/textAppearanceLarge"
-	        android:textSize="@dimen/veryLargeText" />
+	        android:textSize="@dimen/largeText" />
 
 	    <Button
 	        android:id="@+id/optionMobile"
@@ -68,7 +68,6 @@
 		        android:layout_height="wrap_content"
 		        android:layout_marginTop="10dp"
 		        android:ems="12"
-		        android:gravity="center|center_horizontal"
 		        android:textSize="@dimen/mediumText"
 		        android:inputType="textEmailAddress">
 		    </EditText>
@@ -96,7 +95,7 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_gravity="center"
-	    android:layout_marginBottom="50dp"
+	    android:layout_marginBottom="20dp"
 	    android:orientation="vertical" >
 
 	    <TextView
@@ -108,7 +107,7 @@
 	        android:gravity="center|center_horizontal"
 	        android:text="@string/receiver_mobile_send_activity"
 	        android:textAppearance="?android:attr/textAppearanceLarge"
-	        android:textSize="@dimen/veryLargeText" />
+	        android:textSize="@dimen/largeText" />
 
 	    <Button
 	        android:id="@+id/optionEmail"
@@ -128,8 +127,8 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center"
-	        android:layout_marginLeft="20dp"
-	        android:layout_marginTop="20dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginTop="10dp"
 	        android:orientation="horizontal" >
 	
 		    <EditText
@@ -137,7 +136,6 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:ems="10"
-		        android:gravity="center|center_horizontal"
 		        android:inputType="number"
 		        android:maxLength="10"
 		        android:padding="@dimen/padding_large"
@@ -159,7 +157,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="50dp"
+        android:layout_margin="20dp"
         android:orientation="horizontal" >
 	    
         <LinearLayout
@@ -179,7 +177,7 @@
 	            android:tag="searchFile"
 	            android:text="@string/send_button_search_activity"
 	            android:textAllCaps="true"
-	            android:textSize="@dimen/veryLargeText" />
+	            android:textSize="@dimen/largeText" />
 	        
 	        <TextView
 	        android:id="@+id/textView2"
@@ -208,7 +206,7 @@
 	            android:text="@string/send_button_scan_activity"
 	            android:textAllCaps="true"
 	            android:textColor="@color/white"
-	            android:textSize="@dimen/veryLargeText" />
+	            android:textSize="@dimen/largeText" />
 	        <TextView
 		        android:id="@+id/textView3"
 		        android:layout_width="wrap_content"

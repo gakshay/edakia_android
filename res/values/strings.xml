@@ -26,25 +26,25 @@
     <string name="postage">Mail Postage</string>
     <string name="title_activity_receive">eDakia - Receive</string>
     <string name="personal_mobile">Your Mobile Number</string>
-    <string name="mobile">Your Mobile Number \n आपका मोबाइल नंबर</string>
+    <string name="mobile">Your Mobile Number (10 digits) \n आपका मोबाइल नंबर</string>
     <string name="receiver_mobile">Recipient\'s Mobile Number</string>
-    <string name="secret_code">eDak Code \n ई-डाक कोड </string>
-    <string name="receive">eDak Receive \n ई-डाक पाए</string>
+    <string name="secret_code">Doc ID \n डाक कोड </string>
+    <string name="receive">Receive \n डाक पाए</string>
     <string name="print">Print \n छापिये</string>
     <string name="title_activity_print">eDakia - Print</string>
     <string name="option_print_button">onPrintClick</string>
     <string name="EmptyString"></string>
     <string name="title_activity_authenticate">eDakia - Authenticate</string>
-    <string name="title_activity_change_password">eDakia - Change Passcode</string>
-    <string name="authenticate_activity_mobile">Your Mobile Number \n आपका मोबाइल नंबर</string>
-    <string name="authenticate_activity_password">Your Passcode \n आपका पास कोड</string>
+    <string name="title_activity_change_password">eDakia - Change Password</string>
+    <string name="authenticate_activity_mobile">Your Mobile Number (10 digits) \n आपका मोबाइल नंबर</string>
+    <string name="authenticate_activity_password">Your Password \n आपका पासवर्ड</string>
     <string name="authenticate_activity_authenticate_button">Login \n साइन</string>
     <string name="title_activity_send">eDakia - Send File</string>
-    <string name="receiver_mobile_send_activity">Recipient\'s Mobile Number \n पाने वाले का मोबाइल नंबर</string>
+    <string name="receiver_mobile_send_activity">Recipient\'s Mobile Number (10 digits) \n पाने वाले का मोबाइल नंबर</string>
     <string name="receiver_email_send_activity">Recipient\'s Email ID \n पाने वाले का ई-मेल</string>
     <string name="local_file_send_activity">Search a file</string>
     <string name="select_file_send_activity">Select a file to send</string>
-    <string name="edakia_file_send_activity">Select a file from your Edakia account.</string>
+    <string name="edakia_file_send_activity">Select a file from your eDakia account.</string>
     <string name="recently_scanned_file_send_activity">Scan and send the file.</string>
     <string name="send_button_scan_activity">Next \n आगे</string>
     <string name="send_button_search_activity">Search \n खोजे</string>
@@ -56,17 +56,18 @@
     <string name="title_activity_base">eDakia - Base</string>
     <string name="receiver_email_receive_activity">Your Email Address \n आपका ई-मेल </string>
     <string name="ORText">OR (या)</string>
-    <string name="option_email_button">Or E-Mail (अथवा ई-मेल)</string>
-    <string name="option_mobile_button">Or Mobile (अथवा मोबाइल)</string>
+    <string name="option_email_button"><u>Or E-Mail (अथवा ई-मेल)</u></string>
+    <string name="option_mobile_button"><u>Or Mobile (अथवा मोबाइल)</u></string>
     <string name="title_activity_file_download">eDakia - File Downloading</string>
+    <string name="preceeding_zero">10 Digits</string>
 
     <!-- Error messages -->
-    <string name="empty_mobile_passcode">Enter Mobile and Password \n मोबाइल नंबर व पास कोड डाले </string>
+    <string name="empty_mobile_passcode">Enter Mobile and Password \n मोबाइल नंबर व पासवर्ड डाले </string>
     <string name="empty_mobile">Enter Mobile Number \n मोबाइल नंबर डाले</string>
-    <string name="empty_passcode">Enter Passcode \n पास कोड डाले </string>
+    <string name="empty_passcode">Enter Password \n पासवर्ड डाले </string>
     <string name="invalid_mobile">Invalid Mobile Number \n गलत मोबाइल नंबर </string>
-    <string name="invalid_passcode">Invalid Passcode \n गलत पास कोड</string>
-    <string name="invalid_mobile_passcode">Invalid Mobile Number and Passcode \n गलत मोबाइल नंबर व पास कोड </string>
+    <string name="invalid_passcode">Invalid Password \n गलत पासवर्ड</string>
+    <string name="invalid_mobile_passcode">Invalid Mobile Number and Password \n गलत मोबाइल नंबर व पासवर्ड </string>
     <string name="login_failed">Login Failed! Incorrect Mobile Number or Password \n गलत मोबाइल नंबर या पास कोड </string>
     <string name="chngPwd_failed">Failed! Incorrect Mobile or old Password \n गलत मोबाइल या पास कोड </string>
     <string name="login_error">Network Error! Try After Sometime</string>
@@ -76,25 +77,25 @@
     <string name="invalid_receiver_mobile">Invalid Recipient\'s Mobile Number \n गलत मोबाइल नंबर </string>
     <string name="none_receiver_email_mobile">Enter Recipient\'s Mobile or Email \n पाने वाले का मोबाइल या ई-मेल डाले</string>
     <string name="both_receiver_email_mobile">Provide Either Recipient\'s Mobile OR Email \n पाने वाले का मोबाइल या ई-मेल डाले</string>
-    <string name="send_canceled">eDak Sending Canceled \n ई-डाक रद्द </string>
-    <string name="send_error">eDak Sending Failed \n ई-डाक विफल</string>
-    <string name="send_success">eDak Successfully Sent \n ई-डाक सफल</string>
+    <string name="send_canceled">Sending Cancel \n डाक रद्द </string>
+    <string name="send_error">Sending Failed \n डाक विफल</string>
+    <string name="send_success">Successfully Sent \n डाक सफल</string>
     <string name="empty_email">Enter Email Address \n पाने वाले का ई-मेल डाले </string>
     <string name="invalid_email">Invalid Email Address \n गलत ई-मेल </string>
     <string name="none_mobile_email">Enter Mobile Number OR Email \n मोबाइल नंबर या ई-मेल डाले </string>
     <string name="both_mobile_email">Enter Either Mobile Number OR Email \n मोबाइल नंबर या ई-मेल डाले</string>
-    <string name="all_mobile_email_secret_code">Enter Mobile Number and eDak Code \n मोबाइल नंबर व ई-डाक कोड डाले</string>
-    <string name="empty_secret_code">Enter eDak Code \n डाक कोड डाले</string>
-    <string name="invalid_secret_code">Invalid eDak Code \n गलत डाक कोड </string>
-    <string name="receive_failed">Sorry! eDak Not Found \n ई-डाक विफल</string>
+    <string name="all_mobile_email_secret_code">Enter Mobile Number and Doc ID \n मोबाइल नंबर व डाक कोड डाले</string>
+    <string name="empty_secret_code">Enter Doc ID \n डाक कोड डाले</string>
+    <string name="invalid_secret_code">Invalid Doc ID \n गलत डाक कोड </string>
+    <string name="receive_failed">Sorry! Doc Not Found \n डाक विफल</string>
     <string name="receive_error">Error! Try After Sometime</string>
     <string name="search_hint">To select file from pendrive/memory card</string>
     <string name="scan_hint">To Scan paper</string>
     <string name="resultDialogTitle">RESULT</string>
 
     <!-- Transaction details related to be shown for cost dialog -->
-    <string name="costDialogSentMsg">eDak Sent Successfully \n ई-डाक सफल \n\n</string>
-    <string name="costDialogReceiveMsg">eDak Received Successfully \n ई-डाक सफल \n\n</string>
+    <string name="costDialogSentMsg">Sent Successfully \n डाक सफल \n\n</string>
+    <string name="costDialogReceiveMsg">Received Successfully \n डाक सफल \n\n</string>
     <string name="costDialogCostMsg">Transaction Cost: Rs </string>
     <string name="costDialogBalanceMsg">Your Balance: Rs </string>
     <string name="costDialogAmount">Amount to be paid: Rs </string>
@@ -107,12 +108,12 @@
     <string name="errorDialogMsg">Error! Try After Sometime</string>
 
     <!-- Transaction details related to be shown forchange password dialog -->
-    <string name="chngPwdDialogTitle">Change Passcode</string>
-    <string name="chngPwdDialogMsg">Passcode Updated Successfully</string>
+    <string name="chngPwdDialogTitle">Change Password</string>
+    <string name="chngPwdDialogMsg">Password Updated Successfully</string>
 
     <!-- Transaction details related to be shown for confirm send dialog -->
-    <string name="confirmSendDialogTitle">eDak Send Confirmation</string>
-    <string name="confirmSendDialogMsg">\n Press Send Button \n ई-डाक भेजने के लिए SEND दबाये \n</string>
+    <string name="confirmSendDialogTitle">Send Confirmation</string>
+    <string name="confirmSendDialogMsg">\n Press Send Button \n डाक भेजने के लिए SEND दबाये \n</string>
     <string name="confirmSendDialogPositiveBtn">Send \n भेजे</string>
     <string name="confirmSendDialogNegativeBtn">Cancel \n रद्द </string>
 
@@ -121,18 +122,18 @@
     <string name="sendDocPrgDlgTitle">In Progress</string>
     <string name="authUserPrgDlgTitle">In Progress</string>
     <string name="chngPwdPrgDlgTitle">In Progress</string>
-    <string name="receiveDocPrgDlg">eDak Receiving. Wait &#8230; \n इंतज़ार करे &#8230;</string>
-    <string name="sendDocPrgDlg">eDak Sending. Wait &#8230; \n ई-डाक भेज रहे| इंतज़ार करे &#8230;</string>
+    <string name="receiveDocPrgDlg">Receiving. Wait &#8230; \n इंतज़ार करे &#8230;</string>
+    <string name="sendDocPrgDlg">Sending. Wait &#8230; \n डाक भेज रहे| इंतज़ार करे &#8230;</string>
     <string name="authUserPrgDlg">Verifying. Wait &#8230; \n इंतज़ार करे &#8230;</string>
-    <string name="chngPwdPrgDlg">Updating Passcode. Wait &#8230; \n इंतज़ार करे &#8230;</string>
+    <string name="chngPwdPrgDlg">Updating Password. Wait &#8230; \n इंतज़ार करे &#8230;</string>
 
     <!-- Details to be shown on change password activity -->
-    <string name="chngPwdTxtMsg">Change Passcode</string>
-    <string name="chngPwdMobileLabel">Your Mobile Number\n(Don\'t place 0 OR +91)</string>
-    <string name="chngPwdOldPwdLabel">Your Old Passcode</string>
-    <string name="chngPwdNewPwdLabel">Your New Passcode</string>
-    <string name="chngPwdNewPwdAgnLabel">Confirm New Passcode</string>
-    <string name="chngPwdBtnTxt">Save Passcode</string>
+    <string name="chngPwdTxtMsg">Change Password</string>
+    <string name="chngPwdMobileLabel">Your Mobile Number (10 digits)</string>
+    <string name="chngPwdOldPwdLabel">Your Current Password</string>
+    <string name="chngPwdNewPwdLabel">Your New Password</string>
+    <string name="chngPwdNewPwdAgnLabel">Confirm New Password</string>
+    <string name="chngPwdBtnTxt">Save Password</string>
 
     <dimen name="veryLargeText">42dp</dimen>
     <dimen name="largeText">32dp</dimen>
