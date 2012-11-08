@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.gakshay.android.util.ActivitiesHelper;
 import com.gakshay.android.util.NetworkOperations;
@@ -148,8 +149,10 @@ public class ConfirmSend extends BaseActivity {
 			homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			homeIntent.putExtra("showResultDialogBox", "true");
 
-			if(sendResponse != null && ("Exception".equalsIgnoreCase(sendResponse) || sendResponse.contains("Exception"))){
+			if(sendResponse != null && ("Exception".equalsIgnoreCase(sendResponse) || sendResponse.contains("Exception") || sendResponse.contains("error"))){
 				homeIntent.putExtra("isError", "true");
+				if(sendResponse.contains("error"))
+				homeIntent.putExtra("errorMessageText", (ActivitiesHelper.fetchValuesFromReponse(sendResponse)).get("error"));
 			}else{
 				homeIntent.putExtra("isError", "false");
 				homeIntent.putExtra("transactionType", "send");
