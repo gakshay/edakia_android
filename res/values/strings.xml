@@ -4,8 +4,8 @@
     <string name="hello_edakia">Welcome to eDakia!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">eDakia</string>
-    <string name="option_send_button">Send \n ई-डाक भेजे </string>
-    <string name="option_receive_button">Receive \n ई-डाक पाए</string>
+    <string name="option_send_button">Send \n ई-डाक भेजें</string>
+    <string name="option_receive_button">Receive \n ई-डाक पाएं</string>
     <string name="option_print">Print \n कॉपी करे</string>
 
     <color name="green">#d1f099</color>
@@ -29,7 +29,7 @@
     <string name="mobile">Your Mobile Number (10 digits) \n आपका मोबाइल नंबर</string>
     <string name="receiver_mobile">Recipient\'s Mobile Number</string>
     <string name="secret_code">Doc ID \n डाक कोड </string>
-    <string name="receive">Receive \n डाक पाए</string>
+    <string name="receive">Receive \n डाक पाएं</string>
     <string name="print">Print \n छापिये</string>
     <string name="title_activity_print">eDakia - Print</string>
     <string name="option_print_button">onPrintClick</string>
@@ -113,7 +113,7 @@
 
     <!-- Transaction details related to be shown for confirm send dialog -->
     <string name="confirmSendDialogTitle">Send Confirmation</string>
-    <string name="confirmSendDialogMsg">\n Press Send Button \n डाक भेजने के लिए SEND दबाये \n</string>
+    <string name="confirmSendDialogMsg">\n Press Send Button \n डाक भेजने के लिए  SEND दबाये \n</string>
     <string name="confirmSendDialogPositiveBtn">Send \n भेजे</string>
     <string name="confirmSendDialogNegativeBtn">Cancel \n रद्द </string>
 
