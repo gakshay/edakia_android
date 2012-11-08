@@ -1,31 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical" >
-
+
     <ImageView
         android:id="@+id/layoutImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_success" />
-
+        android:layout_gravity="left"
+        android:src="@drawable/ic_success"
+        tools:ignore="ContentDescription" />
+
     <TextView
         android:id="@+id/TrnsResult"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_large"
-        android:layout_weight="0.13"
+        android:layout_margin="@dimen/padding_medium"
         android:textColor="@color/white"
-        android:textSize="24dp" />
+        android:textSize="24dp"
+        tools:ignore="InefficientWeight" />
 
     <Button
         android:id="@+id/TrnsButton"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/TrnsResult"
-        android:layout_below="@+id/TrnsResult"
+        android:layout_gravity="center"
         android:layout_marginTop="18dp"
-        android:text="@string/resultDialogNeturalBtn" />
+        android:background="@drawable/button"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/resultDialogNeturalBtn"
+        android:textColor="@color/white"
+        android:textSize="@dimen/mediumText" />
 
 </LinearLayout>

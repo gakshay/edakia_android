@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center|center_vertical"
     android:orientation="vertical" >
 
     <TextView
@@ -9,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:gravity="center|center_horizontal"
         android:layout_margin="@dimen/padding_large"
         android:textColor="@color/white"
         android:textSize="24dp" />
@@ -42,15 +44,16 @@
            android:text="@string/costDialogBalanceMsg"
            android:textColor="@color/white"
            android:textSize="24dp" />
-
+
        <Button
            android:id="@+id/TrnsButton"
            android:layout_width="fill_parent"
            android:layout_height="wrap_content"
            android:layout_gravity="center"
-           android:layout_marginTop="10dip"
            android:background="@drawable/button"
+           android:padding="@dimen/padding_medium"
            android:text="@string/resultDialogNeturalBtn"
-           android:textColor="@color/white" />
+           android:textColor="@color/white"
+           android:textSize="@dimen/mediumText" />
 
 </LinearLayout>
