@@ -180,10 +180,10 @@ public class AuthenticateActivity extends BaseActivity {
 				if(authResponse.contains("error"))
 					homeIntent.putExtra("errorMessageText", (ActivitiesHelper.fetchValuesFromReponse(authResponse)).get("error"));
 				else if(authResponse.equalsIgnoreCase("Exception401")){
-					homeIntent.putExtra("errorMessageText", R.string.invalid_mobile_passcode);
+					homeIntent.putExtra("errorMessageText", getString(R.string.invalid_mobile_passcode));
 				}
 				
-				homeIntent.putExtra("errorMessageText", R.string.invalid_mobile_passcode);//NEED TO REMOVE , TEMPORARY CHECKED IN
+				homeIntent.putExtra("errorMessageText", getString(R.string.invalid_mobile_passcode));//NEED TO REMOVE , TEMPORARY CHECKED IN
 
 				startActivity(homeIntent);
 				finish();
