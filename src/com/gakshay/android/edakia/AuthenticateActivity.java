@@ -165,19 +165,26 @@ public class AuthenticateActivity extends BaseActivity {
 			TextView text = (TextView) findViewById(R.id.Error);
 			text.setText(null);
 
-			if("Exception".equalsIgnoreCase(authResponse) || authResponse.contains("error")){
+			if("Exception".equalsIgnoreCase(authResponse) || authResponse.contains("error") || authResponse.equalsIgnoreCase("Exception401")){
 				text.setText(getString(R.string.login_failed));
 
 				((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 				((ImageView)findViewById(R.id.errImgPwd)).setVisibility(ImageView.INVISIBLE);
 
 				password.setText(null);//refresh password text
-				
+
 				Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
 				homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				homeIntent.putExtra("showResultDialogBox", "true");
 				homeIntent.putExtra("isError", "true");
-				homeIntent.putExtra("errorMessageText", (ActivitiesHelper.fetchValuesFromReponse(authResponse)).get("error"));
+				if(authResponse.contains("error"))
+					homeIntent.putExtra("errorMessageText", (ActivitiesHelper.fetchValuesFromReponse(authResponse)).get("error"));
+				else if(authResponse.equalsIgnoreCase("Exception401")){
+					homeIntent.putExtra("errorMessageText", R.string.invalid_mobile_passcode);
+				}
+				
+				homeIntent.putExtra("errorMessageText", R.string.invalid_mobile_passcode);//NEED TO REMOVE , TEMPORARY CHECKED IN
+
 				startActivity(homeIntent);
 				finish();
 			}else{

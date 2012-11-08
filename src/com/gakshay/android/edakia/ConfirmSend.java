@@ -158,7 +158,7 @@ public class ConfirmSend extends BaseActivity {
 				homeIntent.putExtra("transactionType", "send");
 				homeIntent.putExtra("userBalance", ActivitiesHelper.fetchValuesFromReponse(sendResponse).get("balance"));
 				homeIntent.putExtra("paidAmount", ActivitiesHelper.fetchValuesFromReponse(sendResponse).get("cost"));
-				homeIntent.putExtra("transactionCost", ActivitiesHelper.fetchValuesFromReponse(sendResponse).get("trnsCost"));
+				homeIntent.putExtra("transactionCost", "null");
 
 			}
 			Intent returnData = new Intent();

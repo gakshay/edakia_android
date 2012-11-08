@@ -3,7 +3,6 @@
  */
 package com.gakshay.android.util;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,10 +27,8 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import android.database.CursorJoiner.Result;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
@@ -103,6 +100,8 @@ public class NetworkOperations {
 			e.printStackTrace();
 			response = "Exception";
 		} catch (IOException e) {
+			if(e.getMessage() != null && e.getMessage().contains("401"))//unauthorize message
+				response = "Exception401";
 			e.printStackTrace();
 			response = "Exception";
 		}catch (Exception ex){

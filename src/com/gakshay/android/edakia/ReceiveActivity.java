@@ -351,7 +351,7 @@ public class ReceiveActivity extends BaseActivity {
 				homeIntent.putExtra("transactionType", "received");
 				homeIntent.putExtra("paidAmount", docTransCost);
 				homeIntent.putExtra("userBalance", userBalance);
-				homeIntent.putExtra("transactionCost", "");
+				homeIntent.putExtra("transactionCost", "null");
 				homeIntent.putExtra("isError", "false");
 			}else{
 				homeIntent.putExtra("isError", "true");

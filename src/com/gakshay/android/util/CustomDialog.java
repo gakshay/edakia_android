@@ -58,9 +58,13 @@ public class CustomDialog extends Dialog{
 		dialog.setCancelable(false);
 
 		((TextView) dialog.findViewById(dialogMsg)).setText(dialogResultMsg);
-
-		((TextView) dialog.findViewById(trnsCost)).setText(trnsCostValue);
-
+		
+		if(trnsCostValue != null && trnsCostValue.contains("null")){
+			((TextView) dialog.findViewById(trnsCost)).setVisibility(TextView.GONE);
+		}else{
+			((TextView) dialog.findViewById(trnsCost)).setText(trnsCostValue);
+		}
+		
 		((TextView) dialog.findViewById(trnsAmount)).setText(paidAmount);
 		((TextView) dialog.findViewById(trnsBalance)).setText(userBalance);
 
