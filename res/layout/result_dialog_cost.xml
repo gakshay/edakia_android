@@ -3,46 +3,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
     <TextView
         android:id="@+id/TrnsResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_margin="@dimen/padding_large"
         android:textColor="@color/white"
         android:textSize="24dp" />
-
+
      <TextView
-        android:id="@+id/TrnsCost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_large"
-        android:text="@string/costDialogCostMsg"
-        android:textColor="@color/white"
-        android:textSize="24dp" />
-     
+         android:id="@+id/TrnsCost"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center"
+         android:layout_margin="@dimen/padding_large"
+         android:text="@string/costDialogCostMsg"
+         android:textColor="@color/white"
+         android:textSize="24dp" />
+     
       <TextView
-        android:id="@+id/TrnsAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_large"
-        android:text="@string/costDialogCostMsg"
-        android:textColor="@color/white"
-        android:textSize="24dp" />
-      
+          android:id="@+id/TrnsAmount"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_margin="@dimen/padding_large"
+          android:text="@string/costDialogCostMsg"
+          android:textColor="@color/white"
+          android:textSize="24dp" />
+      
        <TextView
-        android:id="@+id/TrnsBalance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_large"
-        android:text="@string/costDialogCostMsg"
-        android:textColor="@color/white"
-        android:textSize="24dp" />
-
-       <Button
-           android:id="@+id/TrnsButton"
+           android:id="@+id/TrnsBalance"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="@string/resultDialogNeturalBtn" />
+           android:layout_gravity="center"
+           android:layout_margin="@dimen/padding_large"
+           android:text="@string/costDialogCostMsg"
+           android:textColor="@color/white"
+           android:textSize="24dp" />
+
+       <Button
+           android:id="@+id/TrnsButton"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:layout_marginTop="10dip"
+           android:background="@drawable/button"
+           android:text="@string/resultDialogNeturalBtn"
+           android:textColor="@color/white" />
 
 </LinearLayout>
