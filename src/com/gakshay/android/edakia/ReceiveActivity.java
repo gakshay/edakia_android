@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -69,7 +70,12 @@ public class ReceiveActivity extends BaseActivity {
 	}
 
 	public void getDocument(View view) {
-
+		if(!isNetworkConnection()){
+			Intent edakiaHome = initiateHomePage(true, getString(R.string.errorDialogInternetNotAvailable));
+			startActivity(edakiaHome);
+			finish();
+			return;
+		}
 		mobile = (EditText) findViewById(R.id.receiveMobile);
 		secretCode = (EditText) findViewById(R.id.secretCode);
 		receiverEmailAddress = (EditText) findViewById(R.id.receiverEmail);
@@ -98,7 +104,7 @@ public class ReceiveActivity extends BaseActivity {
 	}
 
 	private void readAndDownloadDocument(final String reqURL) {
-		progressDialog = ProgressDialog.show(this, getString(R.string.receiveDocPrgDlgTitle), getString(R.string.receiveDocPrgDlg),true,false );
+		progressDialog = ProgressDialog.show(this, getString(R.string.receiveDocPrgDlgTitle), Html.fromHtml("<h2>" + getString(R.string.receiveDocPrgDlg) + "</h2>"),true,false );
 
 		new Thread() {
 			public void run() {
@@ -149,6 +155,12 @@ public class ReceiveActivity extends BaseActivity {
 			//Fetch value of document x path from returned XML string response.
 			if(responseXPath != null && !"".equalsIgnoreCase(responseXPath) && !responseXPath.contains("error")){
 				try{
+					if(!isNetworkConnection()){
+						Intent edakiaHome = initiateHomePage(true, getString(R.string.errorDialogInternetNotAvailable));
+						startActivity(edakiaHome);
+						finish();
+						return;
+					}
 					documentPath = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("document_url");
 					docTransCost = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("cost");
 					userBalance = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("balance");

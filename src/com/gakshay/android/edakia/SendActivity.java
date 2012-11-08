@@ -105,6 +105,12 @@ public class SendActivity extends BaseActivity {
 
 	// Will be connected with the buttons via XML
 	public void sendFile(View aview) {
+		if(!isNetworkConnection()){
+			Intent edakiaHome = initiateHomePage(true, getString(R.string.errorDialogInternetNotAvailable));
+			startActivity(edakiaHome);
+			finish();
+			return;
+		}
 		receiverMobile = ((EditText) findViewById(R.id.receiverMobile));
 		receiverEmailAddress = ((EditText) findViewById(R.id.receiverEmail));
 		selectedSendButton = (Button)aview;

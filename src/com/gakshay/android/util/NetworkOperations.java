@@ -74,6 +74,58 @@ public class NetworkOperations {
 		return in;
 	}	
 
+	public static String authorizeHttpConnection(String urlStr, String mobile, String password) {
+		InputStream in = null;
+		String response = null;
+		int resCode = -1;
+
+		try {
+			URL url = new URL(urlStr);
+			URLConnection urlConn = url.openConnection();
+			if (!(urlConn instanceof HttpURLConnection)) {
+				throw new IOException ("URL is not an Http URL");
+			}
+
+
+			String authString = mobile + ":" + password;
+
+			byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
+			String authStringEnc = new String(authEncBytes);
+			HttpURLConnection httpConn = (HttpURLConnection)urlConn;
+			httpConn.setAllowUserInteraction(false);
+			httpConn.setRequestProperty("Authorization", "Basic " + authStringEnc);
+
+			httpConn.setInstanceFollowRedirects(true);
+			httpConn.setRequestMethod("GET");
+			httpConn.connect(); 
+
+			resCode = httpConn.getResponseCode();                 
+			if (resCode == HttpURLConnection.HTTP_OK) {
+				in = httpConn.getInputStream(); 
+				char[] inputBuffer = new char[2000];
+				InputStreamReader isr = new InputStreamReader(in);
+				int charRead;
+
+				while ((charRead = isr.read(inputBuffer))>0)
+				{      
+					String readString = 
+							String.copyValueOf(inputBuffer, 0, charRead);                    
+					response += readString;
+					inputBuffer = new char[2000];
+				}
+			}else if(resCode == HttpURLConnection.HTTP_UNAUTHORIZED){
+				response = "Exception401";
+			}else{
+				response = "Exception";
+			}		
+		} catch (MalformedURLException e) {
+			response = "Exception";
+		} catch (IOException e) {
+			response = "Exception";
+		}
+		return response;
+	}
+
 	public static String authorizeToEdakiaServer(String urlStr,String name, String password) {
 		String response = null;
 		try {
@@ -96,6 +148,7 @@ public class NetworkOperations {
 			}
 			response = sb.toString();
 			is.close();
+			isr.close();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 			response = "Exception";
@@ -320,7 +373,7 @@ public class NetworkOperations {
 			entity.addPart("user[password_confirmation]",new StringBody(newPassword));
 
 			httppost.setEntity(entity);
-			
+
 			HttpResponse httpResponse = httpclient.execute(httppost);
 			InputStream respStream = (InputStream)httpResponse.getEntity().getContent();
 			InputStreamReader isr = new InputStreamReader(respStream);

@@ -19,9 +19,7 @@
     <color name="status_color">#B94A48</color>
     <color name="grey">#BFBFBF</color>
     <color name="blue">#00bfff</color>
-    
-    
-    
+
     <string name="hello_world">Hello world!</string>
     <string name="postage">Mail Postage</string>
     <string name="title_activity_receive">eDakia - Receive</string>
@@ -106,6 +104,7 @@
 
     <!-- Transaction details related to be shown for error dialog -->
     <string name="errorDialogMsg">Error! Try After Sometime</string>
+    <string name="errorDialogInternetNotAvailable">Please check your internet connection.</string>
 
     <!-- Transaction details related to be shown forchange password dialog -->
     <string name="chngPwdDialogTitle">Change Password</string>
@@ -126,7 +125,6 @@
     <string name="sendDocPrgDlg">Sending. Wait &#8230; \n डाक भेज रहे| इंतज़ार करे &#8230;</string>
     <string name="authUserPrgDlg">Verifying. Wait &#8230; \n इंतज़ार करे &#8230;</string>
     <string name="chngPwdPrgDlg">Updating Passcode. Wait &#8230; \n इंतज़ार करे &#8230;</string>
-    
 
     <!-- Details to be shown on change password activity -->
     <string name="chngPwdTxtMsg">Change Password</string>

@@ -4,11 +4,14 @@ import java.io.InputStream;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,6 +46,12 @@ public class AuthenticateActivity extends BaseActivity {
 
 	// Will be connected with the buttons via XML
 	public void authenticate(View aview) {
+		if(!isNetworkConnection()){
+			Intent edakiaHome = initiateHomePage(true, getString(R.string.errorDialogInternetNotAvailable));
+			startActivity(edakiaHome);
+			finish();
+			return;
+		}
 		mobile = ((EditText) findViewById(R.id.YourMobile));
 		password = ((EditText) findViewById(R.id.YourPassword));
 		if(validateInputData()){
@@ -182,8 +191,6 @@ public class AuthenticateActivity extends BaseActivity {
 				else if(authResponse.equalsIgnoreCase("Exception401")){
 					homeIntent.putExtra("errorMessageText", getString(R.string.invalid_mobile_passcode));
 				}
-				
-				homeIntent.putExtra("errorMessageText", getString(R.string.invalid_mobile_passcode));//NEED TO REMOVE , TEMPORARY CHECKED IN
 
 				startActivity(homeIntent);
 				finish();
@@ -208,13 +215,13 @@ public class AuthenticateActivity extends BaseActivity {
 
 	private void authenticateUser(final String authorizationURL,final String mobile,final String password, boolean showProcessDialog) {
 		if(showProcessDialog)
-			progressDialog = ProgressDialog.show(this, getString(R.string.authUserPrgDlgTitle), getString(R.string.authUserPrgDlg),true, false);
+			progressDialog = ProgressDialog.show(this, getString(R.string.authUserPrgDlgTitle), Html.fromHtml("<h2>" + getString(R.string.authUserPrgDlg) + "</h2>") ,true, false);
 		new Thread() {
 			public void run() {
 				InputStream in = null;
 				Message msg = Message.obtain();
 				try {
-					authResponse = NetworkOperations.authorizeToEdakiaServer(authorizationURL, mobile, password);
+					authResponse = NetworkOperations.authorizeHttpConnection(authorizationURL, mobile, password);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}

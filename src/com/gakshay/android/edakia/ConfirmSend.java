@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.Window;
@@ -122,7 +123,7 @@ public class ConfirmSend extends BaseActivity {
 
 	private void sendFileToUser(boolean showProcessDialog) {
 		if(showProcessDialog)
-			progressDialog = ProgressDialog.show(this, getString(R.string.sendDocPrgDlgTitle),getString(R.string.sendDocPrgDlg),true,false );
+			progressDialog = ProgressDialog.show(this, getString(R.string.sendDocPrgDlgTitle),Html.fromHtml("<h2>" + getString(R.string.sendDocPrgDlg) + "</h2>"),true,false );
 		new Thread() {
 			public void run() {
 				InputStream in = null;
