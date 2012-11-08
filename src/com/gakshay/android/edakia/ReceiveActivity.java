@@ -347,7 +347,7 @@ public class ReceiveActivity extends BaseActivity {
 			Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
 			homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			homeIntent.putExtra("showResultDialogBox", "true");
-			if(resultCode == RESULT_OK){
+			if(resultCode == RESULT_OK || resultCode == RESULT_CANCELED){
 				homeIntent.putExtra("transactionType", "received");
 				homeIntent.putExtra("paidAmount", docTransCost);
 				homeIntent.putExtra("userBalance", userBalance);

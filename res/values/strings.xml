@@ -96,7 +96,7 @@
     <!-- Transaction details related to be shown for cost dialog -->
     <string name="costDialogSentMsg">Sent Successfully \n डाक सफल \n\n</string>
     <string name="costDialogReceiveMsg">Received Successfully \n डाक सफल \n\n</string>
-    <string name="costDialogCostMsg">Transaction Cost: Rs </string>
+    <string name="costDialogTrnsCostMsg">Transaction Cost: Rs </string>
     <string name="costDialogBalanceMsg">Your Balance: Rs </string>
     <string name="costDialogAmount">Amount to be paid: Rs </string>
     <string name="resultDialogNeturalBtn">OK</string>

@@ -139,9 +139,9 @@ public class Edakia extends Activity {
 		String resultMessage = (String)bundleData.get("errorMessageText");
 		if(!"true".equalsIgnoreCase((String)bundleData.get("isError"))){
 			String amountToBePaid,userBalance,trnsCost;
-			trnsCost = getString(R.string.costDialogAmount) +  (String) bundleData.get("transactionCost");
+			trnsCost = getString(R.string.costDialogTrnsCostMsg) +  (String) bundleData.get("transactionCost");
 			userBalance = getString(R.string.costDialogBalanceMsg) +  (String)bundleData.get("userBalance");
-			amountToBePaid = getString(R.string.costDialogCostMsg) +  (String)bundleData.get("paidAmount");
+			amountToBePaid = getString(R.string.costDialogAmount) +  (String)bundleData.get("paidAmount");
 
 			if("received".equalsIgnoreCase((String) bundleData.get("transactionType"))){
 				resultMessage = getString(R.string.costDialogReceiveMsg);

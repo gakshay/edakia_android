@@ -19,7 +19,7 @@
          android:layout_height="wrap_content"
          android:layout_gravity="center"
          android:layout_margin="@dimen/padding_large"
-         android:text="@string/costDialogCostMsg"
+         android:text="@string/costDialogTrnsCostMsg"
          android:textColor="@color/white"
          android:textSize="24dp" />
      
@@ -29,7 +29,7 @@
           android:layout_height="wrap_content"
           android:layout_gravity="center"
           android:layout_margin="@dimen/padding_large"
-          android:text="@string/costDialogCostMsg"
+          android:text="@string/costDialogAmount"
           android:textColor="@color/white"
           android:textSize="24dp" />
       
@@ -39,7 +39,7 @@
            android:layout_height="wrap_content"
            android:layout_gravity="center"
            android:layout_margin="@dimen/padding_large"
-           android:text="@string/costDialogCostMsg"
+           android:text="@string/costDialogBalanceMsg"
            android:textColor="@color/white"
            android:textSize="24dp" />
 

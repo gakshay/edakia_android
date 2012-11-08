@@ -49,7 +49,7 @@ public class CustomDialog extends Dialog{
 
 
 	public static Dialog resultCostDialog(Context dialogContext,int dialogTheme, int dialogTitle, int dialogLayout, int dialogButton,int dialogMsg,String dialogResultMsg,
-			int trnsCost,int trnsAmount,int trnsBalance, String trnsAmountValue, String userBalance, String trnsCostValue){
+			int trnsCost,int trnsAmount,int trnsBalance, String paidAmount, String userBalance, String trnsCostValue){
 		final Dialog dialog = new Dialog(dialogContext, dialogTheme);
 		dialog.requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		dialog.setContentView(dialogLayout);
@@ -61,7 +61,7 @@ public class CustomDialog extends Dialog{
 
 		((TextView) dialog.findViewById(trnsCost)).setText(trnsCostValue);
 
-		((TextView) dialog.findViewById(trnsAmount)).setText(trnsAmountValue);
+		((TextView) dialog.findViewById(trnsAmount)).setText(paidAmount);
 		((TextView) dialog.findViewById(trnsBalance)).setText(userBalance);
 
 		//set up button
