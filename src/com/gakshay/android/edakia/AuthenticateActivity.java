@@ -173,14 +173,16 @@ public class AuthenticateActivity extends BaseActivity {
 			//initialize error text value to null.
 			TextView text = (TextView) findViewById(R.id.Error);
 			text.setText(null);
-
-			if("Exception".equalsIgnoreCase(authResponse) || authResponse.contains("error") || authResponse.equalsIgnoreCase("Exception401")){
-				text.setText(getString(R.string.login_failed));
-
+			
+			if(authResponse.equalsIgnoreCase("Exception401")){
 				((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 				((ImageView)findViewById(R.id.errImgPwd)).setVisibility(ImageView.INVISIBLE);
 
 				password.setText(null);//refresh password text
+				text.setText(getString(R.string.invalid_mobile_passcode));
+				return;
+			} else	if("Exception".equalsIgnoreCase(authResponse) || authResponse.contains("error")){
+				text.setText(getString(R.string.login_failed));
 
 				Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
 				homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -215,7 +217,7 @@ public class AuthenticateActivity extends BaseActivity {
 
 	private void authenticateUser(final String authorizationURL,final String mobile,final String password, boolean showProcessDialog) {
 		if(showProcessDialog)
-			progressDialog = ProgressDialog.show(this, getString(R.string.authUserPrgDlgTitle), Html.fromHtml("<h2>" + getString(R.string.authUserPrgDlg) + "</h2>") ,true, false);
+			progressDialog = ProgressDialog.show(this, getString(R.string.authUserPrgDlgTitle), Html.fromHtml("<h1>" + getString(R.string.authUserPrgDlg) + "</h1>") ,true, false);
 		new Thread() {
 			public void run() {
 				InputStream in = null;

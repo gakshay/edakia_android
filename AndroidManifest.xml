@@ -20,7 +20,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".Edakia"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboard"
             android:label="@string/title_activity_main"
             android:screenOrientation="landscape" >
             <intent-filter>
@@ -40,13 +40,13 @@
 
         <activity
             android:name=".ReceiveActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboard"
             android:label="@string/title_activity_receive"
             android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".PrintActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboard"
             android:label="@string/title_activity_print"
             android:screenOrientation="landscape" >
             <intent-filter>
@@ -73,7 +73,7 @@
         </activity>
         <activity
             android:name=".AuthenticateActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboard"
             android:label="@string/title_activity_send"
             android:screenOrientation="landscape" >
             <intent-filter>
@@ -100,26 +100,26 @@
         </activity>
         <activity
             android:name=".SendActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboard"
             android:label="@string/title_activity_send"
             android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".FileChooser"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboard"
             android:label="@string/select_file_send_activity"
             android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".ConfirmSend"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboard"
             android:label="@string/title_activity_confirm_send"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.Transparent" >
         </activity>
         <activity
             android:name=".PopUpActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboard"
             android:excludeFromRecents="true"
             android:finishOnCloseSystemDialogs="true"
             android:label="@string/title_activity_pop_up"
@@ -129,26 +129,26 @@
         </activity>
         <activity
             android:name=".FileSelectionActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboard"
             android:label="@string/title_activity_file_selection"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.Transparent" >
         </activity>
         <activity
             android:name=".BaseActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboard"
             android:label="@string/title_activity_base"
             android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".ChangePassword"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboard"
             android:label="@string/title_activity_change_password"
             android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".FileDownloadAsyncActivity"
-             android:configChanges="orientation|keyboardHidden"
+             android:configChanges="orientation|keyboard"
             android:label="@string/title_activity_file_download"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.Transparent" >
