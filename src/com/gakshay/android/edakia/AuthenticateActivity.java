@@ -1,17 +1,12 @@
 package com.gakshay.android.edakia;
 
-import java.io.InputStream;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Html;
 import android.view.Menu;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,8 +28,13 @@ public class AuthenticateActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_authenticate);
+		//Status Images visibility
 		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgPwd)).setVisibility(ImageView.INVISIBLE);
+		//enable keyboard visibility
+		enableKeyBoard(((EditText) findViewById(R.id.YourMobile)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
+		enableKeyBoard(((EditText) findViewById(R.id.YourPassword)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
+		//authorization url.
 		authURL = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("authURL","http://defaultURL");
 	}
 
@@ -173,7 +173,7 @@ public class AuthenticateActivity extends BaseActivity {
 			//initialize error text value to null.
 			TextView text = (TextView) findViewById(R.id.Error);
 			text.setText(null);
-			
+
 			if(authResponse.equalsIgnoreCase("Exception401")){
 				((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 				((ImageView)findViewById(R.id.errImgPwd)).setVisibility(ImageView.INVISIBLE);
@@ -217,10 +217,9 @@ public class AuthenticateActivity extends BaseActivity {
 
 	private void authenticateUser(final String authorizationURL,final String mobile,final String password, boolean showProcessDialog) {
 		if(showProcessDialog)
-			progressDialog = ProgressDialog.show(this, getString(R.string.authUserPrgDlgTitle), Html.fromHtml("<h1>" + getString(R.string.authUserPrgDlg) + "</h1>") ,true, false);
+			progressDialog =  showProgressDialog(progressDialog, this, getString(R.string.authUserPrgDlgTitle), getString(R.string.authUserPrgDlg), R.drawable.ic_launcher);
 		new Thread() {
 			public void run() {
-				InputStream in = null;
 				Message msg = Message.obtain();
 				try {
 					authResponse = NetworkOperations.authorizeHttpConnection(authorizationURL, mobile, password);

@@ -42,6 +42,12 @@ public class ChangePassword extends BaseActivity {
 		((ImageView)findViewById(R.id.errImgOldPwd)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgNewPwd)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgNewPwdAgn)).setVisibility(ImageView.INVISIBLE);
+
+		enableKeyBoard(((EditText) findViewById(R.id.mobile)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
+		enableKeyBoard(((EditText) findViewById(R.id.oldPwd)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
+		enableKeyBoard(((EditText) findViewById(R.id.newPwd)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
+		enableKeyBoard(((EditText) findViewById(R.id.newPwdAgain)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
+
 		chngPwdURL = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("chngPwdURL","http://defaultURL");
 	}
 
@@ -62,16 +68,16 @@ public class ChangePassword extends BaseActivity {
 			sendReqForChangePassword();
 		}
 	}
-	
+
 	private void sendReqForChangePassword(){
-			progressDialog = ProgressDialog.show(this, getString(R.string.chngPwdPrgDlgTitle), getString(R.string.chngPwdPrgDlg), true, false);
+		progressDialog =  showProgressDialog(progressDialog, this, getString(R.string.chngPwdPrgDlgTitle), getString(R.string.chngPwdPrgDlg), R.drawable.ic_launcher);
+
 		new Thread() {
 			public void run() {
-				InputStream in = null;
 				Message msg = Message.obtain();
 				try {
 					chngPwdResp = NetworkOperations.changePassword(chngPwdURL, mobile.getText().toString(), oldPwd.getText().toString(), newPwd.getText().toString());
-					
+
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -85,7 +91,7 @@ public class ChangePassword extends BaseActivity {
 		TextView anErrText = (TextView) findViewById(R.id.Error);
 		anErrText.setText(null);
 		List<String> textErrors = new ArrayList<String>();
-		
+
 		ImageView errImgMob = (ImageView)findViewById(R.id.errImgMobile);
 		ImageView errImgPwd = (ImageView)findViewById(R.id.errImgOldPwd);
 		ImageView errImgNewPwd = (ImageView)findViewById(R.id.errImgNewPwd);
@@ -106,7 +112,7 @@ public class ChangePassword extends BaseActivity {
 			errImgNewPwd.setImageResource(R.drawable.ic_error);
 			errImgNewPwdAgn.setImageResource(R.drawable.ic_error);
 
-			
+
 
 			errImgMob.setVisibility(ImageView.VISIBLE);
 			errImgPwd.setVisibility(ImageView.VISIBLE);
@@ -138,7 +144,7 @@ public class ChangePassword extends BaseActivity {
 				newPwd.findFocus();
 				errImgNewPwd.setImageResource(R.drawable.ic_error);
 				errImgNewPwdAgn.setImageResource(R.drawable.ic_error);
-				
+
 				((ImageView)findViewById(R.id.errImgMobile)).setVisibility(ImageView.INVISIBLE);
 				((ImageView)findViewById(R.id.errImgOldPwd)).setVisibility(ImageView.INVISIBLE);
 				((ImageView)findViewById(R.id.errImgNewPwd)).setVisibility(ImageView.VISIBLE);
@@ -146,12 +152,12 @@ public class ChangePassword extends BaseActivity {
 				showErrMsg(anErrText, textErrors);
 				return false;
 			}
-			
+
 			errImgMob.setImageResource(R.drawable.ic_success);
 			errImgPwd.setImageResource(R.drawable.ic_success);
 			errImgNewPwd.setImageResource(R.drawable.ic_success);
 			errImgNewPwdAgn.setImageResource(R.drawable.ic_success);
-			
+
 			((ImageView)findViewById(R.id.errImgMobile)).setVisibility(ImageView.VISIBLE);
 			((ImageView)findViewById(R.id.errImgOldPwd)).setVisibility(ImageView.VISIBLE);
 			((ImageView)findViewById(R.id.errImgNewPwd)).setVisibility(ImageView.VISIBLE);
@@ -220,12 +226,12 @@ public class ChangePassword extends BaseActivity {
 		errImgPwd.setVisibility(ImageView.VISIBLE);
 		errImgNewPwd.setVisibility(ImageView.VISIBLE);
 		errImgNewPwdAgn.setVisibility(ImageView.VISIBLE);
-		
+
 		showErrMsg(anErrText, textErrors);
 
 		return isValid;	
 	}
-	
+
 	private void showErrMsg(TextView anErrText, List<String> errMsg){
 		String finalErrMsg="";
 		for(String anErr : errMsg){
@@ -233,7 +239,7 @@ public class ChangePassword extends BaseActivity {
 		}
 		anErrText.setText(finalErrMsg);		
 	}
-	
+
 	private Handler messageHandler = new Handler() {
 
 		public void handleMessage(Message msg) {
@@ -247,17 +253,17 @@ public class ChangePassword extends BaseActivity {
 			((ImageView)findViewById(R.id.errImgOldPwd)).setVisibility(ImageView.INVISIBLE);
 			((ImageView)findViewById(R.id.errImgNewPwd)).setVisibility(ImageView.INVISIBLE);
 			((ImageView)findViewById(R.id.errImgNewPwdAgn)).setVisibility(ImageView.INVISIBLE);
-			
+
 			oldPwd.setText(null);
 			newPwd.setText(null);
 			newPwdAgain.setText(null);
-			
+
 			Intent homeIntent = new Intent(getApplicationContext(), Edakia.class);
 			homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			homeIntent.putExtra("showResultDialogBox", "true");
 			homeIntent.putExtra("transactionType", "chngPwd");
 
-			
+
 			if("Exception".equalsIgnoreCase(chngPwdResp)){
 				text.setText(getString(R.string.errorDialogMsg));
 
@@ -270,10 +276,10 @@ public class ChangePassword extends BaseActivity {
 			}else{
 				homeIntent.putExtra("isError", "false");
 			}
-			
+
 			startActivity(homeIntent);
 			finish();
-			
+
 
 		}
 	};

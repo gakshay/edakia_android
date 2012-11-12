@@ -51,6 +51,12 @@ public class ReceiveActivity extends BaseActivity {
 		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
+
+		enableKeyBoard(((EditText) findViewById(R.id.receiveMobile)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
+		enableKeyBoard(((EditText) findViewById(R.id.secretCode)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
+		enableKeyBoard(((EditText) findViewById(R.id.receiverEmail)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
+
+		
 		localEdakiaDocStorage = Environment.getExternalStorageDirectory().getAbsolutePath() + getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("localEdakiaDocStorage","/mnt/sdcard/");
 		receiveURL =  this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("receiveURL","http://defaultURL");
 	}
@@ -89,8 +95,6 @@ public class ReceiveActivity extends BaseActivity {
 				e.printStackTrace();
 			}
 		}
-
-
 	}
 
 	private String prepareEdakiaURL(EditText mobile, EditText secretCode, EditText emailAddress){
@@ -104,7 +108,7 @@ public class ReceiveActivity extends BaseActivity {
 	}
 
 	private void readAndDownloadDocument(final String reqURL) {
-		progressDialog = ProgressDialog.show(this, getString(R.string.receiveDocPrgDlgTitle), Html.fromHtml("<h2>" + getString(R.string.receiveDocPrgDlg) + "</h2>"),true,false );
+	progressDialog =  showProgressDialog(progressDialog, this, getString(R.string.receiveDocPrgDlgTitle), getString(R.string.receiveDocPrgDlg), R.drawable.ic_launcher);
 
 		new Thread() {
 			public void run() {

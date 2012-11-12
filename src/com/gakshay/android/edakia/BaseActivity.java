@@ -4,21 +4,22 @@ import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Bundle;
-import android.provider.Settings.Secure;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.Settings.Secure;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.support.v4.app.NavUtils;
+import android.widget.TextView;
 
 public class BaseActivity extends Activity {
 
@@ -106,10 +107,27 @@ public class BaseActivity extends Activity {
 		}else{
 			homeIntent.putExtra("isError", "false");
 		}
-		
+
 		return homeIntent;
 	}
 
+
+	public ProgressDialog showProgressDialog(ProgressDialog aPrgDlg, Context aContext, String dialogTitle, String dialogMessage,int iconImage){
+		aPrgDlg = new ProgressDialog(aContext,R.style.Theme_customDialogTitleTheme);
+		aPrgDlg.setTitle(dialogTitle);
+		aPrgDlg.setMessage(dialogMessage);
+		aPrgDlg.setIcon(iconImage);
+		aPrgDlg.setIndeterminate(false);
+		aPrgDlg.setCancelable(false);
+		aPrgDlg.show();
+		TextView tv1 = (TextView)aPrgDlg.findViewById(android.R.id.message);
+		if(tv1 != null){
+			tv1.setTextSize(25);
+			tv1.setTextAppearance(aContext, android.R.attr.textAppearanceLarge);
+		}
+
+		return aPrgDlg;
+	}
 	public void preparedSharedPref(){
 		// Read from the /assets directory
 		SharedPreferences eDakiaSharedPref = getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE);
@@ -131,6 +149,20 @@ public class BaseActivity extends Activity {
 				e.printStackTrace();
 			}
 		}
+	}
+
+
+
+	public void enableKeyBoard(TextView editTxt,boolean value){
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+			try {
+				Method method = TextView.class.getMethod("setSoftInputShownOnFocus", boolean.class);
+				method.invoke(editTxt, value);
+			} catch (Exception e) {
+				// Fallback to the second method
+			}
+		}		
 	}
 
 }

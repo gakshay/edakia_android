@@ -11,12 +11,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
-import android.text.Html;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 
 import com.gakshay.android.util.ActivitiesHelper;
 import com.gakshay.android.util.NetworkOperations;
@@ -123,10 +121,10 @@ public class ConfirmSend extends BaseActivity {
 
 	private void sendFileToUser(boolean showProcessDialog) {
 		if(showProcessDialog)
-			progressDialog = ProgressDialog.show(this, getString(R.string.sendDocPrgDlgTitle),Html.fromHtml("<h2>" + getString(R.string.sendDocPrgDlg) + "</h2>"),true,false );
-		new Thread() {
+			progressDialog =  showProgressDialog(progressDialog, this, getString(R.string.sendDocPrgDlgTitle), getString(R.string.sendDocPrgDlg), R.drawable.ic_launcher);
+
+			new Thread() {
 			public void run() {
-				InputStream in = null;
 				Message msg = Message.obtain();
 				try {
 					sendResponse = NetworkOperations.sendToEdakiaServer(sendURL, senderMobile, senderPassword,receiverMobile,file,userId,serialNumber,receiverEmailAddress);

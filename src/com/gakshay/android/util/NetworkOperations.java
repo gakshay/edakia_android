@@ -76,7 +76,7 @@ public class NetworkOperations {
 
 	public static String authorizeHttpConnection(String urlStr, String mobile, String password) {
 		InputStream in = null;
-		String response = null;
+		String response = "";
 		int resCode = -1;
 
 		try {
