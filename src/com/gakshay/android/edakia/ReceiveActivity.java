@@ -52,9 +52,9 @@ public class ReceiveActivity extends BaseActivity {
 		((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgSecCode)).setVisibility(ImageView.INVISIBLE);
 
-		enableKeyBoard(((EditText) findViewById(R.id.receiveMobile)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
-		enableKeyBoard(((EditText) findViewById(R.id.secretCode)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
-		enableKeyBoard(((EditText) findViewById(R.id.receiverEmail)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
+		enableKeyBoard(((EditText) findViewById(R.id.receiveMobile)),Boolean.parseBoolean(this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("enableKeyBoard","true")));
+		enableKeyBoard(((EditText) findViewById(R.id.secretCode)),Boolean.parseBoolean(this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("enableKeyBoard","true")));
+		enableKeyBoard(((EditText) findViewById(R.id.receiverEmail)),Boolean.parseBoolean(this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("enableKeyBoard","true")));
 
 		
 		localEdakiaDocStorage = Environment.getExternalStorageDirectory().getAbsolutePath() + getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("localEdakiaDocStorage","/mnt/sdcard/");

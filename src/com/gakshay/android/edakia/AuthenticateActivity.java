@@ -32,8 +32,8 @@ public class AuthenticateActivity extends BaseActivity {
 		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgPwd)).setVisibility(ImageView.INVISIBLE);
 		//enable keyboard visibility
-		enableKeyBoard(((EditText) findViewById(R.id.YourMobile)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
-		enableKeyBoard(((EditText) findViewById(R.id.YourPassword)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
+		enableKeyBoard(((EditText) findViewById(R.id.YourMobile)),Boolean.parseBoolean(this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("enableKeyBoard","true")));
+		enableKeyBoard(((EditText) findViewById(R.id.YourPassword)),Boolean.parseBoolean(this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("enableKeyBoard","true")));
 		//authorization url.
 		authURL = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("authURL","http://defaultURL");
 	}

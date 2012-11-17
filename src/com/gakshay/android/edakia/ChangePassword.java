@@ -43,10 +43,10 @@ public class ChangePassword extends BaseActivity {
 		((ImageView)findViewById(R.id.errImgNewPwd)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgNewPwdAgn)).setVisibility(ImageView.INVISIBLE);
 
-		enableKeyBoard(((EditText) findViewById(R.id.mobile)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
-		enableKeyBoard(((EditText) findViewById(R.id.oldPwd)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
-		enableKeyBoard(((EditText) findViewById(R.id.newPwd)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
-		enableKeyBoard(((EditText) findViewById(R.id.newPwdAgain)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
+		enableKeyBoard(((EditText) findViewById(R.id.mobile)),Boolean.parseBoolean(this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("enableKeyBoard","true")));
+		enableKeyBoard(((EditText) findViewById(R.id.oldPwd)),Boolean.parseBoolean(this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("enableKeyBoard","true")));
+		enableKeyBoard(((EditText) findViewById(R.id.newPwd)),Boolean.parseBoolean(this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("enableKeyBoard","true")));
+		enableKeyBoard(((EditText) findViewById(R.id.newPwdAgain)),Boolean.parseBoolean(this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("enableKeyBoard","true")));
 
 		chngPwdURL = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("chngPwdURL","http://defaultURL");
 	}

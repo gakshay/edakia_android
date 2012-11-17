@@ -50,8 +50,8 @@ public class SendActivity extends BaseActivity {
 		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
 		
-		enableKeyBoard(((EditText) findViewById(R.id.receiverMobile)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
-		enableKeyBoard(((EditText) findViewById(R.id.receiverEmail)),this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getBoolean("enableKeyBoard",true));
+		enableKeyBoard(((EditText) findViewById(R.id.receiverMobile)),Boolean.parseBoolean(this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("enableKeyBoard","true")));
+		enableKeyBoard(((EditText) findViewById(R.id.receiverEmail)),Boolean.parseBoolean(this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("enableKeyBoard","true")));
 
 		fileObserverPath = Environment.getExternalStorageDirectory().getAbsolutePath() +  
 				this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("fileObserverPath","/mnt/storage/");
