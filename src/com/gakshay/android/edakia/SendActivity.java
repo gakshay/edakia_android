@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -49,7 +50,7 @@ public class SendActivity extends BaseActivity {
 		setContentView(R.layout.activity_send);
 		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 		((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
-		
+
 		enableKeyBoard(((EditText) findViewById(R.id.receiverMobile)),Boolean.parseBoolean(this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("enableKeyBoard","true")));
 		enableKeyBoard(((EditText) findViewById(R.id.receiverEmail)),Boolean.parseBoolean(this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("enableKeyBoard","true")));
 
@@ -106,6 +107,20 @@ public class SendActivity extends BaseActivity {
 		}
 	}
 
+	public void popupInputBox(View aview) {
+		CheckBox popUpNumber = ((CheckBox) findViewById(R.id.popupValue));
+		if(popUpNumber != null && popUpNumber.isChecked()){
+			receiverMobile = ((EditText) findViewById(R.id.receiverMobile));
+			Intent intent = getIntent();
+			Bundle bundleData = intent.getExtras();
+			senderMobile =(String) bundleData.get("sendMobile");
+			receiverMobile.setText(senderMobile);
+		} else if(popUpNumber != null && !popUpNumber.isChecked()){
+			receiverMobile.setText(null);
+			((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
+		}
+
+	}		
 
 	// Will be connected with the buttons via XML
 	public void sendFile(View aview) {
@@ -123,8 +138,8 @@ public class SendActivity extends BaseActivity {
 			//set success images to fields
 			((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_success);
 			((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_success);
-			
-			
+
+
 			Intent intent = getIntent();
 			Bundle bundleData = intent.getExtras();
 			senderMobile =(String) bundleData.get("sendMobile");
@@ -183,7 +198,7 @@ public class SendActivity extends BaseActivity {
 						fileObserver.stopWatching();
 
 						stopService(getIntent());
-						
+
 						//finishActivity(SCANNED_FILE_SELECTED_STATUS);
 						//scannedFile = scanfile.listFiles()[0].getAbsolutePath();
 						scannedFile =  fileObserverPath+"/"+observedFile;
@@ -219,7 +234,7 @@ public class SendActivity extends BaseActivity {
 		TextView text = (TextView) findViewById(R.id.Error);
 		text.setText(null);
 		text.setVisibility(TextView.INVISIBLE);
-		
+
 		((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.VISIBLE);
 		((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.VISIBLE);
 		//Either provide mobile no. or email address not both.
@@ -244,9 +259,9 @@ public class SendActivity extends BaseActivity {
 		int valStatusCode = -5;
 		if((receiverEmailAddress.getText() == null || "".equalsIgnoreCase(receiverEmailAddress.getText().toString()) || receiverEmailAddress.getText().toString().length() == 0)
 				&& (receiverMobile.getText().toString() != null && !"".equalsIgnoreCase(receiverMobile.getText().toString()) && receiverMobile.getText().toString().length() != 0)){
-			
+
 			((ImageView)findViewById(R.id.errImgEmail)).setVisibility(ImageView.INVISIBLE);
-			
+
 			//Validate mobile no.
 			valStatusCode = Validator.validateMobileNumber(receiverMobile.getText().toString()).ordinal();
 			switch(valStatusCode){
@@ -264,7 +279,7 @@ public class SendActivity extends BaseActivity {
 				receiverMobile.findFocus();
 				((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_error);
 				return false;	
-				
+
 			}
 
 		}
@@ -272,21 +287,21 @@ public class SendActivity extends BaseActivity {
 
 		if((receiverMobile.getText() == null || "".equalsIgnoreCase(receiverMobile.getText().toString()) || receiverMobile.getText().toString().length() == 0)
 				&& (receiverEmailAddress.getText().toString() != null && !"".equalsIgnoreCase(receiverEmailAddress.getText().toString()) && receiverEmailAddress.getText().toString().length() != 0)){
-				
+
 			((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 
 			//Validate email address.
-				valStatusCode = Validator.validateEmailAddress(receiverEmailAddress.getText().toString()).ordinal();
-				switch (valStatusCode) {
-				case 7:
-					//Toast.makeText(this, "Incorrect Email Address",Toast.LENGTH_LONG).show();
-					text.setText(getString(R.string.invalid_receiver_email));
-					text.setVisibility(TextView.VISIBLE);
-					receiverEmailAddress.findFocus();
-					((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_error);
+			valStatusCode = Validator.validateEmailAddress(receiverEmailAddress.getText().toString()).ordinal();
+			switch (valStatusCode) {
+			case 7:
+				//Toast.makeText(this, "Incorrect Email Address",Toast.LENGTH_LONG).show();
+				text.setText(getString(R.string.invalid_receiver_email));
+				text.setVisibility(TextView.VISIBLE);
+				receiverEmailAddress.findFocus();
+				((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_error);
 
-					return false;
-				}
+				return false;
+			}
 		}
 
 		//Validate radio button selected.

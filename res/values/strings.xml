@@ -21,6 +21,7 @@
     <color name="blue">#00bfff</color>
 
     <string name="hello_world">Hello world!</string>
+    <string name="YourSelf">To Yourself\n स्वयं</string>
     <string name="postage">Mail Postage</string>
     <string name="title_activity_receive">eDakia - Receive</string>
     <string name="personal_mobile">Your Mobile Number</string>
