@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ public class AuthenticateActivity extends BaseActivity {
 		//enable keyboard visibility
 		enableKeyBoard(((EditText) findViewById(R.id.YourMobile)),Boolean.parseBoolean(this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("enableKeyBoard","true")));
 		enableKeyBoard(((EditText) findViewById(R.id.YourPassword)),Boolean.parseBoolean(this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("enableKeyBoard","true")));
+		
 		//authorization url.
 		authURL = this.getSharedPreferences("FIRST_TIME_BOOT_PREF", MODE_PRIVATE).getString("authURL","http://defaultURL");
 	}
@@ -173,13 +175,14 @@ public class AuthenticateActivity extends BaseActivity {
 			//initialize error text value to null.
 			TextView text = (TextView) findViewById(R.id.Error);
 			text.setText(null);
-
 			if(authResponse.equalsIgnoreCase("Exception401")){
 				((ImageView)findViewById(R.id.errImgMob)).setVisibility(ImageView.INVISIBLE);
 				((ImageView)findViewById(R.id.errImgPwd)).setVisibility(ImageView.INVISIBLE);
 
 				password.setText(null);//refresh password text
 				text.setText(getString(R.string.invalid_mobile_passcode));
+				text.setVisibility(TextView.VISIBLE);
+				progressDialog.dismiss();
 				return;
 			} else	if("Exception".equalsIgnoreCase(authResponse) || authResponse.contains("error")){
 				text.setText(getString(R.string.login_failed));
