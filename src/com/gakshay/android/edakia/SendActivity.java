@@ -113,7 +113,14 @@ public class SendActivity extends BaseActivity {
 			receiverMobile = ((EditText) findViewById(R.id.receiverMobile));
 			Intent intent = getIntent();
 			Bundle bundleData = intent.getExtras();
-			senderMobile =(String) bundleData.get("sendMobile");
+
+			if(bundleData != null){
+				senderMobile =(String) bundleData.get("sendMobile");
+			}
+
+			if((senderMobile == null || "".equalsIgnoreCase(senderMobile)) && ((EditText) findViewById(R.id.senderMobNum)) != null){
+				senderMobile = ((EditText) findViewById(R.id.senderMobNum)).getText().toString();
+			}
 			receiverMobile.setText(senderMobile);
 		} else if(popUpNumber != null && !popUpNumber.isChecked()){
 			receiverMobile.setText(null);
@@ -136,9 +143,12 @@ public class SendActivity extends BaseActivity {
 
 		Intent intent = getIntent();
 		Bundle bundleData = intent.getExtras();
-		senderMobile =(String) bundleData.get("sendMobile");
-		senderPassword =(String) bundleData.get("sendPassword");
-		userId =(String) bundleData.get("userId");
+		if(bundleData != null){
+			senderMobile =(String) bundleData.get("sendMobile");
+			senderPassword =(String) bundleData.get("sendPassword");
+			userId =(String) bundleData.get("userId");
+		}
+
 
 		if((senderMobile == null || "".equalsIgnoreCase(senderMobile)) && ((EditText) findViewById(R.id.senderMobNum)) != null){
 			senderMobile = ((EditText) findViewById(R.id.senderMobNum)).getText().toString();

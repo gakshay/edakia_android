@@ -59,6 +59,7 @@ public class NetworkOperations {
 			httpConn.setAllowUserInteraction(false);
 			httpConn.setInstanceFollowRedirects(true);
 			//httpConn.setDoOutput(true);
+			httpConn.setDoInput(true);
 			httpConn.setRequestMethod("GET");
 			httpConn.connect(); 
 
@@ -72,7 +73,7 @@ public class NetworkOperations {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}finally{
-			//httpConn.disconnect();
+		//httpConn.disconnect();
 		}
 		return in;
 	}	
@@ -326,7 +327,7 @@ public class NetworkOperations {
 			 */
 
 
-			entity.addPart("[documents_attributes][0][doc]",new FileBody (new File(file) ,fileNameToBeSaved, mimeType,null));
+			entity.addPart("transaction[documents_attributes][0][doc]",new FileBody (new File(file) ,fileNameToBeSaved, mimeType,null));
 			entity.addPart("transaction[receiver_mobile]",new StringBody(receiverMobile));
 			entity.addPart("transaction[receiver_emails]",new StringBody(receiverEmailAdd));
 			//entity.addPart("transaction[document_attributes][user_id]",new StringBody(userId));

@@ -34,7 +34,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:gravity="center|center_horizontal"
-            android:text="@string/receiver_mobile_send_activity"
+            android:text="@string/sender_mobile_send_activity"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="@dimen/largeText" />
          
@@ -190,7 +190,6 @@
                 android:padding="@dimen/padding_large"
                 android:textSize="@dimen/largeText" >
 
-                <requestFocus />
             </EditText>
 
             <ImageView

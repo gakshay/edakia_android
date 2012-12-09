@@ -166,6 +166,9 @@ public class ReceiveActivity extends BaseActivity {
 						return;
 					}
 					documentPath = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("document_url");
+					if(documentPath != null && !"".equalsIgnoreCase(documentPath)){
+						documentPath = documentPath.split("##")[0];
+					}
 					docTransCost = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("cost");
 					userBalance = (ActivitiesHelper.fetchValuesFromReponse(responseXPath)).get("balance");
 					documentName = (documentPath.split("/"))[documentPath.split("/").length-1];
