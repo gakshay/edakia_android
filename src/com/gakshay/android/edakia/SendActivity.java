@@ -134,17 +134,21 @@ public class SendActivity extends BaseActivity {
 		receiverEmailAddress = ((EditText) findViewById(R.id.receiverEmail));
 		selectedSendButton = (Button)aview;
 
+		Intent intent = getIntent();
+		Bundle bundleData = intent.getExtras();
+		senderMobile =(String) bundleData.get("sendMobile");
+		senderPassword =(String) bundleData.get("sendPassword");
+		userId =(String) bundleData.get("userId");
+
+		if((senderMobile == null || "".equalsIgnoreCase(senderMobile)) && ((EditText) findViewById(R.id.senderMobNum)) != null){
+			senderMobile = ((EditText) findViewById(R.id.senderMobNum)).getText().toString();
+		}
+
 		if(validateInputData()){
 			//set success images to fields
 			((ImageView)findViewById(R.id.errImgEmail)).setImageResource(R.drawable.ic_success);
 			((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_success);
 
-
-			Intent intent = getIntent();
-			Bundle bundleData = intent.getExtras();
-			senderMobile =(String) bundleData.get("sendMobile");
-			senderPassword =(String) bundleData.get("sendPassword");
-			userId =(String) bundleData.get("userId");
 
 			if(selectedSendButton.getTag().toString().equalsIgnoreCase("scanFile")){//File Explorer.	
 				//prepare the document folder for this user.
@@ -247,6 +251,32 @@ public class SendActivity extends BaseActivity {
 			return false;
 		}
 
+		//validate sender mobile number
+		//Validate mobile no.
+		int valStatusCode = Validator.validateMobileNumber(senderMobile).ordinal();
+		switch(valStatusCode){
+		case 1:
+			//Toast.makeText(this, "Enter Mobile Number", Toast.LENGTH_LONG).show();
+			text.setText(getString(R.string.empty_sender_mobile));
+			text.setVisibility(TextView.VISIBLE);
+			if(((EditText) findViewById(R.id.senderMobNum)) != null){
+				((EditText) findViewById(R.id.senderMobNum)).findFocus();
+				((ImageView)findViewById(R.id.errImgSenderMobNum)).setImageResource(R.drawable.ic_error);
+			}
+			return false;
+		case 2:
+			//Toast.makeText(this, "Incorrect Mobile Number", Toast.LENGTH_LONG).show();
+			text.setText(getString(R.string.invalid_sender_mobile));
+			text.setVisibility(TextView.VISIBLE);
+			if(((EditText) findViewById(R.id.senderMobNum)) != null){
+				((EditText) findViewById(R.id.senderMobNum)).findFocus();
+				((ImageView)findViewById(R.id.errImgSenderMobNum)).setImageResource(R.drawable.ic_error);
+			}
+			return false;	
+
+		}
+
+
 		if((receiverEmailAddress.getText().toString() == null || "".equalsIgnoreCase(receiverEmailAddress.getText().toString()))
 				&& (receiverMobile.getText().toString() == null || "".equalsIgnoreCase(receiverMobile.getText().toString()))){
 			((ImageView)findViewById(R.id.errImgMob)).setImageResource(R.drawable.ic_error);
@@ -256,7 +286,7 @@ public class SendActivity extends BaseActivity {
 			text.setVisibility(TextView.VISIBLE);
 			return false;
 		}
-		int valStatusCode = -5;
+		valStatusCode = -5;
 		if((receiverEmailAddress.getText() == null || "".equalsIgnoreCase(receiverEmailAddress.getText().toString()) || receiverEmailAddress.getText().toString().length() == 0)
 				&& (receiverMobile.getText().toString() != null && !"".equalsIgnoreCase(receiverMobile.getText().toString()) && receiverMobile.getText().toString().length() != 0)){
 

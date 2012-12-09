@@ -58,8 +58,9 @@ public class Edakia extends BaseActivity {
 			Edakia.this.startActivity(receiveIntent);
 			break;
 		case R.id.optionSend:
-			Intent authenticateIntent = new Intent(Edakia.this, AuthenticateActivity.class);
-			Edakia.this.startActivity(authenticateIntent);
+			//Intent authenticateIntent = new Intent(Edakia.this, AuthenticateActivity.class);
+			Intent sendIntent = new Intent(Edakia.this,SendActivity.class);//skipping authentication part.
+			Edakia.this.startActivity(sendIntent);
 			break;
 		case R.id.optionPrint:
 			Intent chooseFile,intent;

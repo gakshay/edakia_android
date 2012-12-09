@@ -307,7 +307,7 @@ public class NetworkOperations {
 			byte[] authEncBytes = android.util.Base64.encode(authString.getBytes(), NO_WRAP);
 			String authStringEnc = new String(authEncBytes);
 
-			httppost.setHeader("Authorization", "Basic " + authStringEnc);
+			//httppost.setHeader("Authorization", "Basic " + authStringEnc);
 
 			MultipartEntity entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 			//Identify MIME type of the document
@@ -316,13 +316,24 @@ public class NetworkOperations {
 			SimpleDateFormat dateFormatter = new SimpleDateFormat("ddMMyyHHmm");
 
 			String fileNameToBeSaved = senderMobile.substring(6) + "_" + receiverMobile.substring(6) + "_" + dateFormatter.format(new Date()) + "." + (MimeTypeMap.getFileExtensionFromUrl(file));
-			
-			entity.addPart("transaction[document_attributes][doc]",new FileBody (new File(file) ,fileNameToBeSaved, mimeType,null));
+
+			/*entity.addPart("transaction[document_attributes][doc]",new FileBody (new File(file) ,fileNameToBeSaved, mimeType,null));
 			entity.addPart("transaction[receiver_mobile]",new StringBody(receiverMobile));
 			entity.addPart("transaction[receiver_email]",new StringBody(receiverEmailAdd));
 			entity.addPart("transaction[document_attributes][user_id]",new StringBody(userId));
 			entity.addPart("transaction[sender_mobile]",new StringBody(senderMobile));
 			entity.addPart("serial_number",new StringBody(serialNumber));
+			 */
+
+
+			entity.addPart("[documents_attributes][0][doc]",new FileBody (new File(file) ,fileNameToBeSaved, mimeType,null));
+			entity.addPart("transaction[receiver_mobile]",new StringBody(receiverMobile));
+			entity.addPart("transaction[receiver_emails]",new StringBody(receiverEmailAdd));
+			//entity.addPart("transaction[document_attributes][user_id]",new StringBody(userId));
+			entity.addPart("transaction[sender_mobile]",new StringBody(senderMobile));
+			entity.addPart("serial_number",new StringBody(serialNumber));
+
+
 
 			httppost.setEntity(entity);
 			/*httppost.setHeader("Accept", mimeType);

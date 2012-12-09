@@ -40,6 +40,7 @@
     <string name="authenticate_activity_authenticate_button">Login \n साइन</string>
     <string name="title_activity_send">eDakia - Send File</string>
     <string name="receiver_mobile_send_activity">Recipient\'s Mobile Number (10 digits) \n पाने वाले का मोबाइल नंबर</string>
+    <string name="sender_mobile_send_activity">Sender\'s Mobile Number (10 digits) \n bhejne वाले का मोबाइल नंबर</string>
     <string name="receiver_email_send_activity">Recipient\'s Email ID \n पाने वाले का ई-मेल</string>
     <string name="local_file_send_activity">Search a file</string>
     <string name="select_file_send_activity">Select a file to send</string>
@@ -73,7 +74,9 @@
     <string name="empty_receiver_email">Enter Recipient\'s Email \n पाने वाले का ई-मेल डाले </string>
     <string name="invalid_receiver_email">Invalid Recipient\'s Email Address \n गलत ई-मेल </string>
     <string name="empty_receiver_mobile">Enter Recipient\'s Mobile Number \n पाने वाले का मोबाइल नंबर डाले </string>
+    <string name="empty_sender_mobile">Enter Sender\'s Mobile Number \n bhejne वाले का मोबाइल नंबर डाले </string>
     <string name="invalid_receiver_mobile">Invalid Recipient\'s Mobile Number \n गलत मोबाइल नंबर </string>
+    <string name="invalid_sender_mobile">Invalid Sender\'s Mobile Number \n गलत मोबाइल नंबर </string>
     <string name="none_receiver_email_mobile">Enter Recipient\'s Mobile or Email \n पाने वाले का मोबाइल या ई-मेल डाले</string>
     <string name="both_receiver_email_mobile">Provide Either Recipient\'s Mobile OR Email \n पाने वाले का मोबाइल या ई-मेल डाले</string>
     <string name="send_canceled">Sending Cancel \n डाक रद्द </string>
