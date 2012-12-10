@@ -57,7 +57,7 @@
         android:textSize="@dimen/veryLargeText"
         android:visibility="gone" />
 
-	<Button
+	<!-- <Button
 	    android:id="@+id/ChngPwdBtn"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
@@ -68,6 +68,6 @@
 	    android:onClick="optionClickHandler"
 	    android:text="@string/chngPwdTxtMsg"
 	    android:textColor="@color/status_color"
-	    android:textSize="@dimen/mediumText" />
+	    android:textSize="@dimen/mediumText" /> -->
 
 </LinearLayout>

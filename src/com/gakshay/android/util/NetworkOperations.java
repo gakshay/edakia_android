@@ -316,7 +316,7 @@ public class NetworkOperations {
 			String mimeType = (MimeTypeMap.getSingleton()).getMimeTypeFromExtension((MimeTypeMap.getFileExtensionFromUrl(file)));
 			SimpleDateFormat dateFormatter = new SimpleDateFormat("ddMMyyHHmm");
 
-			String fileNameToBeSaved = senderMobile.substring(6) + "_" + receiverMobile.substring(6) + "_" + dateFormatter.format(new Date()) + "." + (MimeTypeMap.getFileExtensionFromUrl(file));
+			String fileNameToBeSaved = senderMobile.substring(6) + "_" + dateFormatter.format(new Date()) + "." + (MimeTypeMap.getFileExtensionFromUrl(file));
 
 			/*entity.addPart("transaction[document_attributes][doc]",new FileBody (new File(file) ,fileNameToBeSaved, mimeType,null));
 			entity.addPart("transaction[receiver_mobile]",new StringBody(receiverMobile));

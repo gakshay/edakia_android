@@ -15,7 +15,7 @@
         android:layout_marginTop="@dimen/padding_medium"
         android:background="@drawable/status"
         android:gravity="center"
-        android:padding="@dimen/padding_medium"
+        android:padding="@dimen/padding_small"
         android:text="@string/EmptyString"
         android:textColor="@color/status_color"
         android:visibility="gone" />
@@ -24,7 +24,6 @@
         android:id="@+id/senderDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:orientation="vertical" >
         
          <TextView
@@ -32,7 +31,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
             android:gravity="center|center_horizontal"
             android:text="@string/sender_mobile_send_activity"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -43,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="0dp"
             android:orientation="horizontal" >
 
             <EditText
@@ -53,7 +51,7 @@
                 android:ems="10"
                 android:inputType="number"
                 android:maxLength="10"
-                android:padding="@dimen/padding_large"
+                android:padding="@dimen/padding_small"
                 android:textSize="@dimen/largeText" >
 
                 <requestFocus />
@@ -73,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical"
         android:visibility="gone" >
 
@@ -107,14 +105,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="0dp"
             android:orientation="horizontal" >
 
             <EditText
                 android:id="@+id/receiverEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:ems="12"
                 android:inputType="textEmailAddress"
                 android:textSize="@dimen/mediumText" >
@@ -144,7 +141,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical" >
 
         <TextView
@@ -177,8 +174,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:orientation="horizontal" >
+            <CheckBox
+                android:id="@+id/popupValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="popupInputBox"
+                android:text="@string/YourSelf" />
 
             <EditText
                 android:id="@+id/receiverMobile"
@@ -187,7 +190,7 @@
                 android:ems="10"
                 android:inputType="number"
                 android:maxLength="10"
-                android:padding="@dimen/padding_large"
+                android:padding="@dimen/padding_small"
                 android:textSize="@dimen/largeText" >
 
             </EditText>
@@ -198,12 +201,6 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_error" />
 
-            <CheckBox
-                android:id="@+id/popupValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="popupInputBox"
-                android:text="@string/YourSelf" />
         </LinearLayout>
     </LinearLayout>
 
@@ -211,7 +208,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:orientation="horizontal" >
 
         <LinearLayout
@@ -227,17 +224,17 @@
                 android:layout_marginRight="50dp"
                 android:minWidth="250dip"
                 android:onClick="sendFile"
-                android:padding="15dp"
+                android:padding="10dp"
                 android:tag="searchFile"
                 android:text="@string/send_button_search_activity"
                 android:textAllCaps="true"
-                android:textSize="@dimen/largeText" />
+                android:textSize="@dimen/mediumText" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dip"
+                android:layout_marginTop="5dip"
                 android:text="@string/search_hint"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
@@ -255,19 +252,19 @@
                 android:background="@drawable/button"
                 android:minWidth="250dip"
                 android:onClick="sendFile"
-                android:padding="15dp"
+                android:padding="10dp"
                 android:tag="scanFile"
                 android:text="@string/send_button_scan_activity"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/largeText" />
+                android:textSize="@dimen/mediumText" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dip"
+                android:layout_marginTop="5dip"
                 android:text="@string/scan_hint"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
